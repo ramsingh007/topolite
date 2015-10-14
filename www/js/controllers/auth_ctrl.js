@@ -1,6 +1,6 @@
 angular.module('topolite.auth_ctrl', [])
 
-.controller('AuthCtrl', function($state, $stateParams, $scope, $rootScope, webService) {
+.controller('AuthCtrl', function($state, $stateParams, $scope, $rootScope, webService, $localStorage) {
   
 
 
@@ -18,21 +18,28 @@ angular.module('topolite.auth_ctrl', [])
       webService.showPopup($scope.msg, $rootScope.title_ok);
     } else {
 
-    	$state.go('dashboard.home');
+    	//$state.go('dashboard.home');
 
-      /*webService.showIonLoader();  //show ionic loading
+      webService.showIonLoader();  //show ionic loading
 
-      var urlParam = 'login';
+      var urlParam = 'LoginService/UserLoginService.svc/UserLogin/'+$scope.signin.email+'/'+$scope.signin.password;
       var methodType = 'GET'
-	  var dataJson = JSON.stringify({'email':$scope.signin.email,'pass':$scope.signin.password});
-	  webService.webCall(urlParam,methodType,dataJson)
-	  .then(function(respone){
-	  	webService.hideIonLoader();  //show ionic loading
+	    var dataJson = JSON.stringify({});
+	    webService.webCall(urlParam,methodType,dataJson)
+      	 .then(function(respone){
+            
+            webService.hideIonLoader();//hide ionic loading
+            if(respone.data.LoginUserResult.LoginMessage.Success){
+                $rootScope.currentUser.UserDetails = $localStorage.currentUser.UserDetails = respone.data.LoginUserResult.UserDetails;
+                $state.go('dashboard.home');
+            }else{
+                webService.showPopup(respone.data.LoginUserResult.LoginMessage.ErrorMsg, $rootScope.title_close);
+            }
 
-	  },function(error){
-	  		webService.hideIonLoader();  //show ionic loading
-	  		webService.showPopup('Something went wrong! Please login again', $rootScope.title_close);
-	  });*/
+          },function(error){
+      	  		webService.hideIonLoader();  //show ionic loading
+      	  		webService.showPopup('Something went wrong! Please login again', $rootScope.title_close);
+      	  });
 
     }
   };

@@ -1,0 +1,30 @@
+<ion-view title="BP Results">
+    <ion-nav-buttons side="right">
+          <button class="button button-small" ng-click="goToState('dashboard.bpCreate')">Create New</button>
+    </ion-nav-buttons>
+
+<ion-content>
+
+    <div class="list master-list">
+      <div ng-show="bpResults.length!=0" class="item" ng-repeat="list in bpResults">
+      	<div class="master-head">
+        	<span>{{list.BP_Code}}</span>
+            <button class="button button-stable button-small">View</button>
+            <button class="button button-stable button-small">Edit</button>
+        </div>
+      	<div class="master-body">
+        	<p>{{list.NAME}}</p>
+        </div>
+      </div> 
+
+      <div ng-show="bpResults.length==0" class="item" >
+        <div class="master-body" align="center">
+          <p>No results found!</p>
+        </div>
+      </div>
+
+    </div>
+    
+</ion-content>
+</ion-view>
+

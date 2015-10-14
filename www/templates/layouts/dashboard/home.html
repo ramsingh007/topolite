@@ -2,14 +2,25 @@
 
 <ion-content>
   <div class="list dashboard-page">
+  <div class=" selection">
+      <div class="row">
+        <div class="col col-75">
+          <select ng-model="selLoc" ng-options="item.Comp_Location as item.Comp_Location for item in UserLocation">
+        </select>
+        </div>
+        <div class="col col-25">
+          <button class="button button-small button-block button-positive" ng-click="change_location()">Save</button>
+        </div>
+      </div>
+   </div>
 
-  <a class="item item-icon-left item-icon-right" href="#/dashboard/bp_master" >
+  <a class="item item-icon-left item-icon-right" href="#/dashboard/bp_search" >
     <small><i class="icon ion-earth"></i></small>
     <strong>BP</strong> Master
 	 <i class="icon ion-chevron-right"></i>
   </a>
 
-  <a class="item item-icon-left item-icon-right" href="#">
+  <a class="item item-icon-left item-icon-right" href="#/dashboard/visit_search">
    <small><i class="icon ion-email"></i></small>
     <strong>Visit</strong> Record
 	 <i class="icon ion-chevron-right"></i>
@@ -27,8 +38,8 @@
 	 <i class="icon ion-chevron-right"></i>
   </a>
   <div class="row">
-  <div class="col col-50"><button class="button button-block button-small button-assertive">Know More</button></div>
-  <div class="col col-50"><button ng-click="goToState('signIn')" class="button button-block button-small button-assertive">Logout</button></div>
+  <!--div class="col col-50"><button class="button button-block button-small button-assertive">Know More</button></div-->
+  <button ng-click="goToState('signIn')" class="button button-block button-small button-assertive">Logout</button>
   </div>
 
 </div>
