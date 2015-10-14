@@ -1,0 +1,142 @@
+/*===========common css start here=============*/
+html,body{height:100%; width:100%;}
+*{margin:0; padding:0;}
+body{ font-family: 'ralewayregular';}
+img, fieldset{border:none;}
+:focus{outline:none}	
+a {outline: 0;}
+a img {border: 0px; text-decoration: none;}
+a:link, a:visited {	text-decoration: none;}
+ul,ol{ margin:0; padding:0; list-style:none;}
+h1,h2,h3,h4,h5,h6{ font-weight:normal; margin-top:0;}
+.fw{ float:left; width:100%;} 
+.no-pad{ padding:0 !important;}
+.no-pad-left{ padding-left:0 !important;}
+.no-pad-right{ padding-right:0 !important;}
+label{ font-weight: normal;}
+/*===========common css end here=============*/
+
+/*===========.header css start here=============*/
+.bar.header { background: rgba(0, 0, 0, 0) url("../img/header-bg.jpg") repeat scroll center top;
+  border: 0 none; min-height: 43px; padding: 13px 15px; }
+.header .page-title { color: #ffffff; display: block; font-size: 15px; text-align: center; text-transform: uppercase;
+  width: 100%; font-family: 'ralewaylight';}
+.header .back-btn{ font-size: 12px; color: #fff; line-height: 33px;}
+.header .btn{ font-size: 12px; padding: 6px;}
+/*===========.header css end here=============*/
+
+#body_container{ padding: 0 0 20px;}
+.btn{ border-radius: 0;}
+.btn-danger{ background: #d14841; border-color: #b93932; text-transform: uppercase;}
+.form-container{ background: #fafafa; padding: 20px 0 0; border-bottom: 1px solid #f1f1f1; margin-bottom:20px;}
+form label{ font-family: 'ralewaylight';}
+form .form-control{ border-radius: 0;}
+form .form-control:focus{ box-shadow: none;}
+.table-responsive{ margin: 0;}
+table thead{ background: #fff;}
+table td, table th{ font-family: 'ralewaylight';}
+table th{ color: #d14841; font-weight: normal; border: none !important;}
+
+.list-page .single{ float: left; width: 100%; margin-bottom: 10px;}
+.list-page .single:last-child{ margin: 0;}
+.list-page .user-row{ background: #fff; padding-top: 10px; padding-bottom: 10px; border-top: 1px solid #e7e7e7; border-bottom: 1px solid #e7e7e7;}
+.list-page .user-row .btn, .white_box .btn{ padding: 3px 20px; text-transform: uppercase; font-size: 13px; margin-left: 15px; font-family: 'ralewaymedium';}
+.list-page .user-row .btn.view{ margin: 0;}
+.list-page .user-row .user-name{ color: #d14841; line-height: 27px; font-size: 15px;}
+.list-page .user-detail{ padding-top: 10px; border-bottom: 1px solid #e7e7e7;}
+
+form .location-trace-field{ margin-bottom: 20px; font-family: 'ralewaymedium'; color: #d14841;}
+
+.white_box{ background: #fff; border-top: 1px solid #e7e7e7; border-bottom: 1px solid #e7e7e7; padding: 5px 15px; margin: 0 0 10px;}
+.white_box.actionrow{ padding: 10px 15px;}
+.white_box input[type="text"]{ border: none; background: none; width: 80%; float: left; box-shadow: none;}
+.white_box input[type="submit"]{ width: 30px; margin: 2px 0 0; height: 30px; border: none; float: right; background: url(../images/search-icon.png) no-repeat 0 0; background-size: 30px;}
+.white_box span{ color: #d14841;  font-family: 'ralewaysemibold'; line-height: 27px;}
+
+.form-horizontal .control-label{ padding-top: 7px;}
+.alertrow{ background: #d14841; padding: 10px 15px;}
+.alertrow span{ color: #fff;}
+.alertrow select{ height: 30px; background: #a4251b; color: #fff; border: none;}
+
+form .notice{ display: block; text-align: right; text-transform: uppercase; font-size: 11px;}
+.calculate-btn img{ width: 16px;}
+
+
+
+/*Dashboard*/
+.bar-header .ion-android-exit{ font-size:18px; color:#fff;}
+.bar-header .right-buttons .button{ height:28px; min-height:28px; border:none; background:#b74137; line-height:28px; margin-top:3px; font-family: 'ralewaylight';}
+
+.dashboard-page .item{ font-size:13.5px; border:none; padding-bottom:22px; padding-top:22px;}
+.dashboard-page .item strong{ color:#d14841;}
+.dashboard-page .item .ion-chevron-right{ font-size:20px;}
+.dashboard-page .item .icon{ color:#d14841;}
+.dashboard-page .item small{ height:32px; width:32px; position:absolute; top:50%; margin-top:-16px; left:11px; border:1px solid #d14841; border-radius:30px; display:inline-block; vertical-align:middle;}
+.dashboard-page .item small .icon{ font-size:25px;}
+.button-assertive{ font-family: 'ralewaybold'; text-transform:uppercase; border-radius:0; font-size:14px;}
+
+.item-input.item-stacked-label{ border:none; padding:0; margin:0 0 12px;}
+.item-input.item-stacked-label span{ font-size:14px;}
+.item-input.item-stacked-label input[type="text"]{ border:1px solid #ccc; border-radius:0; margin:5px 0 0; padding:3px 10px;}
+
+.twosideslist .item{ padding:2px 0; font-size:14px; background:#f5f5f5;}
+.twosideslist .item-divider{ background:#fff;  color:#d14841;} 
+
+.sinlesidelist .item{ background:#f5f5f5; padding-top:8px; background:#fafafa; padding-bottom:8px; font-size:14px;}
+.sinlesidelist .item .icon{ font-size:22px; color:#313131;}
+.sinlesidelist .item-divider{ background:#fff;  color:#d14841; font-size:15px;} 
+
+.master-list .master-body{ background:#f5f5f5; border-bottom:1px solid #e7e7e7;  border-top:1px solid #e7e7e7; padding:10px 16px;}
+.master-list .master-body .icon{ font-size:18px}
+.master-list .item{ padding:0; border-bottom:0;}
+.master-list .master-head{ color:#d14841; background:#fff; font-size:15px; border-top:1px solid #e7e7e7; margin-top:10px; padding:8px 16px; text-align:right;}
+.master-list .master-head span{ float:left;}
+.master-list .master-head button{ height:25px; border:none; background:#f7f7f7; line-height:15px; min-height:25px; margin-left:20px; padding:3px 20px; text-transform:uppercase;}
+
+.visitor-form .common-sec{ background:#fafafa;}
+.visitor-form .item{ border:none; background:none;}
+.visitor-form .section-head{ background:#fff; color:#d14841; padding:8px 16px; margin-top:10px; border-top:1px solid #e7e7e7;}
+.visitor-form .form-sec{ background:#f5f5f5; border-bottom:1px solid #e7e7e7; border-top:1px solid #e7e7e7; padding-top:10px;  padding-bottom:10px;}
+.visitor-form .form-sec input[type="text"], .visitor-form .form-sec input[type="password"]{ background:#fff; border:1px solid #e1e1e1; border-radius:0; padding:3px 10px;}
+.visitor-form .form-sec .item-input{ padding-right:10px; margin:5px 0;}
+.visitor-form .form-sec span{ font-size:14px;}
+.visitor-form .form-sec small{ display:block; text-align:right; text-transform:uppercase; padding:0 12px 10px 0}
+.visitor-form .form-sec .updatebtn-sec .button{ display:inline-block; font-size:38px; width:31px; border-radius:20px; font-family: 'ralewayregular'; margin-left:10px;}
+.visitor-form .form-sec .updatebtn-sec{ display:block; text-align:right; margin:0 12px;}
+.alert-row{ background:#d14841; border-top:1px solid #a4251b; border-bottom:1px solid #a4251b; padding:0 16px 0 0; margin-top:10px; color:#fff;}
+.alert-row label{ color:#fff;}
+.alert-row .input-label{ color:#fff; padding-left:5px;}
+.alert-row select{ height:30px; margin-top:10px; background:#a4251b; color:#fff;}
+.alert-row .item-select::after{ color:#721a13;}
+
+.visitor-form.visit3 select{ display:block; height:34px; border:1px solid #e1e1e1; border-radius:0; width:100%; max-width:60%; margin:6px 12px 0 0; text-align:left; color:#dddddd;  font-family: 'ralewayregular';}
+
+.custom-namidpage{ margin:0;}
+.custom-namidpage .form{ background:#f5f5f5; border-bottom:1px solid #e7e7e7; padding:8px 16px 15px; border-top:1px solid #e7e7e7;}
+.custom-namidpage-head{ background:#ffffff;  border-top:1px solid #e7e7e7; margin-top:10px; padding:8px 16px; text-align:right;}
+.custom-namidpage-head span{ float:left; color:#d14841; margin-top:3px;}
+.custom-namidpage-head .button{ display:inline-block; padding:3px 20px; border:none; background:#f7f7f7; text-transform:uppercase; margin:0 0 0 20px; height:27px; line-height:20px; min-height:25px;}
+
+.search-sec{ margin-top:10px; border-top:1px solid #e7e7e7; border-bottom:1px solid #e7e7e7;}
+.search-sec .placeholder-icon{ margin-right:12px;}
+.search-sec .item{ border-left:0; border-right:0;}
+.search-sec .item input[type="text"]{ font-size:18px; font-family: 'ralewaylight';}
+
+.bar-header .back-button .ion-arrow-left-c::before{ display:none;}
+
+
+/*=====sign page css=====*/
+.sign-page{ background:url(../img/sign-bg.jpg) no-repeat top center; background-size:100% 100%; min-height:480px;}
+.sign-page .signbg-container{ width:84%; margin:0 auto; background:url(../img/transbg.png) repeat 0 0;  min-height:480px; padding:40px 10px 25px;}
+.sign-page .logo{ text-align:center; width:auto; margin:0 0 40px;}
+.sign-page .login-detail{  background:url(../img/transbg.png) repeat 0 0; padding:35px 15px;}
+.sign-page .login-detail .item:first-child{ border-top:1px solid #eabebc;}
+.sign-page .login-detail .item{ background:none; border:none; border-bottom:1px solid #eabebc; color:#fff;}
+.sign-page .login-detail button{ background:rgba(195,98,91,.8); border:2px solid #e3ada9; border-radius:5px 0 5px 0; color:#fff; text-transform:uppercase; margin:35px 0 0;}
+.sign-page .login-detail .item input{ color:#fff; font-family: 'ralewaylight';}
+.sign-page .login-detail .item .icon{ font-size:20px; margin-right:20px;}
+
+.sign-page .login-detail .item input::-webkit-input-placeholder {color: #fff;}
+.sign-page .login-detail .item input:-moz-placeholder {color: #fff; }
+.sign-page .login-detail .item input::-moz-placeholder {color: #fff;}  
+.sign-page .login-detail .item input:-ms-input-placeholder {  color: #fff;} 

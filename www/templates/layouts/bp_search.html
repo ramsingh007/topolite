@@ -1,0 +1,22 @@
+<ion-view title="BP MASTER">
+
+<ion-nav-buttons side="right">
+      <button class="button button-small" ng-click="goToState('dashboard.editContact')">Create New</button>
+</ion-nav-buttons>
+
+<ion-content>
+	<div class="list list-inset">
+    	<label class="item item-input item-stacked-label">
+            <span>Business Partners/Customers</span>
+            <input type="text">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span>Name</span>
+            <input type="text">
+        </label>
+        <button class="button button-block button-small button-assertive" ng-click="bpsearch()">Search</button>
+        {{back}}
+    </div>
+</ion-content>
+</ion-view>
+
