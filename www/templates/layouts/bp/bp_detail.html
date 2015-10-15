@@ -1,0 +1,110 @@
+<ion-view title="{{bpDetail.BPResult.BP_Code}}">
+    <ion-nav-buttons side="right">
+          <button class="button button-small" ng-click="add_contact()">Add Contact</button>
+    </ion-nav-buttons>
+
+<ion-content>
+
+    <div class="list twosideslist">
+      <div class="item item-divider">
+      	<div class="row">
+        	<div class="col col-33">Field Name</div>
+            <div class="col col-67">Details</div>
+        </div>
+      </div>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">BP Code</div>
+            <div class="col col-67">{{bpDetail.BPResult.BP_Code}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Name</div>
+            <div class="col col-67">{{bpDetail.BPResult.CONTACT_PERSON}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Address 1</div>
+            <div class="col col-67">{{bpDetail.BPResult.ADDRESS1}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Address 2</div>
+            <div class="col col-67">{{bpDetail.BPResult.ADDRESS2}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">City</div>
+            <div class="col col-67">{{bpDetail.BPResult.CITY}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">State</div>
+            <div class="col col-67">{{bpDetail.BPResult.STATE}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Country</div>
+            <div class="col col-67">{{bpDetail.BPResult.COUNTRY}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Zip</div>
+            <div class="col col-67">{{bpDetail.BPResult.Zip}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Payterm</div>
+            <div class="col col-67">{{bpDetail.BPResult.PAYTERM}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Area</div>
+            <div class="col col-67">{{bpDetail.BPResult.AREA_CODE}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Email ID</div>
+            <div class="col col-67">{{bpDetail.BPResult.EMAIL_ID}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">Currency</div>
+            <div class="col col-67">{{bpDetail.BPResult.CURRENCY}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">TIN No.</div>
+            <div class="col col-67">{{bpDetail.BPResult.TIN_GRN}} </div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">CST No.</div>
+            <div class="col col-67">{{bpDetail.BPResult.Company_NO}}</div>
+        </div>
+      </a>
+      <a class="item" href="#">
+      	<div class="row">
+        	<div class="col col-33">PAN No.</div>
+            <div class="col col-67">{{bpDetail.BPResult.PAN_NO}}</div>
+        </div>
+      </a>
+      
+    </div>
+    
+</ion-content>
+</ion-view>
+

@@ -1,0 +1,29 @@
+<ion-view title="ADD CONTACT">
+
+
+
+<ion-content>
+	<div class="list list-inset">
+    	<label class="item item-input item-stacked-label">
+            <span>Contact Person</span>
+            <input type="text" ng-model="bp_contact.c_person">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span>Designation</span>
+            <input type="text" ng-model="bp_contact.designation">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span>Email</span>
+            <input type="text" ng-model="bp_contact.email">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span>Phone no</span>
+            <input type="text" ng-model="bp_contact.phone_no">
+        </label>
+        
+        <button class="button button-block button-small button-assertive" ng-click="save_contact(bp_contact)">ADD</button>
+       
+    </div>
+</ion-content>
+</ion-view>
+

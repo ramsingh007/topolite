@@ -1,12 +1,15 @@
 angular.module('topolite.dashboard_ctrl', [])
 
 .controller('DashboardCtrl', function($state, $localStorage, $http, $stateParams, $scope, $rootScope, webService) {
-  	 $scope.selLoc = $rootScope.currentUser.UserDetails.Location_No;
+  	 $scope.selLoc = {'Comp_Location':$rootScope.currentUser.UserDetails.Location_No};
 
 	 $scope.UserLocation = [];
 
     $scope.change_location= function() {
-    	$rootScope.currentUser.UserDetails.Location_No=$localStorage.currentUser.UserDetails.Location_No=$scope.selLoc;
+
+
+    	$rootScope.currentUser.UserDetails.Location_No=$localStorage.currentUser.UserDetails.Location_No=$scope.selLoc.Comp_Location;
+    	console.log($scope.selLoc);
 		webService.showPopup('Location has been changed', $rootScope.title_ok);
     }
 

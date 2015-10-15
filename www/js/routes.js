@@ -41,25 +41,44 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
     controller: 'BPctrl',
     title: 'dashboard2s'
   })
+ .state('dashboard.bpDetail', {
+    url: '/bp_detail/:bpId',
+    templateUrl: 'templates/layouts/bp/bp_detail.html',
+   controller: 'BPctrl',
+    title: 'bpview'
+  })
  .state('dashboard.bpCreate', {
     url: '/bp_create',
     templateUrl: 'templates/layouts/bp/bp_create.html',
     controller: 'BPctrl',
     title: 'dashboard2s'
   })
+
+  .state('dashboard.addcontact', {
+    url: '/add_contact',
+    templateUrl: 'templates/layouts/bp/add_contact.html',
+    controller: 'BPctrl',
+    title: 'addcontact'
+  })
  .state('dashboard.editContact', {
     url: '/edit_contact',
-    templateUrl: 'templates/layouts/edit_contact.html',
-    // controller: 'BaseCtrl',
-    title: 'dashboard2'
+    templateUrl: 'templates/layouts/bp/bp_edit.html',
+    controller: 'BPctrl',
+    title: 'editContact'
   })
-
  .state('dashboard.visitSearch', {
     url: '/visit_search',
     templateUrl: 'templates/layouts/visit_record1.html',
     // controller: 'BaseCtrl',
     title: 'Visit Search'
   })
+ .state('dashboard.attendance', {
+    url: '/attendance',
+    templateUrl: 'templates/layouts/attendance/attendance.html',
+    // controller: 'BaseCtrl',
+    title: 'attendance'
+  })
+
 
 
 /*

@@ -5,11 +5,11 @@
   <div class=" selection">
       <div class="row">
         <div class="col col-75">
-          <select ng-model="selLoc" ng-options="item.Comp_Location as item.Comp_Location for item in UserLocation">
+          <select ng-model="selLoc.Comp_Location" ng-options="item.Comp_Location as item.Comp_Location for item in UserLocation">
         </select>
         </div>
         <div class="col col-25">
-          <button class="button button-small button-block button-positive" ng-click="change_location()">Save</button>
+          <button class="button button-small button-block button-positive" ng-click="change_location()" >Save</button>
         </div>
       </div>
    </div>
@@ -26,7 +26,7 @@
 	 <i class="icon ion-chevron-right"></i>
   </a>
 
-  <a class="item item-icon-left item-icon-right" href="#">
+  <a class="item item-icon-left item-icon-right" href="#/dashboard/attendance">
     <small><i class="icon ion-man"></i></small>
    <strong>Attendance</strong> Punching
 	 <i class="icon ion-chevron-right"></i>

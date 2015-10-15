@@ -9,8 +9,8 @@
       <div ng-show="bpResults.length!=0" class="item" ng-repeat="list in bpResults">
       	<div class="master-head">
         	<span>{{list.BP_Code}}</span>
-            <button class="button button-stable button-small">View</button>
-            <button class="button button-stable button-small">Edit</button>
+            <button class="button button-stable button-small" ng-click="goToState('dashboard.bpDetail',{bpId:list.BP_Code})" >View</button>
+            <button class="button button-stable button-small" ng-click="goToState('dashboard.editContact')"  >Edit</button>
         </div>
       	<div class="master-body">
         	<p>{{list.NAME}}</p>
