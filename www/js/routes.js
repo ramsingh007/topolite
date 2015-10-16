@@ -1,5 +1,5 @@
 'use strict';
-angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topolite.base_ctrl', 'topolite.auth_ctrl', 'topolite.dashboard_ctrl', 'topolite.bp_ctrl', 'topolite.services', 'topolite.directives'])
+angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topolite.base_ctrl', 'topolite.auth_ctrl', 'topolite.dashboard_ctrl', 'topolite.bp_ctrl','topolite.VisitCtrl','topolite.services', 'topolite.directives'])
 
 .constant('myConfig', {
   'apiUrl': 'http://122.176.122.143:81/'
@@ -68,14 +68,32 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
   })
  .state('dashboard.visitSearch', {
     url: '/visit_search',
-    templateUrl: 'templates/layouts/visit_record1.html',
-    // controller: 'BaseCtrl',
+    templateUrl: 'templates/layouts/visit/visit_search.html',
+    controller: 'visit_Ctrl',
     title: 'Visit Search'
+  })
+ .state('dashboard.visitList', {
+    url: '/visit_list',
+    templateUrl: 'templates/layouts/visit/visit_list.html',
+    controller: 'visit_Ctrl',
+    title: 'Visit List'
+  })
+ .state('dashboard.visitDetails', {
+    url: '/visit_details',
+    templateUrl: 'templates/layouts/visit/visit_details.html',
+    controller: 'visit_Ctrl',
+    title: 'Visit Details'
+  })
+ .state('dashboard.addvisit', {
+    url: '/add_visit',
+    templateUrl: 'templates/layouts/visit/add_visit.html',
+    controller: 'visit_Ctrl',
+    title: 'Add Visit'
   })
  .state('dashboard.attendance', {
     url: '/attendance',
     templateUrl: 'templates/layouts/attendance/attendance.html',
-    // controller: 'BaseCtrl',
+    controller: 'BaseCtrl',
     title: 'attendance'
   })
 
