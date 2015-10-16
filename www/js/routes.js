@@ -1,5 +1,5 @@
 'use strict';
-angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topolite.base_ctrl', 'topolite.auth_ctrl', 'topolite.dashboard_ctrl', 'topolite.bp_ctrl','topolite.VisitCtrl','topolite.services', 'topolite.directives'])
+angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topolite.base_ctrl', 'topolite.auth_ctrl','topolite.Attendctrl', 'topolite.dashboard_ctrl', 'topolite.bp_ctrl','topolite.VisitCtrl','topolite.services', 'topolite.directives'])
 
 .constant('myConfig', {
   'apiUrl': 'http://122.176.122.143:81/'
@@ -90,10 +90,23 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
     controller: 'visit_Ctrl',
     title: 'Add Visit'
   })
+ .state('dashboard.addproduct', {
+    url: '/add_product',
+    templateUrl: 'templates/layouts/visit/add_product.html',
+    controller: 'visit_Ctrl',
+    title: 'Add Product'
+  })
+ .state('dashboard.addinfo', {
+    url: '/add_info',
+    templateUrl: 'templates/layouts/visit/add_info.html',
+    controller: 'visit_Ctrl',
+    title: 'Add info'
+  })
+ 
  .state('dashboard.attendance', {
     url: '/attendance',
     templateUrl: 'templates/layouts/attendance/attendance.html',
-    controller: 'BaseCtrl',
+    controller: 'attend_Ctrl',
     title: 'attendance'
   })
 

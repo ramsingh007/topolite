@@ -29,12 +29,15 @@ label{ font-weight: normal;}
 .btn{ border-radius: 0;}
 .btn-danger{ background: #d14841; border-color: #b93932; text-transform: uppercase;}
 .form-container{ background: #fafafa; padding: 20px 0 0; border-bottom: 1px solid #f1f1f1; margin-bottom:20px;}
-form label{ font-family: 'ralewaylight';}
-form .form-control{ border-radius: 0;}
+form label{ font-family: 'ralewaylight'; margin-bottom: 5px; display: inline-block;}
+form .form-group{ margin-bottom: 10px;}
+form .form-control{ border-radius: 0; width: 100%; height: 30px; padding: 3px 10px; border: 1px solid #ccc}
 form .form-control:focus{ box-shadow: none;}
-.table-responsive{ margin: 0;}
+.table-responsive{ margin: 0 0 20px; float: left; width: 100%;}
+table{ width:100%;}
 table thead{ background: #fff;}
-table td, table th{ font-family: 'ralewaylight';}
+table tr{ border-bottom: 1px solid #ccc;}
+table td, table th{ font-family: 'ralewaylight'; padding: 4px 0;}
 table th{ color: #d14841; font-weight: normal; border: none !important;}
 
 .list-page .single{ float: left; width: 100%; margin-bottom: 10px;}
@@ -140,3 +143,15 @@ form .notice{ display: block; text-align: right; text-transform: uppercase; font
 .sign-page .login-detail .item input:-moz-placeholder {color: #fff; }
 .sign-page .login-detail .item input::-moz-placeholder {color: #fff;}  
 .sign-page .login-detail .item input:-ms-input-placeholder {  color: #fff;} 
+
+.dashboard-page .selection .button-block{ margin-top:0;}
+.dashboard-page .selection select{ width:100%; border: 1px solid #e1e1e1; height: 32px;}
+
+.button.back-button{ margin: -9px 0 0; font-size: 15px !important;}
+.form-container .row{ display: block;}
+
+.attendence-page .form-control{  border-radius: 0; width: 60%; display: inline-block; height: 30px; padding: 3px 10px; border: 1px solid #ccc}
+.attendence-page label{ width: 70px; display: inline-block;}
+.attendence-page .form-group{ margin-bottom: 15px;}
+.visitdetails-page .white_box{ padding-left: 0; padding-right: 0;}
+.visitdetails-page{ padding-left: 5px; padding-right: 5px;}

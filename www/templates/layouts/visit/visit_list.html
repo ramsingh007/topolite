@@ -3,22 +3,22 @@
 <ion-content>
 
 <div class="list master-list">
-      <div ng-show="bpResults.length!=0" class="item" ng-repeat="list in bpResults">
+      <div  class="item" >
       	<div class="master-head">
-        	<span>{{list.BP_Code}}</span>
-            <button class="button button-stable button-small" ng-click="goToState('dashboard.bpDetail',{bpId:list.BP_Code})" >View</button>
-            <button class="button button-stable button-small" ng-click="goToState('dashboard.editContact')"  >Edit</button>
+        	<span>5645</span>
+            <button class="button button-stable button-small" ng-click="goToState('dashboard.visitDetails')" >View</button>
+            <button class="button button-stable button-small" ng-click="goToState('dashboard.addvisit')"  >Edit</button>
         </div>
       	<div class="master-body">
-        	<p>{{list.NAME}}</p>
+        	<p>name</p>
         </div>
       </div> 
 
-      <div ng-show="bpResults.length==0" class="item" >
+      <!-- <div ng-show="bpResults.length==0" class="item" >
         <div class="master-body" align="center">
           <p>No results found!</p>
         </div>
-      </div>
+      </div> -->
 
     </div>
 </ion-content>

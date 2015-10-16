@@ -12,11 +12,26 @@ angular.module('topolite.VisitCtrl', [])
   	
     }
 
-
-    
 	$scope.Add_visit = function(){
-    
-     $state.go('dashboard.visitDetails');
+
+      webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
+           $state.go('dashboard.visitDetails');
+  	
+      });
+
+    }
+
+    $scope.save_product = function(){
+     webService.showPopup('Product added successfully', $rootScope.title_ok).then(function() {
+         $state.go('dashboard.visitDetails');
+      });
+
+    }
+
+    $scope.save_info = function(){
+     webService.showPopup('Aditional info  added successfully', $rootScope.title_close).then(function() {
+    $state.go('dashboard.visitDetails');
+   });
   	
     }
   

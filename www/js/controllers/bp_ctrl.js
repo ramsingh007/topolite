@@ -4,13 +4,15 @@ angular.module('topolite.bp_ctrl', [])
   
   $scope.params = $stateParams;
 
+  console.log($rootScope.bpResults);
+
 
   /********************  BP Search Starts    *********************/
   $scope.bpSearch = {};
   $scope.bpSearch.bp_code = null;
   $scope.bpSearch.cp_name = null;
 
-  $scope.BPsearch = function(){
+  $scope.BPsearchCall = function(){
   	$rootScope.bpResults.length = 0; //empty the BP Result
 
   	if($scope.bpSearch.bp_code == ''){
@@ -121,6 +123,19 @@ angular.module('topolite.bp_ctrl', [])
 	$scope.editContact = function(){
 		$state.go('dashboard.editContact');
 	}
+
+	$scope.BPCreate = function(){
+
+   
+		// $scope.BPgetDetail();
+		 webService.showPopup('BP Added Successfully', $rootScope.title_close).then(function() {
+        $state.go('dashboard.bpMaster');
+          });
+
+		// //  ng-click="goToState('dashboard.bpDetail',{bpId:list.BP_Code})"
+		
+	}
+
 
 
 

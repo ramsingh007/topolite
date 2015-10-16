@@ -3,7 +3,7 @@
 <ion-content>
 <div class="container">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col">
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-xs-5">Doc Series</label>
@@ -62,7 +62,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col">
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-xs-5">Person </label>
@@ -108,7 +108,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col">
                     <form class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Sales Person No </label>
@@ -155,8 +155,10 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-6"><a href="#" class="btn btn-danger btn-block search">Clear All</a></div>
-    <div class="col-xs-6"><a href="#" class="btn btn-danger btn-block search">Save</a></div>
+    <div class="row">
+        <div class="col-50 padding"><a  class="button button-small button-assertive button-block search">Clear All</a></div>
+        <div class="col-50 padding"><a ng-click="Add_visit()" class="button button-small button-assertive button-block search">Save</a></div>
+    </div>
 </div>
 
 </ion-content>
