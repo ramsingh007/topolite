@@ -1,6 +1,8 @@
 <ion-view title="Create BP">
 
 <ion-content>
+<!-- <button class="button button-small button-block button-positive" ng-click="geolocationFun()" >Save</button> -->
+
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
             <span>BP Code</span>
@@ -13,7 +15,10 @@
         <label class="item item-input item-stacked-label">
             <span>Address</span>
             <input type="text" ng-model="bpModel.address">
+            
         </label>
+        <p class="ion-android-locate" ng-click="geolocationFun()" style="cursor:pointer" ></p>
+
         <label class="item item-input item-stacked-label">
             <span>Country</span>
             <input type="text" ng-model="bpModel.country">
@@ -27,8 +32,8 @@
             <input type="text" ng-model="bpModel.city">
         </label>
         <label class="item item-input item-stacked-label">
-            <span>Area Field</span>
-            <input type="text" ng-model="bpModel.area_field">
+            <span>Area Code</span>
+            <input type="text" ng-model="bpModel.area_code">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Email</span>
@@ -48,7 +53,7 @@
         </label>
         <label class="item item-input item-stacked-label">
             <span>Tin Number</span>
-            <input type="text" ng-model="bpModel.area_field">
+            <input type="text" ng-model="bpModel.tin_no">
         </label>
         <label class="item item-input item-stacked-label">
             <span>PAN</span>

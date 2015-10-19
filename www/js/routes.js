@@ -61,8 +61,8 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
     title: 'addcontact'
   })
  .state('dashboard.editContact', {
-    url: '/edit_contact',
-    templateUrl: 'templates/layouts/bp/bp_edit.html',
+    url: '/edit_contact/:bpId',
+    templateUrl: 'templates/layouts/bp/bp_create.html',
     controller: 'BPctrl',
     title: 'editContact'
   })

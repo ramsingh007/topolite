@@ -1,6 +1,6 @@
 angular.module('topolite.bp_ctrl', [])
 
-.controller('BPctrl', function($state, $stateParams, $scope, $rootScope, webService ) {
+.controller('BPctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http ) {
   
   $scope.params = $stateParams;
 
@@ -91,10 +91,92 @@ angular.module('topolite.bp_ctrl', [])
   $scope.bpModel = {};
   
   $scope.BPCreate = function(){
-  	console.log($scope.bpModel);
+
+   // console.log( angular.toJson($scope.bpModel)); 
+
+   // console.log($scope.bpModel.bp_code);
+   
+
+
+       var urlParam = 'BPService/GetAllBPService.svc/SetAllBP';
+      var methodType = 'POST'
+	    var dataJson =JSON.stringify({
+        "ADDRESS1": $scope.bpModel.address,
+        "ADDRESS2": "",
+        "AREA_CODE": $scope.bpModel.area_code,
+        "BP_Code": $scope.bpModel.bp_code,       
+        "CITY": $scope.bpModel.city,
+        "COUNTRY":$scope.bpModel.country,
+        "CURRENCY": $scope.bpModel.currency,
+        "Company_NO": $scope.bpModel.cst_num,        
+        "EMAIL": $scope.bpModel.email,       
+        "Location_NO":$localStorage.currentUser.UserDetails.Location_No,
+        "NAME": $scope.bpModel.cp_name,
+        "PAN_NO": $scope.bpModel.bp_code,
+        "PARENT_VENDOR": $scope.bpModel.bp_code,
+        "PAY_TERM": $scope.bpModel.pay_term,       
+        "STATE": $scope.bpModel.state,
+        "TIN_GRN": $scope.bpModel.tin_no,
+        "Zip": $scope.bpModel.zip
+    });
+	    webService.webCall(urlParam,methodType,dataJson)
+      	 .then(function(respone){
+
+    console.log(respone);
+      	 });
+
   }
 
   /********************  BP Create ends    *********************/
+
+
+
+  /********************  geo location Starts   *********************/
+
+ $scope.geolocationFun = function(){
+
+
+
+    var options = {timeout: 2000, enableHighAccuracy: true }; // also try with false.
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+   
+   }
+  
+
+
+   var onSuccess = function(position) {
+    var le ='';
+ 
+    $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&sensor=true').then(function(res){
+      
+       le = res.data.results[0].address_components.length;
+     
+      // $scope.bpModel.address = res.data.results[0].address_components[le-1].long_name;
+
+      // // alert($scope.zip);
+
+      // alert(res.data.results[0].formatted_address);
+      $scope.bpModel.address = res.data.results[0].formatted_address;
+
+        } ,
+
+    
+    function(err){
+
+   
+    });
+   
+
+     }
+  var onError= function(error) {
+    
+
+     alert("error");
+      
+   }
+
+    /********************  geo location  ends  *********************/
+
 
 
 
@@ -108,33 +190,35 @@ angular.module('topolite.bp_ctrl', [])
 
 	}
 	$scope.save_contact = function(bp_contact){
+
+
 	  
-	  // console.log(bp_contact.c_person);   
+	  console.log(bp_contact);   
 
 
 	//  webService.showPopup('Contact Added Successfully', $rootScope.title_close);
 
-	 webService.showPopup('Contact Added Successfully', $rootScope.title_close);
+	 // webService.showPopup('Contact Added Successfully', $rootScope.title_close);
 
 	 // $state.go('dashboard.bpDetail');
 	 
 	}
 
-	$scope.editContact = function(){
+	$scope.edit_bp = function(){
 		$state.go('dashboard.editContact');
 	}
 
-	$scope.BPCreate = function(){
+	// $scope.BPCreate = function(){
 
    
-		// $scope.BPgetDetail();
-		 webService.showPopup('BP Added Successfully', $rootScope.title_close).then(function() {
-        $state.go('dashboard.bpMaster');
-          });
+	// 	// $scope.BPgetDetail();
+	// 	 webService.showPopup('BP Added Successfully', $rootScope.title_close).then(function() {
+ //        $state.go('dashboard.bpMaster');
+ //          });
 
-		// //  ng-click="goToState('dashboard.bpDetail',{bpId:list.BP_Code})"
+	// 	// //  ng-click="goToState('dashboard.bpDetail',{bpId:list.BP_Code})"
 		
-	}
+	// }
 
 
 

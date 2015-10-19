@@ -7,7 +7,10 @@ angular.module('topolite.services', [])
       return $http({
         url: myConfig.apiUrl + urlParam,
         method: methodType,
-        data: dataJson
+        data: dataJson,
+        headers:{
+          'Content-Type':'application/x-www-form-urlencoded'
+        }
       });
     },
     showIonLoader: function() {
