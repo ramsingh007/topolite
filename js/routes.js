@@ -33,38 +33,31 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
     url: '/bp_search',
     templateUrl: 'templates/layouts/bp/bp_search.html',
     controller: 'BPctrl',
-    title: 'dashboard2s'
+    title: 'BPSearch'
   })
  .state('dashboard.bpMaster', {
     url: '/bp_master',
     templateUrl: 'templates/layouts/bp/bp_master.html',
     controller: 'BPctrl',
-    title: 'dashboard2s'
+    title: 'BPResults'
   })
  .state('dashboard.bpDetail', {
     url: '/bp_detail/:bpId',
     templateUrl: 'templates/layouts/bp/bp_detail.html',
    controller: 'BPctrl',
-    title: 'bpview'
+    title: 'BPDetail'
   })
  .state('dashboard.bpCreate', {
-    url: '/bp_create',
+    url: '/bp_create/:bpId',
     templateUrl: 'templates/layouts/bp/bp_create.html',
     controller: 'BPctrl',
-    title: 'dashboard2s'
+    title: 'BPCreateUpdate'
   })
-
   .state('dashboard.addcontact', {
-    url: '/add_contact',
+    url: '/add_contact/:bpId/:ID',
     templateUrl: 'templates/layouts/bp/add_contact.html',
     controller: 'BPctrl',
-    title: 'addcontact'
-  })
- .state('dashboard.editContact', {
-    url: '/edit_contact/:bpId',
-    templateUrl: 'templates/layouts/bp/bp_create.html',
-    controller: 'BPctrl',
-    title: 'editContact'
+    title: 'BPContactCreateUpdate'
   })
  .state('dashboard.visitSearch', {
     url: '/visit_search',
@@ -168,6 +161,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
   $rootScope.title_close = 'Close';
 
   $rootScope.bpResults = [];
+   $rootScope.visitResults = [];
 
 
   $rootScope.currentUser = $localStorage.currentUser;
