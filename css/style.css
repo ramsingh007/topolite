@@ -55,6 +55,7 @@ form .location-trace-field{ margin-bottom: 20px; font-family: 'ralewaymedium'; c
 .white_box input[type="text"]{ border: none; background: none; width: 80%; float: left; box-shadow: none;}
 .white_box input[type="submit"]{ width: 30px; margin: 2px 0 0; height: 30px; border: none; float: right; background: url(../images/search-icon.png) no-repeat 0 0; background-size: 30px;}
 .white_box span{ color: #d14841;  font-family: 'ralewaysemibold'; line-height: 27px;}
+.white_box span i{ font-size: 20px; margin: 2px 5px 0 0; }
 
 .form-horizontal .control-label{ padding-top: 7px;}
 .alertrow{ background: #d14841; padding: 10px 15px;}
@@ -129,7 +130,7 @@ form .notice{ display: block; text-align: right; text-transform: uppercase; font
 
 
 /*=====sign page css=====*/
-.sign-page{ background:url(../img/sign-bg.jpg) no-repeat top center; background-size:100% 100%; min-height:480px;}
+.sign-page{ background:url(../img/sign-bg.jpg) no-repeat top center; background-size:100% 100%; min-height:620px;}
 .sign-page .signbg-container{ width:84%; margin:0 auto; background:url(../img/transbg.png) repeat 0 0;  min-height:480px; padding:40px 10px 25px;}
 .sign-page .logo{ text-align:center; width:auto; margin:0 0 40px;}
 .sign-page .login-detail{  background:url(../img/transbg.png) repeat 0 0; padding:35px 15px;}
@@ -155,3 +156,6 @@ form .notice{ display: block; text-align: right; text-transform: uppercase; font
 .attendence-page .form-group{ margin-bottom: 15px;}
 .visitdetails-page .white_box{ padding-left: 0; padding-right: 0;}
 .visitdetails-page{ padding-left: 5px; padding-right: 5px;}
+
+.plus-minus-btn{ font-size: 24px; color: #D14841;}
+.plus-minus-btn i{ cursor: pointer;}

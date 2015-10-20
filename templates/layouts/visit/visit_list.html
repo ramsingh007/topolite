@@ -2,24 +2,26 @@
    
 <ion-content>
 
-<div class="list master-list">
-      <div  class="item" >
-      	<div class="master-head">
-        	<span>5645</span>
-            <button class="button button-stable button-small" ng-click="goToState('dashboard.visitDetails')" >View</button>
-            <button class="button button-stable button-small" ng-click="goToState('dashboard.addvisit')"  >Edit</button>
+{{visitResults}}
+<!-- <div class="list master-list">
+      <div ng-show="visitResults.length!=0" class="item" ng-repeat="list in visitResults">
+        {{list}}
+        <div class="master-head">
+          <span>{{list.VISIT_ID}}</span>
+            <button class="button button-stable button-small" ng-click="goToState('dashboard.visitDetail',{vId:list.VISIT_ID})" >View</button>
+            <button class="button button-stable button-small" ng-click="goToState('dashboard.addVisit')"  >Edit</button>
         </div>
-      	<div class="master-body">
-        	<p>name</p>
+        <div class="master-body">
+          <p>{{list.CUSTOMER_NAME}}</p>
         </div>
       </div> 
 
-      <!-- <div ng-show="bpResults.length==0" class="item" >
+      <div ng-show="bpResults.length==0" class="item" >
         <div class="master-body" align="center">
           <p>No results found!</p>
         </div>
-      </div> -->
+      </div>
 
-    </div>
+    </div> -->
 </ion-content>
 </ion-view>

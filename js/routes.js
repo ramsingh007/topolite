@@ -71,30 +71,49 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
     controller: 'visit_Ctrl',
     title: 'Visit List'
   })
- .state('dashboard.visitDetails', {
-    url: '/visit_details',
+ .state('dashboard.visitDetail', {
+    url: '/visit_detail/:vId',
     templateUrl: 'templates/layouts/visit/visit_details.html',
     controller: 'visit_Ctrl',
     title: 'Visit Details'
   })
- .state('dashboard.addvisit', {
+ .state('dashboard.addVisit', {
     url: '/add_visit',
     templateUrl: 'templates/layouts/visit/add_visit.html',
     controller: 'visit_Ctrl',
     title: 'Add Visit'
   })
- .state('dashboard.addproduct', {
-    url: '/add_product',
-    templateUrl: 'templates/layouts/visit/add_product.html',
-    controller: 'visit_Ctrl',
-    title: 'Add Product'
-  })
- .state('dashboard.addinfo', {
-    url: '/add_info',
+ .state('dashboard.updateVisit', {
+    url: '/update_visit/:vId',
     templateUrl: 'templates/layouts/visit/add_info.html',
     controller: 'visit_Ctrl',
-    title: 'Add info'
+    title: 'Update Visit'
   })
+ .state('dashboard.addSales', {
+    url: '/add_sales/:vId/:pId',
+    templateUrl: 'templates/layouts/visit/add_info.html',
+    controller: 'visit_Ctrl',
+    title: 'Update Sales'
+  })
+.state('dashboard.addContact', {
+    url: '/add_contact/:vId/:pId',
+    templateUrl: 'templates/layouts/visit/add_info.html',
+    controller: 'visit_Ctrl',
+    title: 'Update Contact'
+  })
+ .state('dashboard.addProduct', {
+    url: '/add_product/:vId/:pId',
+    templateUrl: 'templates/layouts/visit/add_product.html',
+    controller: 'visit_Ctrl',
+    title: 'Add / Update Product'
+  })
+ .state('dashboard.addInfo', {
+    url: '/add_info/:vId/:pId',
+    templateUrl: 'templates/layouts/visit/add_info.html',
+    controller: 'visit_Ctrl',
+    title: 'Add / Update info'
+  })
+ 
  
  .state('dashboard.attendance', {
     url: '/attendance',
