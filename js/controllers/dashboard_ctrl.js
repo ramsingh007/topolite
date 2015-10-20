@@ -33,7 +33,7 @@ angular.module('topolite.dashboard_ctrl', [])
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please login again', $rootScope.title_close);
+		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
 		});
 
 	});

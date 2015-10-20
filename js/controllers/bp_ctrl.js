@@ -3,8 +3,7 @@ angular.module('topolite.bp_ctrl', [])
 .controller('BPctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http ) {
   
   $scope.params = $stateParams;
-
-  console.log($rootScope.bpResults);
+   $scope.bpModel = {};
 
 
   /********************  BP Search Starts    *********************/
@@ -46,7 +45,7 @@ angular.module('topolite.bp_ctrl', [])
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please login again', $rootScope.title_close);
+		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
 		});
   }
 
@@ -71,13 +70,20 @@ angular.module('topolite.bp_ctrl', [])
 		    webService.hideIonLoader();//hide ionic loading
 		    if(respone.data.GetAllBPResult.BPMesssage.Success){
 		    	$scope.bpDetail = respone.data.GetAllBPResult;
+          $scope.bpModel = respone.data.GetAllBPResult.BPResult;
+          $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
+          $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
+          $scope.bpModel.PARENT_VENDOR = 'CST123';
+          $scope.bpModel.PAYTERM = 'PT20';
+
+
 		    }else{
 		        webService.showPopup(respone.data.GetAllBPResult.BPMesssage.ErrorMsg, $rootScope.title_close);
 		    }
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please login again', $rootScope.title_close);
+		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
 		});
   }
 
@@ -87,47 +93,82 @@ angular.module('topolite.bp_ctrl', [])
 
 
 
-  /********************  BP Create Starts    *********************/
-  $scope.bpModel = {};
-  
-  $scope.BPCreate = function(){
+  /********************  BP Create/Update Starts    *********************/
+  $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
+  $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
+  $scope.bpModel.PARENT_VENDOR = 'CST123';
+  $scope.bpModel.PAYTERM = 'PT20';
 
-   // console.log( angular.toJson($scope.bpModel)); 
+  $scope.BPAddUpdate = function(){
 
-   // console.log($scope.bpModel.bp_code);
-   
+      webService.showIonLoader(); 
 
+      if($scope.params.bpId !=''){
+        var urlParam = 'BPService/GetAllBPService.svc/ModifyAllBP';  
+        var methodType = 'PUT';
+      }else{
+        var urlParam = 'BPService/GetAllBPService.svc/SetAllBP';  
+        var methodType = 'POST';
+      }
+      
 
-       var urlParam = 'BPService/GetAllBPService.svc/SetAllBP';
-      var methodType = 'POST'
-	    var dataJson =JSON.stringify({
-        "ADDRESS1": $scope.bpModel.address,
-        "ADDRESS2": "",
-        "AREA_CODE": $scope.bpModel.area_code,
-        "BP_Code": $scope.bpModel.bp_code,       
-        "CITY": $scope.bpModel.city,
-        "COUNTRY":$scope.bpModel.country,
-        "CURRENCY": $scope.bpModel.currency,
-        "Company_NO": $scope.bpModel.cst_num,        
-        "EMAIL": $scope.bpModel.email,       
-        "Location_NO":$localStorage.currentUser.UserDetails.Location_No,
-        "NAME": $scope.bpModel.cp_name,
-        "PAN_NO": $scope.bpModel.bp_code,
-        "PARENT_VENDOR": $scope.bpModel.bp_code,
-        "PAY_TERM": $scope.bpModel.pay_term,       
-        "STATE": $scope.bpModel.state,
-        "TIN_GRN": $scope.bpModel.tin_no,
-        "Zip": $scope.bpModel.zip
+      var dataJson =JSON.stringify({
+        "ADDRESS1": $scope.bpModel.ADDRESS1,
+        "ADDRESS2": $scope.bpModel.ADDRESS2,
+        "AREA_CODE": $scope.bpModel.AREA_CODE,
+        "BP_Code": $scope.bpModel.BP_Code,       
+        "CITY": $scope.bpModel.CITY,
+        "COUNTRY":$scope.bpModel.COUNTRY,
+        "CURRENCY": $scope.bpModel.CURRENCY,
+        "Company_NO": $scope.bpModel.Company_NO,        
+        "EMAIL": $scope.bpModel.EMAIL_ID,       
+        "Location_NO":$scope.bpModel.Location_NO,
+        "NAME": $scope.bpModel.NAME,
+        "PAN_NO": $scope.bpModel.PAN_NO,
+        "PARENT_VENDOR": $scope.bpModel.PARENT_VENDOR,
+        "PAY_TERM": $scope.bpModel.PAYTERM,       
+        "STATE": $scope.bpModel.STATE,
+        "TIN_GRN": $scope.bpModel.TIN_GRN,
+        "Zip": $scope.bpModel.Zip
     });
-	    webService.webCall(urlParam,methodType,dataJson)
-      	 .then(function(respone){
+      //webService.hideIonLoader(); 
+      //console.log(dataJson);
+      //return;
 
-    console.log(respone);
-      	 });
+      webService.webCall(urlParam,methodType,dataJson)
+         .then(function(respone){
+             webService.hideIonLoader(); 
+             
+             if($scope.params.bpId !=''){
+                var err = respone.data.ModifyBPResult.ErrorMsg;
+             }else{
+                var err = respone.data.BPSetResult.ErrorMsg;
+             }            
+             
+
+             webService.showPopup(err, $rootScope.title_close).then(function(res){
+
+                $state.go('dashboard.bpSearch')
+
+             });
+         
+         },function(error){
+            webService.hideIonLoader();  //show ionic loading
+            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+         });
 
   }
 
-  /********************  BP Create ends    *********************/
+  $scope.clearBpModel = function(){
+    $scope.bpModel = {};
+    $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
+    $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
+    $scope.bpModel.PARENT_VENDOR = 'CST123';
+    $scope.bpModel.PAYTERM = 'PT20';
+  }
+
+
+  /********************  BP Create/Update ends    *********************/
 
 
 
@@ -204,10 +245,7 @@ angular.module('topolite.bp_ctrl', [])
 	 
 	}
 
-	$scope.edit_bp = function(){
-		$state.go('dashboard.editContact');
-	}
-
+	
 	// $scope.BPCreate = function(){
 
    
@@ -231,7 +269,7 @@ angular.module('topolite.bp_ctrl', [])
    $scope.$on('$ionicView.beforeEnter', function() {
     	
     	//Call method when on bpDetail screen	
-    	if ($.inArray($state.current.name, ['dashboard.bpDetail']) !== -1) {
+    	if (($.inArray($state.current.name, ['dashboard.bpDetail']) !== -1)  || ($.inArray($state.current.name, ['dashboard.bpCreate']) !== -1 && $scope.params.bpId!='') ) {
     		$scope.BPgetDetail();
     	}
     

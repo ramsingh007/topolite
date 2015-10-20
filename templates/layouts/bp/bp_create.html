@@ -1,4 +1,4 @@
-<ion-view title="Create BP">
+<ion-view title="{{(params.bpId != '') ? 'Update':'Create'}} BP">
 
 <ion-content>
 <!-- <button class="button button-small button-block button-positive" ng-click="geolocationFun()" >Save</button> -->
@@ -6,67 +6,69 @@
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
             <span>BP Code</span>
-            <input type="text" ng-model="bpModel.bp_code">
+            <input type="text" ng-model="bpModel.BP_Code">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Name</span>
-            <input type="text" ng-model="bpModel.cp_name">
+            <input type="text" ng-model="bpModel.NAME">
         </label>
         <label class="item item-input item-stacked-label">
-            <span>Address</span>
-            <input type="text" ng-model="bpModel.address">
-            
+            <span>Address1</span>
+            <input type="text" ng-model="bpModel.ADDRESS1">
         </label>
-        <p class="ion-android-locate" ng-click="geolocationFun()" style="cursor:pointer" ></p>
+        <label class="item item-input item-stacked-label">
+            <span>Address2</span>
+            <input type="text" ng-model="bpModel.ADDRESS2">
+        </label>
+        <!--p class="ion-android-locate" ng-click="geolocationFun()" style="cursor:pointer" ></p-->
 
         <label class="item item-input item-stacked-label">
             <span>Country</span>
-            <input type="text" ng-model="bpModel.country">
+            <input type="text" ng-model="bpModel.COUNTRY">
         </label>
         <label class="item item-input item-stacked-label">
             <span>State</span>
-            <input type="text" ng-model="bpModel.state">
+            <input type="text" ng-model="bpModel.STATE">
         </label>
         <label class="item item-input item-stacked-label">
             <span>City</span>
-            <input type="text" ng-model="bpModel.city">
+            <input type="text" ng-model="bpModel.CITY">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Area Code</span>
-            <input type="text" ng-model="bpModel.area_code">
+            <input type="text" ng-model="bpModel.AREA_CODE">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Email</span>
-            <input type="text" ng-model="bpModel.email">
+            <input type="text" ng-model="bpModel.EMAIL_ID">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Zip</span>
-            <input type="text" ng-model="bpModel.zip">
+            <input type="text" ng-model="bpModel.Zip">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Currency</span>
-            <input type="text" ng-model="bpModel.currency">
-        </label>
-        <label class="item item-input item-stacked-label">
-            <span>Pay Term</span>
-            <input type="text" ng-model="bpModel.pay_term">
+            <input type="text" ng-model="bpModel.CURRENCY">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Tin Number</span>
-            <input type="text" ng-model="bpModel.tin_no">
+            <input type="text" ng-model="bpModel.TIN_GRN">
         </label>
         <label class="item item-input item-stacked-label">
             <span>PAN</span>
-            <input type="text" ng-model="bpModel.pan">
+            <input type="text" ng-model="bpModel.PAN_NO">
         </label>
-        <label class="item item-input item-stacked-label">
-            <span>CST Number</span>
-            <input type="text" ng-model="bpModel.cst_num">
-        </label>
-      </div>
-        <div class="row">
-          <div class="col col-50"><button class="button button-block button-small button-assertive" ng-click="bpCreate={};">Clear All</button></div>
-          <div class="col col-50"><button class="button button-block button-small button-assertive" ng-click="BPCreate()">Enter</button></div>
+        </div>
+        <div ng-show="(params.bpId == '')" class="row">
+          <div class="col col-50"><button class="button button-block button-small button-assertive" ng-click="clearBpModel();">Clear All</button></div>
+          <div class="col col-50"><button class="button button-block button-small button-assertive" ng-click="BPAddUpdate()">Enter</button></div>
+        </div>
+
+        <div ng-show="(params.bpId != '')" class="row">
+            <div class="col col-50"><button class="button button-block button-small button-assertive" ng-click="goToState('dashboard.bpSearch')">Cancel</button></div>
+          <div  class="col col-50"><button class="button button-block button-small button-assertive" ng-click="BPAddUpdate()">Update</button></div>
+        </div>
+          
         </div>
 </ion-content>
 </ion-view>
