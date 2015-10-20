@@ -108,7 +108,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
     title: 'Add / Update Product'
   })
  .state('dashboard.addInfo', {
-    url: '/add_info/:vId/:pId',
+    url: '/add_info/:vId/:infoId',
     templateUrl: 'templates/layouts/visit/add_info.html',
     controller: 'visit_Ctrl',
     title: 'Add / Update info'
@@ -122,60 +122,9 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
     title: 'attendance'
   })
 
-
-
-/*
- .state('bpSearch', {
-    url: '/bp_search',
-    templateUrl: 'templates/layouts/bp_search.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  }).state('editContact', {
-    url: '/edit_contact',
-    templateUrl: 'templates/layouts/edit_contact.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  }).state('viewDetail', {
-    url: '/view_detail',
-    templateUrl: 'templates/layouts/view_detail.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  }).state('contact', {
-    url: '/contact',
-    templateUrl: 'templates/layouts/contact.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  }).state('bpMaster', {
-    url: '/bp_master',
-    templateUrl: 'templates/layouts/bp_master.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  }).state('VisitRecord', {
-    url: '/visit_record',
-    templateUrl: 'templates/layouts/visit_record.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  }).state('VisitRecord2', {
-    url: '/visit_record2',
-    templateUrl: 'templates/layouts/visit_record2.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  }).state('VisitRecord3', {
-    url: '/visit_record3',
-    templateUrl: 'templates/layouts/visit_record3.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  }).state('VisitRecord1', {
-    url: '/visit_record1',
-    templateUrl: 'templates/layouts/visit_record1.html',
-    controller: 'BaseCtrl',
-    title: 'New Page'
-  })
-
-*/
 })
 
-.run(function($rootScope,$state,$localStorage) {
+.run(function($rootScope,$state,$localStorage,$http, webService) {
   $rootScope.title_ok = 'Ok';
   $rootScope.title_close = 'Close';
 
@@ -199,6 +148,11 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
       $state.go(toState, param);
     }
   };
+
+
+
+  
+
 })
 
 .run(function($ionicPlatform) {

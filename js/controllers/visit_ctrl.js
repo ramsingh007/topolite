@@ -3,31 +3,61 @@ angular.module('topolite.VisitCtrl', [])
 .controller('visit_Ctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http) {
 
    $scope.params = $stateParams;
-   $scope.visitModel = {};
-   $scope.visitModel.Info = {};
-   
-   $scope.visitModel.Contact = [{
-                                'CUSTOMER_NAME':null,
-                                'DESIGNATION':null,
-                                'MOBILE':null,
-                                'EMAIL':null,
-                                'LINE_NO':1
-                               }];
-   
-   $scope.visitModel.Sales = [{
-                                'SALES_PERSON_NO':null,
-                                'SALES_PERSON_NAME':null,
-                                'NEXT_ACTION':null,
-                                'NEXT_ACTION_DATE':null,
-                                'NEXT_ACTION_TIME':1,
-                                'ALERT_REQ':'yes',
-                                'ALERT_DATE':null,
-                                'ALERT_TIME':null,
-                                'LINE_NO':1
-                               }];
-   
-   $scope.visitModel.Product = [];
 
+
+   $scope.visitModel = {};
+   $scope.visitModel.VISIT_TIME_FROM = new Date();
+   $scope.visitModel.VISIT_TIME_TO = new Date();
+   $scope.visitModel.VISIT_DATE = new Date();
+   
+   $scope.initVisitModel = function(){
+       $scope.visitModel.Info = {};
+   
+       $scope.visitModel.Contact = [{
+                                    'CUSTOMER_NAME':null,
+                                    'DESIGNATION':null,
+                                    'MOBILE':null,
+                                    'EMAIL':null,
+                                   }];
+       
+       $scope.visitModel.Sales = [{
+                                    'SALES_PERSON_NO':null,
+                                    'SALES_PERSON_NAME':null,
+                                    'NEXT_ACTION':null,
+                                    'NEXT_ACTION_DATE':null,
+                                    'NEXT_ACTION_TIME':1,
+                                    'ALERT_REQ':'yes',
+                                    'ALERT_DATE':null,
+                                    'ALERT_TIME':null,
+                                   }];
+       
+       $scope.visitModel.Product = [];
+   }
+
+   $scope.initVisitModel();   
+
+
+
+/********************  Get location Starts   *********************/
+
+ $scope.getGeoLocation= function(){
+    var options = {timeout: 2000, enableHighAccuracy: true }; // also try with false.
+      navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+    }
+     var onSuccess = function(position) {
+      var le ='';
+      $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&sensor=true').then(function(res){
+        le = res.data.results[0].address_components.length;
+          $scope.visitModel.ADDRESS = res.data.results[0].formatted_address;
+        } ,function(err){
+          webService.showPopup('Can\'t get location now. Try again!', $rootScope.title_close);
+      });
+     }
+    var onError= function(error) {
+        webService.showPopup(error, $rootScope.title_close);
+    }
+
+/********************  Get location  ends  *********************/
 
    
 
@@ -40,15 +70,15 @@ angular.module('topolite.VisitCtrl', [])
   $scope.Visitsearch = function(){
     $rootScope.visitResults.length = 0; //empty the BP Result
 
-    if( $scope.Visitsearch.visitId== ''){
-      $scope.Visitsearch.visitId = null;
+    if( $scope.visitSearch.visitId== ''){
+      $scope.visitSearch.visitId = null;
     }
 
     webService.showIonLoader();  //show ionic loading
     var urlParam = 'VisitService/VisitRecord.svc/GetVisitRecord/'
             +$rootScope.currentUser.UserDetails.Company_No
             +'/'+$rootScope.currentUser.UserDetails.Location_No
-            +'/'+$scope.Visitsearch.visitId
+            +'/'+$scope.visitSearch.visitId
             +'/'+$rootScope.currentUser.UserDetails.LoginName;
 
     var methodType = 'GET'

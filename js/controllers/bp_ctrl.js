@@ -172,54 +172,6 @@ angular.module('topolite.bp_ctrl', [])
 
 
 
-  /********************  geo location Starts   *********************/
-
- $scope.geolocationFun = function(){
-
-
-
-    var options = {timeout: 2000, enableHighAccuracy: true }; // also try with false.
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
-   
-   }
-  
-
-
-   var onSuccess = function(position) {
-    var le ='';
- 
-    $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&sensor=true').then(function(res){
-      
-       le = res.data.results[0].address_components.length;
-     
-      // $scope.bpModel.address = res.data.results[0].address_components[le-1].long_name;
-
-      // // alert($scope.zip);
-
-      // alert(res.data.results[0].formatted_address);
-      $scope.bpModel.address = res.data.results[0].formatted_address;
-
-        } ,
-
-    
-    function(err){
-
-   
-    });
-   
-
-     }
-  var onError= function(error) {
-    
-
-     alert("error");
-      
-   }
-
-    /********************  geo location  ends  *********************/
-
-
-
 
   /********************  BP view contact Starts    *********************/
 
