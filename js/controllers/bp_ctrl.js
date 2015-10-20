@@ -3,7 +3,7 @@ angular.module('topolite.bp_ctrl', [])
 .controller('BPctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http ) {
   
   $scope.params = $stateParams;
-   $scope.bpModel = {};
+  $scope.bpModel = {};
 
 
   /********************  BP Search Starts    *********************/
