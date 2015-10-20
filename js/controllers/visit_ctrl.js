@@ -5,9 +5,32 @@ angular.module('topolite.VisitCtrl', [])
    $scope.params = $stateParams;
    $scope.visitModel = {};
    $scope.visitModel.Info = {};
-   $scope.visitModel.Contact = [];
-   $scope.visitModel.Sales = [];
+   
+   $scope.visitModel.Contact = [{
+                                'CUSTOMER_NAME':null,
+                                'DESIGNATION':null,
+                                'MOBILE':null,
+                                'EMAIL':null,
+                                'LINE_NO':1
+                               }];
+   
+   $scope.visitModel.Sales = [{
+                                'SALES_PERSON_NO':null,
+                                'SALES_PERSON_NAME':null,
+                                'NEXT_ACTION':null,
+                                'NEXT_ACTION_DATE':null,
+                                'NEXT_ACTION_TIME':1,
+                                'ALERT_REQ':'yes',
+                                'ALERT_DATE':null,
+                                'ALERT_TIME':null,
+                                'LINE_NO':1
+                               }];
+   
    $scope.visitModel.Product = [];
+
+
+   
+
 
 
 	/********************  Visit Search Starts    *********************/
@@ -25,7 +48,8 @@ angular.module('topolite.VisitCtrl', [])
     var urlParam = 'VisitService/VisitRecord.svc/GetVisitRecord/'
             +$rootScope.currentUser.UserDetails.Company_No
             +'/'+$rootScope.currentUser.UserDetails.Location_No
-            +'/'+$scope.Visitsearch.visitId;
+            +'/'+$scope.Visitsearch.visitId
+            +'/'+$rootScope.currentUser.UserDetails.LoginName;
 
     var methodType = 'GET'
     var dataJson = JSON.stringify({});
@@ -65,9 +89,13 @@ angular.module('topolite.VisitCtrl', [])
 
 
    $scope.SaveVisit = function(){
-      webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
+
+    console.log($scope.visitModel);
+
+     /* webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
            $state.go('dashboard.visitDetails');
   	   });
+*/
 
     }
   /********************  Visit Add (Visit, Customer, Sales) Ends    *********************/

@@ -14,7 +14,7 @@
 						
 							<div class="form-group">
 								<label class="control-label col-xs-5">Doc Series</label>
-								<div class="col-xs-7"><input type="text" class="form-control"></div>
+								<div class="col-xs-7"><input type="text" class="form-control" ></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit ID</label>
@@ -22,15 +22,15 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time From</label>
-								<div class="col-xs-7"><input type="text" class="form-control"></div>
+								<div class="col-xs-7"><input type="time" placeholder="HH:mm" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time To</label>
-								<div class="col-xs-7"><input type="text" class="form-control"></div>
+								<div class="col-xs-7"><input type="time" placeholder="HH:mm" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Date</label>
-								<div class="col-xs-7"><input type="text" class="form-control"></div>
+								<div class="col-xs-7"><input type="date" placeholder="yyyy-MM-dd" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Customer Id</label>
@@ -71,58 +71,42 @@
             <div class="row">
                 <div class="col">
                   
-                        <div class="form-group">
-                            <label class="control-label col-xs-5">Person </label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-5">Position</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-5">Mobile No.</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-5">Email</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
-                        </div>
-                    
-
-                    <div class="contact-repeater">
-                      <hr>
+                  <div class="contact-repeater" ng-repeat="list in visitModel.Contact">
+                    <div ng-show="($index > 0)">
+                       <hr>
                        <div class="form-group">
                             <div class="text-right">
-                                <div class="padding plus-minus-btn">
+                                <div class="padding plus-minus-btn" ng-click="">
                                     <i class="ion-minus-circled"></i>
                                 </div>
                             </div>
                         </div>
+                    </div>
                         <div class="form-group">
-                            <label class="control-label col-xs-5">Person </label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <label class="control-label col-xs-5">Person</label>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Contact[$index]['CUSTOMER_NAME']" ></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Position</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Contact[$index]['DESIGNATION']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Mobile No.</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Contact[$index]['MOBILE']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Email</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Contact[$index]['EMAIL']"></div>
                         </div>
                     </div>
 
-                         <div class="form-group">
-                            <div class="text-right">
-                                <div class="padding plus-minus-btn">
-                                    <i class="ion-plus-circled"></i>
-                                </div>
+                     <div class="form-group">
+                        <div class="text-right">
+                            <div class="padding plus-minus-btn">
+                                <i class="ion-plus-circled"></i>
                             </div>
                         </div>
+                    </div>
 
                     
                 </div>
@@ -140,93 +124,60 @@
             <div class="row">
                 <div class="col">
                   
+                <div class="sales-repeater" ng-repeat="list in visitModel.Sales">
+                    <div ng-show="($index > 0)">
+                       <hr>
+                       <div class="form-group">
+                            <div class="text-right">
+                                <div class="padding plus-minus-btn" ng-click="">
+                                    <i class="ion-minus-circled"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Sales Person No </label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']" ></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Name</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NAME']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Next Action</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Next Action Date</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_DATE']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Next Action Time</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_TIME']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Alert Required</label>
                             <div class="col-xs-7">
-                                <select class="form-control">
-                                    <option>Yes</option>
-                                    <option>No</option>
+                                <select class="form-control" ng-init="visitModel.Sales[$index]['ALERT_REQ']='yes'" ng-model="visitModel.Sales[$index]['ALERT_REQ']">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div ng-show="(visitModel.Sales[$index]['ALERT_REQ']=='yes')">
+                        <div class="form-group"  >
                             <label class="control-label col-xs-5">Alert Date</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="date" placeholder="yyyy-MM-dd" class="form-control" ng-model="visitModel.Sales[0]['ALERT_DATE']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Alert Time</label>
-                            <div class="col-xs-7"><input type="text" class="form-control"></div>
+                            <div class="col-xs-7"><input type="time" placeholder="HH:mm" class="form-control" ng-model="visitModel.Sales[0]['ALERT_TIME']"></div>
                         </div>
-                        
-                        <div class="contact-repeater">
-                            <hr>
-                            <div class="form-group">
-                                <div class="text-right">
-                                    <div class="padding plus-minus-btn">
-                                        <i class="ion-minus-circled"></i>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-xs-5 no-pad-right">Sales Person No </label>
-                                <div class="col-xs-7"><input type="text" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-xs-5">Name</label>
-                                <div class="col-xs-7"><input type="text" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-xs-5">Next Action</label>
-                                <div class="col-xs-7"><input type="text" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-xs-5 no-pad-right">Next Action Date</label>
-                                <div class="col-xs-7"><input type="text" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-xs-5 no-pad-right">Next Action Time</label>
-                                <div class="col-xs-7"><input type="text" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-xs-5">Alert Required</label>
-                                <div class="col-xs-7">
-                                    <select class="form-control">
-                                        <option>Yes</option>
-                                        <option>No</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-xs-5">Alert Date</label>
-                                <div class="col-xs-7"><input type="text" class="form-control"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-xs-5">Alert Time</label>
-                                <div class="col-xs-7"><input type="text" class="form-control"></div>
-                            </div>
-                        </div>    
-                        
+                    </div>
+
                         <div class="form-group">
                             <div class="text-right">
                                 <div class="padding plus-minus-btn">
@@ -242,7 +193,7 @@
 </form>
  <div class="row" style="display:flex;">
     <div class="col-50 col"><a  class="button button-small button-assertive button-block search">Clear All</a></div>
-     <div class="col-50 col"><a ng-click="Add_visit()" class="button button-small button-assertive button-block search">Save</a></div>
+     <div class="col-50 col"><a ng-click="SaveVisit()" class="button button-small button-assertive button-block search">Save</a></div>
 </div>
 
 
