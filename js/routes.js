@@ -155,7 +155,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$state) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -164,4 +164,5 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
       StatusBar.styleDefault();
     }
   });
+
 });

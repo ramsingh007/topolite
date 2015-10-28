@@ -6,8 +6,12 @@ angular.module('topolite.auth_ctrl', [])
 
   $scope.msg = ''; 		//display custom message
   $scope.signin = {};	// moel for signin form inputs
-  
+ 
   $scope.signIn = function() {
+
+
+
+
     $scope.msg = '';
     if ($scope.signin.email === '') {
       $scope.msg = 'Please enter correct email!';
@@ -30,7 +34,17 @@ angular.module('topolite.auth_ctrl', [])
             
             webService.hideIonLoader();//hide ionic loading
             if(respone.data.LoginUserResult.LoginMessage.Success){
-                $rootScope.currentUser.UserDetails = $localStorage.currentUser.UserDetails = respone.data.LoginUserResult.UserDetails;
+$rootScope.currentUser.UserDetails = $localStorage.currentUser.UserDetails = respone.data.LoginUserResult.UserDetails;
+ 
+ // console.log($scope.signin.basicCheckValue);
+
+if ($scope.signin.basicCheckValue == true) {
+   console.log($scope.signin.basicCheckValue);
+    window.localStorage.setItem("username", 'username');
+ window.localStorage.setItem("password", 'password');
+
+};
+
                 $state.go('dashboard.home');
             }else{
                 webService.showPopup(respone.data.LoginUserResult.LoginMessage.ErrorMsg, $rootScope.title_close);
@@ -46,7 +60,11 @@ angular.module('topolite.auth_ctrl', [])
 
   //event on beforeEnter
   $scope.$on('$ionicView.beforeEnter', function() {
+
+
      $scope.signin = {};
+
+     
   });
 
 

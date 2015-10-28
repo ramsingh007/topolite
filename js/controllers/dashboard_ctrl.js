@@ -1,17 +1,46 @@
 angular.module('topolite.dashboard_ctrl', [])
 
 .controller('DashboardCtrl', function($state, $localStorage, $http, $stateParams, $scope, $rootScope, webService) {
-  	 $scope.selLoc = {'Comp_Location':$rootScope.currentUser.UserDetails.Location_No};
+  	 
+
+
+	 $scope.Company_No=$localStorage.currentUser.UserDetails.Company_No+'-'+$localStorage.currentUser.UserDetails.Location_No;
+
+  	 $scope.selLoc = {'Comp_Location':$scope.Company_No};
 
 	 $scope.UserLocation = [];
+	 $scope.Company_No=$localStorage.currentUser.UserDetails.Company_No+'-'+$localStorage.currentUser.UserDetails.Location_No;
+
 
     $scope.change_location= function() {
 
+ var value =$scope.selLoc.Comp_Location;
+    var values = value.split("-");
+    $scope.COMPANY = values[0];
+    $scope.LOCATION = values[1];
+  
 
-    	$rootScope.currentUser.UserDetails.Location_No=$localStorage.currentUser.UserDetails.Location_No=$scope.selLoc.Comp_Location;
+   $rootScope.currentUser.UserDetails.Location_No=$localStorage.currentUser.UserDetails.Location_No=$scope.LOCATION;
+   $rootScope.currentUser.UserDetails.Company_No=$localStorage.currentUser.UserDetails.Company_No=$scope.COMPANY;
+    	
+
     	console.log($scope.selLoc);
+
 		webService.showPopup('Location has been changed', $rootScope.title_ok);
     }
+
+
+
+$scope.logout= function() {
+  
+     window.localStorage.removeItem("username");
+      window.localStorage.removeItem("password");
+
+	$state.go('signIn')
+
+}
+
+
 
 
 
