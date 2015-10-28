@@ -69,7 +69,7 @@ form .notice{ display: block; text-align: right; text-transform: uppercase; font
 
 /*Dashboard*/
 .bar-header .ion-android-exit{ font-size:18px; color:#fff;}
-.bar-header .right-buttons .button{ height:28px; min-height:28px; border:none; background:#b74137; line-height:28px; margin-top:3px; font-family: 'ralewaylight';}
+.bar-header .right-buttons .button,.btn-red{ height:28px; min-height:28px; border:none; background:#b74137; line-height:28px; margin-top:3px; font-family: 'ralewaylight';color:#ffffff;}
 
 .dashboard-page .item{ font-size:13.5px; border:none; padding-bottom:22px; padding-top:22px;}
 .dashboard-page .item strong{ color:#d14841;}
@@ -159,3 +159,12 @@ form .notice{ display: block; text-align: right; text-transform: uppercase; font
 
 .plus-minus-btn{ font-size: 24px; color: #D14841;}
 .plus-minus-btn i{ cursor: pointer;}
+
+.right-btn {
+  float: right;
+  margin: 0 10px;
+  padding: 0 10px;
+}
+.heading-area {
+  Margin-top: 10px;
+}

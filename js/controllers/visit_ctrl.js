@@ -1,13 +1,17 @@
 angular.module('topolite.VisitCtrl', [])
 
-.controller('visit_Ctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http) {
+.controller('visit_Ctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
 
    $scope.params = $stateParams;
 
 
    $scope.visitModel = {};
-   $scope.visitModel.VISIT_TIME_FROM = new Date();
-   $scope.visitModel.VISIT_TIME_TO = new Date();
+   // $scope.visitModel.VISIT_TIME_FROM = new Date();
+   // $scope.date = new Date();
+   // var date = new Date();
+   $scope.visitModel.VISIT_TIME_FROM = $filter('date')(new Date(), 'HH:mm');
+
+console.log($scope.visitModel.VISIT_TIME_FROM);
    $scope.visitModel.VISIT_DATE = new Date();
    
    $scope.initVisitModel = function(){
