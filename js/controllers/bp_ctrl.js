@@ -6,14 +6,11 @@ angular.module('topolite.bp_ctrl', [])
       };
 	  
 	  $scope.logout= function() {
-  
-			 window.localStorage.removeItem("username");
+  			 window.localStorage.removeItem("username");
 			  window.localStorage.removeItem("password");
+			 $state.go('signIn');
+			 webService.showPopup("You have been logout Successfully", $rootScope.title_ok);
 
-			$state.go('signIn');
-			 webService.showPopup("Logout Successfully.....", $rootScope.title_ok);
-
-			
 		}
 	    
 
