@@ -40,8 +40,8 @@ $rootScope.currentUser.UserDetails = $localStorage.currentUser.UserDetails = res
 
 if ($scope.signin.basicCheckValue == true) {
    console.log($scope.signin.basicCheckValue);
-    window.localStorage.setItem("username", 'username');
- window.localStorage.setItem("password", 'password');
+    window.localStorage.setItem("username", $localStorage.currentUser.UserDetails.LoginName);
+ window.localStorage.setItem("password", $localStorage.currentUser.UserDetails.LoginName);
 
 };
 
@@ -63,6 +63,13 @@ if ($scope.signin.basicCheckValue == true) {
 
 
      $scope.signin = {};
+      $scope.signin.email=window.localStorage.getItem("password");
+     $scope.signin.password=window.localStorage.getItem("password");
+       if(window.localStorage.getItem("password") !== undefined) {
+           console.log('sdf');
+        } else {
+            return false;
+        }
 
      
   });

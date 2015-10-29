@@ -1,5 +1,11 @@
 angular.module('topolite.bp_ctrl', [])
 
+ .controller('NavController', function($scope, $ionicSideMenuDelegate) {
+      $scope.toggleLeft = function() {
+        $ionicSideMenuDelegate.toggleLeft();
+      };
+    })
+
 .controller('BPctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http ) {
   
   $scope.params = $stateParams;
