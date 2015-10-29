@@ -14,19 +14,20 @@
     <ion-side-menu side="left" ng-controller="NavController">
 
       <ion-header-bar class="bar bar-header bar-assertive">
-        <h1 class="title">Second Section Left Menu</h1>
+        <h1 class="title">Navigate</h1>
       </ion-header-bar>
       <ion-content has-header="true">
         <ul class="list">
-          <a ui-sref="snd.home" nav-clear class="item" ng-click="toggleLeft()">Home</a>
-          <a ui-sref="snd.chat" nav-clear class="item" ng-click="toggleLeft()">Chat</a>
-          <a ui-sref="snd.drink" nav-clear class="item" ng-click="toggleLeft()">Drink</a>
+          <a ui-href="#/dashboard/home" class="item" ng-click="toggleLeft()">Home</a>
+          <a ui-href="#/dashboard/bpSearch" class="item" ng-click="toggleLeft()">BP Reports</a>
+          <a  ui-href="#/dashboard/visitSearch" class="item" ng-click="toggleLeft()">Visit Record</a>
+		  
+		  <a ng-click="logout()" class="item">Logout</a>
+		  
+		 
         </ul>
       </ion-content>
-      <ion-footer-bar class="bar bar-footer">
-        <a class="button button-fullwidth" ui-sref="snd.policy" ng-click="toggleLeft()">Privacy Policy</a>
-      </ion-footer-bar>
-
+      
     </ion-side-menu>
 
 </ion-side-menus>

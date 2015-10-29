@@ -31,19 +31,6 @@ angular.module('topolite.dashboard_ctrl', [])
 
 
 
-$scope.logout= function() {
-  
-     window.localStorage.removeItem("username");
-      window.localStorage.removeItem("password");
-
-	$state.go('signIn')
-
-}
-
-
-
-
-
     $scope.$on('$ionicView.beforeEnter', function() {
 
     	webService.showIonLoader();  //show ionic loading

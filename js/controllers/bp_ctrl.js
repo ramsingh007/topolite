@@ -1,10 +1,23 @@
 angular.module('topolite.bp_ctrl', [])
 
- .controller('NavController', function($scope, $ionicSideMenuDelegate) {
+ .controller('NavController', function($state,$scope,$rootScope, $ionicSideMenuDelegate,$localStorage,webService) {
       $scope.toggleLeft = function() {
         $ionicSideMenuDelegate.toggleLeft();
       };
-    })
+	  
+	  $scope.logout= function() {
+  
+			 window.localStorage.removeItem("username");
+			  window.localStorage.removeItem("password");
+
+			$state.go('signIn');
+			 webService.showPopup("Logout Successfully.....", $rootScope.title_ok);
+
+			
+		}
+	    
+
+})
 
 .controller('BPctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http ) {
   
