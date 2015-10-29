@@ -21,18 +21,19 @@
 								<div class="col-xs-7"><input type="text" ng-readonly="true" ng-model="visitModel.VISIT_ID" class="form-control"></div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-xs-5">Visit Time From {{visitModel.VISIT_TIME_FROM }}</label>
+								<label class="control-label col-xs-5">Visit Time From</label>
 								<div class="col-xs-7">
-                                    <input type="time"   pattern="HH:mm" class="form-control"></div>
+                                    <input type="time" ng-model="visitModel.VISIT_TIME_FROM" class="form-control">
+									</div>
 
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time To</label>
-								<div class="col-xs-7"><input type="time" ng-model="visitModel.VISIT_TIME_TO" pattern="HH:mm:ss" class="form-control"></div>
+								<div class="col-xs-7"><input type="time" ng-model="visitModel.VISIT_TIME_TO" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Date</label>
-								<div class="col-xs-7"><input type="date" ng-model="visitModel.VISIT_DATE"  pattern="MM/dd/YYYY" class="form-control"></div>
+								<div class="col-xs-7"><input type="date" ng-model="visitModel.VISIT_DATE" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Customer Id</label>
@@ -147,7 +148,10 @@
 
                     <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Sales Person No </label>
-                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']" ></div>
+                            <div class="col-xs-7">
+							<input type="text" class="form-control" ng-init="visitModel.Sales[$index]['SALES_PERSON_NO'] = fillSalesArr[0]['SALES_PERSON_NO'] " ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']" >
+							<select ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']" ng-options="item.SALES_PERSON_NO as item.SALES_PERSON_NO for item in fillSalesArr" ></select>							
+							</div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Name</label>

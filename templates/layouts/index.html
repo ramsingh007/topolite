@@ -2,7 +2,12 @@
     <ion-side-menu-content ng-controller="NavController">
 
 
+
 <ion-nav-bar align-title="center" class="bar-positive header">
+<ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+</ion-nav-buttons>
+
   <ion-nav-back-button class="button-icon" > <!-- class="button-icon" class="button-clear" -->
   <i class="ion-chevron-left"></i> Back
   </ion-nav-back-button> 
@@ -20,7 +25,7 @@
         <ul class="list">
           <li><a ui-sref="dashboard.home" class="item" ng-click="toggleLeft()">Home</a></li>
           <li><a ui-sref="bp.bpSearch" class="item" ng-click="toggleLeft()">BP Search</a></li>
-          <li><a  ui-sref="dashboard.visitSearch" class="item" ng-click="toggleLeft()">Visit Search</a></li>
+          <li><a  ui-sref="visit.visitSearch" class="item" ng-click="toggleLeft()">Visit Search</a></li>
 		  
 		      <li><a ng-click="logout()" class="item">Logout</a></li>
 		  
