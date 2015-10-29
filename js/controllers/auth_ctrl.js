@@ -38,10 +38,11 @@ $rootScope.currentUser.UserDetails = $localStorage.currentUser.UserDetails = res
  
  // console.log($scope.signin.basicCheckValue);
 
+
 if ($scope.signin.basicCheckValue == true) {
    console.log($scope.signin.basicCheckValue);
-    window.localStorage.setItem("username", 'username');
- window.localStorage.setItem("password", 'password');
+    window.localStorage.setItem("username", $localStorage.currentUser.UserDetails.LoginName);
+ window.localStorage.setItem("password", $localStorage.currentUser.UserDetails.LoginName);
 
 };
 
@@ -60,11 +61,17 @@ if ($scope.signin.basicCheckValue == true) {
 
   //event on beforeEnter
   $scope.$on('$ionicView.beforeEnter', function() {
-
-
      $scope.signin = {};
+     $scope.signin.email=window.localStorage.getItem("password");
+     $scope.signin.password=window.localStorage.getItem("password");
+     console.log($scope.signin.email);
 
-     
+  if($scope.signin.email != null &&  $scope.signin.password != null) {
+
+            $scope.signIn();
+        } else {
+            return false;
+        }
   });
 
 

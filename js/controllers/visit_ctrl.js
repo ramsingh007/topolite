@@ -148,6 +148,7 @@ console.log($scope.visitModel.VISIT_TIME_FROM);
 
   /********************  Visit Add (Products) Starts    *********************/
    $scope.AddVisitProd = function(){
+    
       webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
            $state.go('dashboard.visitDetails');
        });
@@ -224,5 +225,59 @@ console.log($scope.visitModel.VISIT_TIME_FROM);
   	
     }
   */
+
+
+
+
+  $scope.VisitDetail = function(){
+      // webService.showIonLoader();  //show ionic loading
+    var urlParam = 'VisitService/VisitRecord.svc/GetVisitDetail/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No
+            +'/'+$scope.params.vId+'/ADMIN';
+
+    var methodType = 'GET'
+    var dataJson = JSON.stringify({});
+    webService.webCall(urlParam,methodType,dataJson)
+    .then(function(respone){
+      console.log(respone);
+      
+        webService.hideIonLoader();//hide ionic loading
+        if(respone.data.GetVisitDataResult.Messsage.Success){
+
+          $scope.visitdetailss = respone.data.GetVisitDataResult.Result;
+          $scope.Saledetails= respone.data.GetVisitDataResult.Sale;
+          $scope.SaleContact= respone.data.GetVisitDataResult.SaleContact;
+          $scope.SaleProduct= respone.data.GetVisitDataResult.SaleProduct;
+          $scope.VisitAdditional= respone.data.GetVisitDataResult.VisitAdditional;
+  
+
+          // $scope.bpModel = respone.data.GetAllBPResult.BPResult;
+          // $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
+          // $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
+          // $scope.bpModel.PARENT_VENDOR = 'CST123';
+          // $scope.bpModel.PAYTERM = 'PT20';
+
+
+        }else{
+            webService.showPopup(respone.data.GetAllBPResult.BPMesssage.ErrorMsg, $rootScope.title_close);
+        }
+
+    },function(error){
+          webService.hideIonLoader();  //show ionic loading
+          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+    });
+  }
+
+
+    $scope.$on('$ionicView.beforeEnter', function() {
+      
+      //Call method when on bpDetail screen 
+      if (($.inArray($state.current.name, ['dashboard.visitDetail']) !== -1)  || ($.inArray($state.current.name, ['dashboard.bpCreate']) !== -1 && $scope.params.vId!='') ) {
+        $scope.VisitDetail();
+      }
+    
+    });
+
 });
 

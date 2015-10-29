@@ -1,9 +1,10 @@
 <ion-view title="Visit Detail">
    <ion-nav-buttons side="right">
- <button class="button button-small" ng-click="goToState('dashboard.addProduct')">ADD PRODUCT</button>
+<!--  <button class="button button-small" ng-click="goToState('dashboard.addProduct')">ADD PRODUCT</button> -->
 <!-- 
 
        <button class="button button-small" ng-click="goToState('dashboard.addInfo')">ADD INFO</button> -->
+
 </ion-nav-buttons>
 
 <ion-content>
@@ -13,7 +14,7 @@
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-location"></i> Visit ID Form</span>
-				    <button class="button button-small btn-red right-btn">add</button>
+				 <!--    <button class="button button-small btn-red right-btn">add</button> -->
                 </div>
 				<div class="list">
 				  <div class="item item-button-right">1
@@ -22,30 +23,81 @@
 					</button>
 				  </div>
 				  <div class="item">					
-					Contact Person
+					Doc Series
 					<span class="item-note">
-					  354433 538 3
+					 {{visitdetailss.DOC_SERIES}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Visit ID
 					<span class="item-note">
-					  354433 538 3
+					 {{visitdetailss.VISIT_ID}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Visit Time From
 					<span class="item-note">
-					  354433 538 3
+					  {{visitdetailss.VISIT_TIME_FROM}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Visit Time To
 					<span class="item-note">
-					  354433 538 3
+					  {{visitdetailss.VISIT_TIME_TO}}
+					</span>
+				  </div> <div class="item">					
+					Visit Date
+					<span class="item-note">
+					  {{visitdetailss.VISIT_DATE}}
+					</span>
+				  </div> 	<div class="item">					
+					Customer Id
+					<span class="item-note">
+					  {{visitdetailss.CUSTOMER_NO}}
+					</span>
+				  </div> 	<div class="item">					
+					Customer Name
+					<span class="item-note">
+					  {{visitdetailss.CUSTOMER_NAME}}
+					</span>
+				  </div> 
+				  <div class="item">					
+					Area Name
+					<span class="item-note">
+					  {{visitdetailss.AREA_NAME}}
+					</span>
+				  </div> 
+				  <div class="item">					
+					Address
+					<span class="item-note">
+					  {{visitdetailss.ADDRESS}}
+					</span>
+				  </div> 
+				   <div class="item">					
+					Branch
+					<span class="item-note">
+					  {{visitdetailss.dd}}
+					</span>
+				  </div> 	
+				   <div class="item">					
+					Remark
+					<span class="item-note">
+					  {{visitdetailss.REMARK}}
+					</span>
+				  </div> 	
+				   <div class="item">					
+					Location
+					<span class="item-note">
+					  {{visitdetailss.LOCATION}}
+					</span>
+				  </div> 	
+				  <div class="item">					
+					Status
+					<span class="item-note">
+					  {{visitdetailss.STATUS}}
 					</span>
 				  </div> 				  
 				</div>	               
             </div>
-            
-            
+    
+      <!-- repeat contact person div-->
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-telephone"></i> Customer/Contact Form</span>
@@ -63,57 +115,35 @@
 					  354433 538 3
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Position
 					<span class="item-note">
 					  354433 538 3
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Mobile No.
 					<span class="item-note">
 					  354433 538 3
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Email
 					<span class="item-note">
 					  354433 538 3
 					</span>
 				  </div> 				  
 				</div>		
-				<div class="list">
-				  <div class="item item-button-right">2
-					<button class="button button-small btn-red">
-					  <i class="ion-android-create"></i>
-					</button>
-				  </div>
-				  <div class="item">					
-					Contact Person
-					<span class="item-note">
-					  354433 538 3
-					</span>
-				  </div> <div class="item">					
-					Contact Person
-					<span class="item-note">
-					  354433 538 3
-					</span>
-				  </div> <div class="item">					
-					Contact Person
-					<span class="item-note">
-					  354433 538 3
-					</span>
-				  </div> <div class="item">					
-					Contact Person
-					<span class="item-note">
-					  354433 538 3
-					</span>
-				  </div> 				  
-				</div>	
+				
             </div>
+               <!-- end repeat contact person div-->
+
+            <!-- repeat sales person div-->
             
             <div class="row">
                 <div class="white_box heading-area">
-                   <span><i class="ion-ios-person"></i> Sales person Form</span>
+                   <span><i class="ion-ios-person"></i> Sales Person Form</span>
 				    <button class="button button-small btn-red right-btn">add</button>
                 </div>
+                 <p ng-show="Saledetails==''">NO Sales Person Details  </p>
+<div ng-repeat="spf in Saledetails">
                <div class="list">
 				  <div class="item item-button-right">1
 					<button class="button button-small btn-red">
@@ -121,35 +151,65 @@
 					</button>
 				  </div>
 				  <div class="item">					
-					Contact Person
+					Sales Person No
 					<span class="item-note">
-					  354433 538 3
+					 {{spf.SALES_PERSON_NO}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Name
 					<span class="item-note">
-					  354433 538 3
+					  {{spf.SALES_PERSON_NAME}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Next Action
 					<span class="item-note">
-					  354433 538 3
+					  {{spf.NEXT_ACTION}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Next Action Date
 					<span class="item-note">
-					  354433 538 3
+					  {{spf.NEXT_ACTION_DATE}}
 					</span>
-				  </div> 				  
+				  </div> 
+				  <div class="item">					
+					Next Action Time
+					<span class="item-note">
+					  {{spf.NEXT_ACTION_TIME}}
+					</span>
+				  </div> 	
+				  <div class="item">					
+					Alert Required
+					<span class="item-note">
+				<!-- 	  {{Saledetails}} -->
+					</span>
+				  </div> 
+				  <div class="item">					
+					Alert Date
+					<span class="item-note">
+					 {{spf.ALERT_DATE}}
+					</span>
+				  </div> 
+				  <div class="item">					
+					Alert Time
+					<span class="item-note">
+					  {{spf.ALERT_TIME}}
+				
+					</span>
+				  </div> 					  
 				</div>	
             </div>
-            
-            
+            </div>
+<!--end repeat sales person div-->
+
+<!--start repeat Additional info person div-->
+			 
             <div class="row">
 				 <div class="white_box heading-area">
                     <span><i class="fa fa-map-marker"></i> Additional info</span>
-				    <button class="button button-small btn-red right-btn">add</button>
+				    <button class="button button-small btn-red right-btn" ng-click="goToState('dashboard.addInfo')" >add</button>
                 </div>
+                <p ng-show="VisitAdditional==''">NO Additional info Found</p>
+                <div ng-repeat="adinfo in VisitAdditional"> 
                 <div class="list">
 				  <div class="item item-button-right">1
 					<button class="button button-small btn-red">
@@ -157,34 +217,35 @@
 					</button>
 				  </div>
 				  <div class="item">					
-					Contact Person
+					Order Received
 					<span class="item-note">
-					  354433 538 3
+					 {{adinfo.ALERT_DATE}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Demo Performed
 					<span class="item-note">
-					  354433 538 3
+					  {{adinfo.ALERT_DATE}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Demo Product
 					<span class="item-note">
-					  354433 538 3
+					 {{adinfo.ALERT_DATE}}
 					</span>
-				  </div> <div class="item">					
-					Contact Person
-					<span class="item-note">
-					  354433 538 3
-					</span>
-				  </div> 				  
+				  </div> 			  
 				</div>	
             </div>
-            
+            <div>
+            <!--end repeat Additional info person div-->
+  
+     <!--start repeat product info person div-->
+    
             <div class="row">
 				 <div class="white_box heading-area">
                      <span><i class="fa fa-map-marker"></i> Product </span>
-				    <button class="button button-small btn-red right-btn">add</button>
+				    <button class="button button-small btn-red right-btn"  ng-click="goToState('dashboard.addProduct')" >add</button>
                 </div>
+                <p ng-show="SaleProduct==''">NO Product Found</p>
+                 <div ng-repeat="product in SaleProduct"> 
                <div class="list">
 				  <div class="item item-button-right">1
 					<button class="button button-small btn-red">
@@ -192,28 +253,43 @@
 					</button>
 				  </div>
 				  <div class="item">					
-					Contact Person
+					Order Received
 					<span class="item-note">
-					  354433 538 3
+					  {{product.ALERT_DATE}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Item category
 					<span class="item-note">
-					  354433 538 3
+					  {{product.ALERT_DATE}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Item Code
 					<span class="item-note">
-					  354433 538 3
+					   {{product.ALERT_DATE}}
 					</span>
 				  </div> <div class="item">					
-					Contact Person
+					Description
 					<span class="item-note">
-					  354433 538 3
+					   {{product.ALERT_DATE}}
+					</span>
+				  </div> 
+				  <div class="item">					
+					Qty
+					<span class="item-note">
+					   {{product.ALERT_DATE}}
+					</span>
+				  </div> 
+				  <div class="item">					
+					Remark
+					<span class="item-note">
+					   {{product.ALERT_DATE}}
 					</span>
 				  </div> 				  
 				</div>	
             </div>
+            </div>
+
+                 <!--end repeat product info person div-->
         </div>
     </div>
 
