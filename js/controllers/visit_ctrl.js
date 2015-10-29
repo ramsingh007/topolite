@@ -136,10 +136,58 @@ console.log($scope.visitModel.VISIT_TIME_FROM);
 
 
   /********************  Visit Add (Additional Info) Starts    *********************/
-   $scope.AddVisitInfo = function(){
-      webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
-           $state.go('dashboard.visitDetails');
-       });
+   $scope.AddVisitInfo = function(info){
+
+
+     if($scope.params.vid !=''){
+        var urlParam = 'VisitService/VisitRecord.svc/SetAddInfoVisit';  
+        var methodType = 'PUT';
+      }else{
+        var urlParam = 'VisitService/VisitRecord.svc/SetAddInfoVisit';  
+        var methodType = 'POST';
+      }
+      
+
+
+      var dataJson =JSON.stringify({
+        "Company_NO": $rootScope.currentUser.UserDetails.Company_No,
+        "LOCATION_NO": $rootScope.currentUser.UserDetails.Location_No,
+        "User_ID": 'ADMIN',
+        "DOC_NO": $scope.params.vid,       
+        "DEMO_PERFORMED": info.DEMO_PERFORMED,
+        "ORDER_RECEIVED":info.ORDER_RECEIVED,
+        "PRODUCT": 'sad',
+        "PRODUCT_DEMO": info.PRODUCT_DEMO
+    });
+
+
+    
+      //webService.hideIonLoader(); 
+      //console.log(dataJson);
+      //return;
+
+      webService.webCall(urlParam,methodType,dataJson)
+         .then(function(respone){
+             webService.hideIonLoader(); 
+             
+             if($scope.params.vid !=''){
+                var err = respone.data.Messsage.ErrorMsg;
+             }else{
+                var err = respone.data.Messsage.ErrorMsg;
+             }            
+             
+
+             webService.showPopup(err, $rootScope.title_close).then(function(res){
+
+                $state.go('dashboard.visitDetail',{vid:$scope.params.vid})
+
+             });
+         
+         },function(error){
+            webService.hideIonLoader();  //show ionic loading
+            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+         });
+
 
     }
   /********************  Visit Add (Additional Info) Ends    *********************/
@@ -147,7 +195,69 @@ console.log($scope.visitModel.VISIT_TIME_FROM);
 
 
   /********************  Visit Add (Products) Starts    *********************/
-   $scope.AddVisitProd = function(){
+   $scope.AddVisitProd = function(Productadd){
+
+// alert(Productadd.ITEM_TYPE);
+//    console.log($scope.Productadd.ITEM_TYPE);
+
+
+//     console.log($scope.Productadd.VISIT_ID);
+
+      // webService.showIonLoader(); 
+
+      if($scope.params.pId !=''){
+        var urlParam = 'BPService/GetAllBPService.svc/ModifyAllBP';  
+        var methodType = 'PUT';
+      }else{
+        var urlParam = 'VisitService/VisitRecord.svc/SetProductVisit';  
+        var methodType = 'POST';
+      }
+      
+
+
+      var dataJson =JSON.stringify({
+        "Company_no": $rootScope.currentUser.UserDetails.Company_No,
+        "LOCATION_no": $rootScope.currentUser.UserDetails.Location_No,
+        "USER_ID": 'ADMIN',
+        "VISIT_ID": $scope.params.vid,       
+        "DESCRIPTION": Productadd.DESCRIPTION,
+        "ITEM_CODE":Productadd.ITEM_CODE,
+        "ITEM_TYPE": Productadd.ITEM_TYPE,
+        "QUANTITY": Productadd.QUANTITY,        
+        "VISIT_REMARK":Productadd.VISIT_REMARK
+    });
+      //webService.hideIonLoader(); 
+      //console.log(dataJson);
+      //return;
+
+      webService.webCall(urlParam,methodType,dataJson)
+         .then(function(respone){
+             webService.hideIonLoader(); 
+             
+             if($scope.params.vid !=''){
+                var err = respone.data.Messsage.ErrorMsg;
+             }else{
+                var err = respone.data.Messsage.ErrorMsg;
+             }            
+             
+
+             webService.showPopup(err, $rootScope.title_close).then(function(res){
+
+               $state.go('dashboard.visitDetail',{vid:$scope.params.vid})
+
+             });
+         
+         },function(error){
+            webService.hideIonLoader();  //show ionic loading
+            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+         });
+
+      // webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
+      //      $state.go('dashboard.visitDetails');
+      //  });
+
+    }
+      $scope.AddSalesperson = function(){
     
       webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
            $state.go('dashboard.visitDetails');
@@ -268,7 +378,6 @@ console.log($scope.visitModel.VISIT_TIME_FROM);
           webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
     });
   }
-
 
     $scope.$on('$ionicView.beforeEnter', function() {
       

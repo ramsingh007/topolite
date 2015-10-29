@@ -13,7 +13,7 @@
         <div class="container">
             <div class="row">
                 <div class="white_box heading-area">
-                   <span><i class="ion-ios-location"></i> Visit ID Form</span>
+                   <span><i class="ion-ios-location"></i>Visit ID Form</span>
 				 <!--    <button class="button button-small btn-red right-btn">add</button> -->
                 </div>
 				<div class="list">
@@ -101,11 +101,11 @@
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-telephone"></i> Customer/Contact Form</span>
-				 <button class="button button-small btn-red right-btn">add</button>
+				 <button class="button button-small btn-red right-btn"  ng-click="goToState('dashboard.addContact')" >add</button>
                 </div>				
 				<div class="list">
 				  <div class="item item-button-right">1
-					<button class="button button-small btn-red">
+					<button class="button button-small btn-red" ng-click="goToState('dashboard.addContact',{vid:visitdetailss.VISIT_ID,cid:1})">
 					  <i class="ion-android-create"></i>
 					</button>
 				  </div>
@@ -140,13 +140,13 @@
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-person"></i> Sales Person Form</span>
-				    <button class="button button-small btn-red right-btn">add</button>
+				    <button class="button button-small btn-red right-btn" ng-click="goToState('dashboard.add_salesperson')">add</button>
                 </div>
                  <p ng-show="Saledetails==''">NO Sales Person Details  </p>
 <div ng-repeat="spf in Saledetails">
                <div class="list">
 				  <div class="item item-button-right">1
-					<button class="button button-small btn-red">
+					<button class="button button-small btn-red" ng-click="goToState('dashboard.add_salesperson',{vid:visitdetailss.VISIT_ID,lid:1})">
 					  <i class="ion-android-create"></i>
 					</button>
 				  </div>
@@ -206,13 +206,13 @@
             <div class="row">
 				 <div class="white_box heading-area">
                     <span><i class="fa fa-map-marker"></i> Additional info</span>
-				    <button class="button button-small btn-red right-btn" ng-click="goToState('dashboard.addInfo')" >add</button>
+				    <button class="button button-small btn-red right-btn" ng-click="goToState('dashboard.addInfo',{vid:visitdetailss.VISIT_ID})" >add</button>
                 </div>
                 <p ng-show="VisitAdditional==''">NO Additional info Found</p>
                 <div ng-repeat="adinfo in VisitAdditional"> 
                 <div class="list">
 				  <div class="item item-button-right">1
-					<button class="button button-small btn-red">
+					<button class="button button-small btn-red"  ng-click="goToState('dashboard.addInfo',{vid:visitdetailss.VISIT_ID,infoId:1})">
 					  <i class="ion-android-create"></i>
 					</button>
 				  </div>
@@ -242,13 +242,14 @@
             <div class="row">
 				 <div class="white_box heading-area">
                      <span><i class="fa fa-map-marker"></i> Product </span>
-				    <button class="button button-small btn-red right-btn"  ng-click="goToState('dashboard.addProduct')" >add</button>
+				    <button class="button button-small btn-red right-btn"  ng-click="goToState('dashboard.addProduct',{vid:visitdetailss.VISIT_ID})" >add</button>
                 </div>
                 <p ng-show="SaleProduct==''">NO Product Found</p>
                  <div ng-repeat="product in SaleProduct"> 
+               
                <div class="list">
 				  <div class="item item-button-right">1
-					<button class="button button-small btn-red">
+					<button class="button button-small btn-red" ng-click="goToState('dashboard.addProduct',{vid:visitdetailss.VISIT_ID,pId:1})">
 					  <i class="ion-android-create"></i>
 					</button>
 				  </div>
@@ -260,34 +261,35 @@
 				  </div> <div class="item">					
 					Item category
 					<span class="item-note">
-					  {{product.ALERT_DATE}}
+					  {{product.ITEM_TYPE}}
 					</span>
 				  </div> <div class="item">					
 					Item Code
 					<span class="item-note">
-					   {{product.ALERT_DATE}}
+					   {{product.ITEM_CODE}}
 					</span>
 				  </div> <div class="item">					
 					Description
 					<span class="item-note">
-					   {{product.ALERT_DATE}}
+					   {{product.DESCRIPTION}}
 					</span>
 				  </div> 
 				  <div class="item">					
 					Qty
 					<span class="item-note">
-					   {{product.ALERT_DATE}}
+					   {{product.QUANTITY}}
 					</span>
 				  </div> 
 				  <div class="item">					
 					Remark
 					<span class="item-note">
-					   {{product.ALERT_DATE}}
+					   {{product.VISIT_REMARK}}
 					</span>
 				  </div> 				  
 				</div>	
             </div>
             </div>
+
 
                  <!--end repeat product info person div-->
         </div>
