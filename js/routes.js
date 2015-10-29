@@ -153,8 +153,23 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
    
   })
+
+ .state('visit.add_salesperson', {
+    url: '/add_salesperson/:vid/:lid',
+	views: {
+		'dashboard': {
+			templateUrl:'templates/layouts/visit/add_salesperson.html',
+			controller: 'visit_Ctrl',
+			title: 'Update Visit'
+		}
+	}
+   
+  })
+
+
+
  .state('visit.addSales', {
-    url: '/add_sales/:vId/:pId',
+    url: '/add_sales/:vid/:pId',
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_info.html',
@@ -164,19 +179,23 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
     
   })
+
 .state('visit.addContact', {
-    url: '/add_contact/:vId/:pId',
+   url: '/add_contact/:vid/:cid',
 	views: {
 		'dashboard': {
-			templateUrl:'templates/layouts/visit/add_info.html',
+			templateUrl:'templates/layouts/visit/add_contact.html',
 			controller: 'visit_Ctrl',
 			title: 'Update Contact'
 		}
 	}
    
   })
+
+   
+
  .state('visit.addProduct', {
-    url: '/add_product/:vId/:pId',
+ url: '/add_product/:vid/:pId',
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_product.html',
@@ -186,8 +205,10 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
 
   })
+
  .state('visit.addInfo', {
-    url: '/add_info/:vId/:infoId',
+    url: '/add_info/:vid/:infoId',
+
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_info.html',
