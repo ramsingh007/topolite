@@ -1,6 +1,6 @@
 angular.module('topolite.auth_ctrl', [])
 
-.controller('AuthCtrl', function($state, $stateParams, $scope, $rootScope, webService, $localStorage) {
+.controller('AuthCtrl', function($ionicSideMenuDelegate, $state, $stateParams, $scope, $rootScope, webService, $localStorage) {
   
 
 

@@ -1,6 +1,6 @@
 angular.module('topolite.Attendctrl', [])
 
-.controller('attend_Ctrl', function($state, $localStorage,$http,$stateParams, $scope, $rootScope, webService) {
+.controller('attend_Ctrl', function($ionicSideMenuDelegate, $state, $localStorage,$http,$stateParams, $scope, $rootScope, webService) {
 
 
     $scope.time_in = function(){

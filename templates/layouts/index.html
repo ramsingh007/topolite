@@ -3,12 +3,12 @@
 
 
 <ion-nav-bar align-title="center" class="bar-positive header">
-  <ion-nav-back-button class="button-icon">
+  <ion-nav-back-button class="button-icon" > <!-- class="button-icon" class="button-clear" -->
   <i class="ion-chevron-left"></i> Back
-  </ion-nav-back-button>
+  </ion-nav-back-button> 
 </ion-nav-bar>
 
-<ion-nav-view name="dashboard" animation="slide-left-right"></ion-nav-view>
+<ion-nav-view name="dashboard"></ion-nav-view>
 </ion-side-menu-content>
 
     <ion-side-menu side="left" ng-controller="NavController">
@@ -18,11 +18,11 @@
       </ion-header-bar>
       <ion-content has-header="true">
         <ul class="list">
-          <a ui-href="#/dashboard/home" class="item" ng-click="toggleLeft()">Home</a>
-          <a ui-href="#/dashboard/bpSearch" class="item" ng-click="toggleLeft()">BP Reports</a>
-          <a  ui-href="#/dashboard/visitSearch" class="item" ng-click="toggleLeft()">Visit Record</a>
+          <li><a ui-sref="dashboard.home" class="item" ng-click="toggleLeft()">Home</a></li>
+          <li><a ui-sref="bp.bpSearch" class="item" ng-click="toggleLeft()">BP Search</a></li>
+          <li><a  ui-sref="dashboard.visitSearch" class="item" ng-click="toggleLeft()">Visit Search</a></li>
 		  
-		  <a ng-click="logout()" class="item">Logout</a>
+		      <li><a ng-click="logout()" class="item">Logout</a></li>
 		  
 		 
         </ul>

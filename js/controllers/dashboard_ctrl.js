@@ -1,8 +1,8 @@
 angular.module('topolite.dashboard_ctrl', [])
 
-.controller('DashboardCtrl', function($state, $localStorage, $http, $stateParams, $scope, $rootScope, webService) {
+.controller('DashboardCtrl', function($ionicNavBarDelegate, $ionicSideMenuDelegate, $state, $localStorage, $http, $stateParams, $scope, $rootScope, webService) {
   	 
-
+	//$ionicNavBarDelegate.showBackButton(false);
 
 	 $scope.Company_No=$localStorage.currentUser.UserDetails.Company_No+'-'+$localStorage.currentUser.UserDetails.Location_No;
 
