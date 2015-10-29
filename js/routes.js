@@ -18,10 +18,11 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
     controller: 'AuthCtrl',
     title: 'Sign In'
   })
+
  .state('dashboard', {
     abstract: true,
     url: '/dashboard',
-    templateUrl: 'templates/layouts/dashboard/index.html'
+    templateUrl: 'templates/layouts/index.html'
   })
  .state('dashboard.home', {
     url: '/home',
@@ -32,9 +33,15 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 			title: 'Dashboard'
 		}
 	}
-	
   })
- .state('dashboard.bpSearch', {
+
+ 
+ .state('bp', {
+    abstract: true,
+    url: '/dashboard',
+    templateUrl: 'templates/layouts/index.html'
+  })
+ .state('bp.bpSearch', {
     url: '/bp_search',
 	views: {
 		'dashboard': {
@@ -43,11 +50,8 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 			title: 'BPSearch'
 		}
 	}
-    
-	
-	
   })
- .state('dashboard.bpMaster', {
+ .state('bp.bpMaster', {
     url: '/bp_master',
 	 views: {
 		'dashboard': {
@@ -56,10 +60,8 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 			title: 'BPResults'
 		}
 	}
-	
-    
   })
- .state('dashboard.bpDetail', {
+ .state('bp.bpDetail', {
     url: '/bp_detail/:bpId',
 	views: {
 		'dashboard': {
@@ -68,9 +70,8 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 			title: 'BPDetail'
 		}
 	}
-    
   })
- .state('dashboard.bpCreate', {
+ .state('bp.bpCreate', {
     url: '/bp_create/:bpId',
 	views: {
 		'dashboard': {
@@ -79,9 +80,8 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 			title: 'BPCreateUpdate'
 		}
 	}
-   
   })
-  .state('dashboard.addcontact', {
+ .state('bp.addcontact', {
     url: '/add_contact/:bpId/:ID',
 	views: {
 		'dashboard': {
@@ -90,9 +90,15 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 			title: 'BPContactCreateUpdate'
 		}
 	}
-    
   })
- .state('dashboard.visitSearch', {
+
+
+ .state('visit', {
+    abstract: true,
+    url: '/dashboard',
+    templateUrl: 'templates/layouts/index.html'
+  })
+ .state('visit.visitSearch', {
     url: '/visit_search',
 	views: {
 		'dashboard': {
@@ -103,7 +109,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
     
   })
- .state('dashboard.visitList', {
+ .state('visit.visitList', {
     url: '/visit_list',
 	views: {
 		'dashboard': {
@@ -114,7 +120,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
    
   })
- .state('dashboard.visitDetail', {
+ .state('visit.visitDetail', {
     url: '/visit_detail/:vId',
 	views: {
 		'dashboard': {
@@ -125,7 +131,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
     
   })
- .state('dashboard.addVisit', {
+ .state('visit.addVisit', {
     url: '/add_visit',
 	views: {
 		'dashboard': {
@@ -136,7 +142,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
    
   })
- .state('dashboard.updateVisit', {
+ .state('visit.updateVisit', {
     url: '/update_visit/:vId',
 	views: {
 		'dashboard': {
@@ -147,7 +153,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
    
   })
- .state('dashboard.addSales', {
+ .state('visit.addSales', {
     url: '/add_sales/:vId/:pId',
 	views: {
 		'dashboard': {
@@ -158,7 +164,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
     
   })
-.state('dashboard.addContact', {
+.state('visit.addContact', {
     url: '/add_contact/:vId/:pId',
 	views: {
 		'dashboard': {
@@ -169,7 +175,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
    
   })
- .state('dashboard.addProduct', {
+ .state('visit.addProduct', {
     url: '/add_product/:vId/:pId',
 	views: {
 		'dashboard': {
@@ -180,7 +186,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
 
   })
- .state('dashboard.addInfo', {
+ .state('visit.addInfo', {
     url: '/add_info/:vId/:infoId',
 	views: {
 		'dashboard': {

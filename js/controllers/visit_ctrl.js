@@ -1,6 +1,6 @@
 angular.module('topolite.VisitCtrl', [])
 
-.controller('visit_Ctrl', function($state, $stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
+.controller('visit_Ctrl', function($ionicSideMenuDelegate, $state, $stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
 
    $scope.params = $stateParams;
 
