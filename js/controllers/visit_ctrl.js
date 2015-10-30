@@ -178,12 +178,110 @@ angular.module('topolite.VisitCtrl', [])
 
    $scope.SaveVisit = function(){
 
-    console.log($scope.visitModel);
 
-     /* webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
-           $state.go('dashboard.visitDetails');
-  	   });
-*/
+    console.log($scope.visitModel.CUSTOMER_NAME);
+              $scope.visitModel.CUSTOMER_NO
+              $scope.visitModel.CUSTOMER_NAME
+               $scope.visitModel.VISIT_TIME_TO
+                $scope.visitModel.VISIT_DATE
+                 $scope.visitModel.REMARK
+                 $scope.visitModel.AREA_NAME
+                 $scope.visitModel.VISIT_TIME_TO
+                  $scope.visitModel.VISIT_TIME_FROM
+                 
+
+
+
+//         var urlParam = 'VisitService/VisitRecord.svc/SetAddInfoVisit';  
+//         var methodType = 'POST';
+//         var dataJson ={
+//     "Company_no": "CBS",
+//     "LOCATION_no": "Noida",
+//     "USER_ID": "ADMIN",
+//     "VISIT_DETAILS": "dfdf",
+//     "ADDRESS": "Noida",
+//     "ADD_ID": "1",
+//     "CUSTOMER_NAME": $scope.visitModel.CUSTOMER_NAME,
+//     "CUSTOMER_NO": $scope.visitModel.CUSTOMER_NO,
+//     "NUM_TYPE_NO": $scope.visitModel.CUSTOMER_NO,
+//     "REMARK": $scope.visitModel.CUSTOMER_NO,
+//     "STATUS": $scope.visitModel.CUSTOMER_NO,
+//     "VISIT_DATE": $scope.visitModel.VISIT_DATE,
+//     "VISIT_ID": $scope.visitModel.CUSTOMER_NO,
+//     "VISIT_TIME_FROM": $scope.visitModel.VISIT_TIME_FROM,
+//     "VISIT_TIME_TO": $scope.visitModel.VISIT_TIME_TO,
+//     "Sale": [
+//         {
+//             "ALERT": 1,
+//             "ALERT_DATE": "10/10/2015",
+//             "ALERT_TIME": "25",
+//             "NEXT_ACTION": null,
+//             "NEXT_ACTION_DATE": "10/10/2015",
+//             "NEXT_ACTION_TIME": "45",
+//             "SALES_PERSON_NAME": "Amrit Singh",
+//             "SALES_PERSON_NO": "ASINGH",
+//             "SALES_LI_NO": 1
+//         },
+//         {
+//             "ALERT_DATE": "10/10/2015",
+//             "ALERT_TIME": "8",
+//             "NEXT_ACTION": "5",
+//             "NEXT_ACTION_DATE": "10/10/2015",
+//             "NEXT_ACTION_TIME": "8",
+//             "SALES_PERSON_NAME": "Amrit Singh",
+//             "SALES_PERSON_NO": "ASINGH",
+//             "SALES_LI_NO": 2
+//         }
+//     ],
+//     "SaleContact": [
+//         {
+//             "CUST_CONTACT_PERSON": "RGYTRGY",
+//             "CONTACT_POSITION": "SADF",
+//             "EMAIL": "7",
+//             "MOBILE_NO": "8",
+//             "CONTACT_LI_NO": 1
+//         }
+//     ]
+// };
+
+
+
+ 
+
+    
+//       //webService.hideIonLoader(); 
+//       //console.log(dataJson);
+//       //return;
+
+//       webService.webCall(urlParam,methodType,dataJson)
+//          .then(function(respone){
+//              webService.hideIonLoader(); 
+             
+//              if($scope.params.vid !=''){
+//                 var err = respone.data.Messsage.ErrorMsg;
+//              }else{
+//                 var err = respone.data.Messsage.ErrorMsg;
+//              }            
+             
+
+//              webService.showPopup(err, $rootScope.title_close).then(function(res){
+
+//                 $state.go('dashboard.visitDetail',{vid:$scope.params.vid})
+
+//              });
+         
+//          },function(error){
+//             webService.hideIonLoader();  //show ionic loading
+//             webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+//          });
+
+
+
+
+//      /* webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
+//            $state.go('dashboard.visitDetails');
+//   	   });
+// */
 
     }
   /********************  Visit Add (Visit, Customer, Sales) Ends    *********************/

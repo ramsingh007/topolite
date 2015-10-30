@@ -231,6 +231,86 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	}
    
   })
+  
+  
+ .state('report', {
+    abstract: true,
+    url: '/dashboard',
+    templateUrl: 'templates/layouts/index.html'
+  })
+   .state('report.home', {
+    url: '/reports',
+	views: {
+		'dashboard': {
+			templateUrl: 'templates/layouts/reports/reports.html',
+			controller: 'report_ctrl',
+			title: 'Report'
+		}
+	}
+  })
+  .state('report.customer_report', {
+    url: '/customer_report',
+	views: {
+		'dashboard': {
+			templateUrl: 'templates/layouts/reports/customer_report.html',
+			controller: 'report_ctrl',
+			title: 'Customer report'
+		}
+	}
+  })
+ .state('report.customer_report_table', {
+    url: '/customer_report_table',
+	 views: {
+		'dashboard': {
+			templateUrl: 'templates/layouts/reports/customer_report_table.html',
+			controller: 'report_ctrl',
+			title: 'Customer report table'
+		}
+	}
+  })
+ .state('report.pending_report', {
+    url: '/pending_report',
+	views: {
+		'dashboard': {
+			templateUrl:'templates/layouts/reports/pending_report.html',
+			controller: 'report_ctrl',
+			title: 'Pending report'
+		}
+	}
+  })
+ .state('report.pending_report_table', {
+    url:'/pending_report_table',
+	views: {
+		'dashboard': {
+			templateUrl:'templates/layouts/reports/pending_report_table.html',
+			controller: 'report_ctrl',
+			title: 'Pending reports table'
+		}
+	}
+  })
+ .state('report.target_acchievement', {
+    url: '/target_acchievement',
+	views: {
+		'dashboard': {
+			templateUrl:'templates/layouts/reports/target_acchievement.html',
+			controller: 'report_ctrl',
+			title:'target achievement'
+		}
+	}
+  })
+  .state('report.target_acchievement_table', {
+    url: '/target_acchievement_table',
+	views: {
+		'dashboard': {
+			templateUrl:'templates/layouts/reports/target_acchievement_table.html',
+			controller: 'report_ctrl',
+			title: 'target achievement table'
+		}
+	}
+  })
+  
+  
+  
 
 })
 
