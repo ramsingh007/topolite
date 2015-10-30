@@ -54,7 +54,7 @@ angular.module('topolite.bp_ctrl', [])
 		    webService.hideIonLoader();//hide ionic loading
 		    if(respone.data.GetBPByNameResult.BPMesssage.Success){
 		    	$rootScope.bpResults = respone.data.GetBPByNameResult.BPResult;
-		    	$state.go('dashboard.bpMaster');
+		    	$state.go('bp.bpMaster');
 		    }else{
 		        webService.showPopup(respone.data.GetBPByNameResult.BPMesssage.ErrorMsg, $rootScope.title_close);
 		    }
@@ -164,7 +164,7 @@ angular.module('topolite.bp_ctrl', [])
 
              webService.showPopup(err, $rootScope.title_close).then(function(res){
 
-                $state.go('dashboard.bpSearch')
+                $state.go('bp.bpSearch')
 
              });
          
@@ -237,7 +237,7 @@ angular.module('topolite.bp_ctrl', [])
    $scope.$on('$ionicView.beforeEnter', function() {
     	
     	//Call method when on bpDetail screen	
-    	if (($.inArray($state.current.name, ['dashboard.bpDetail']) !== -1)  || ($.inArray($state.current.name, ['dashboard.bpCreate']) !== -1 && $scope.params.bpId!='') ) {
+    	if (($.inArray($state.current.name, ['bp.bpDetail']) !== -1)  || ($.inArray($state.current.name, ['bp.bpCreate']) !== -1 && $scope.params.bpId!='') ) {
     		$scope.BPgetDetail();
     	}
     

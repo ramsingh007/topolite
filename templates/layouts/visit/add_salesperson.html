@@ -1,0 +1,60 @@
+<ion-view title="{{(params.lid != '') ? 'Update':'Create'}} Sales Person info">
+
+
+
+<ion-content>
+	<div class="list list-inset">
+    	<label class="item item-input item-stacked-label">
+            <span>Sales Person No</span>
+            <input type="text" ng-model="sales_pinfo.Received">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span>Name</span>
+            <input type="text" ng-model="sales_pinfo.performed">
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span>Next Action</span>
+            <input type="text" ng-model="sales_pinfo.Product">
+        </label>
+         <label class="item item-input item-stacked-label">
+            <span>Next Action Date</span>
+            <input type="text" ng-model="sales_pinfo.Product">
+        </label> 
+         <label class="item item-input item-stacked-label">
+            <span> Next Action Time</span>
+            <input type="text" ng-model="sales_pinfo.Product">
+        </label>
+          <label class="item item-input item-stacked-label">
+            <span> Alert Required</span>
+             <select >
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+        </label>
+          <label class="item item-input item-stacked-label">
+            <span>Alert Date</span>
+            <input type="text" ng-model="sales_pinfo.Product">
+        </label>
+          <label class="item item-input item-stacked-label">
+            <span>Alert Time</span>
+            <input type="text" ng-model="sales_pinfo.Product">
+        
+        <button class="button button-block button-small button-assertive" ng-click="AddSalesperson(sales_pinfo)">ADD</button>
+       
+    </div>
+</ion-content>
+</ion-view>
+              
+                    
+                          
+                    
+                         
+                   
+                   
+                   
+                   
+                 
+                    
+                  
+                    
+                    

@@ -6,21 +6,23 @@
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
             <span>Order Received</span>
-            <input type="text" ng-model="info.Received">
+            <input type="text" ng-model="info.ORDER_RECEIVED">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Demo performed</span>
-            <input type="text" ng-model="info.performed">
+            <input type="text" ng-model="info.DEMO_PERFORMED">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Demo Product</span>
-            <input type="text" ng-model="info.Product">
+            <input type="text" ng-model="info.PRODUCT_DEMO">
         </label>
        
         
-        <button class="button button-block button-small button-assertive" ng-click="save_info(info)">ADD</button>
+        <button class="button button-block button-small button-assertive" ng-click="AddVisitInfo(info)">ADD</button>
        
     </div>
 </ion-content>
 </ion-view>
 
+
+      

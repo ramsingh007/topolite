@@ -1,14 +1,14 @@
 <ion-view title="Visit Records">
  <ion-nav-buttons side="right">
-    <button class="button button-small" ng-click="goToState('dashboard.addVisit')">Create New</button>
+    <button class="button button-small" ng-click="goToState('visit.addVisit')">Create New</button>
 </ion-nav-buttons>
 <ion-content>
 <div class="list master-list">
       <div ng-show="visitResults.length!=0" class="item" ng-repeat="list in visitResults">
         <div class="master-head">
           <span>{{list.VISIT_ID}}</span>
-            <button class="button button-stable button-small" ng-click="goToState('dashboard.visitDetail',{vId:list.VISIT_ID})" >View</button>
-            <button class="button button-stable button-small" ng-click="goToState('dashboard.addVisit')"  >Edit</button>
+            <button class="button button-stable button-small" ng-click="goToState('visit.visitDetail',{vId:list.VISIT_ID})" >View</button>
+            <button class="button button-stable button-small" ng-click="goToState('visit.addVisit')"  >Edit</button>
         </div>
         <div class="master-body">
           <p>{{list.CUSTOMER_NAME}}</p>
