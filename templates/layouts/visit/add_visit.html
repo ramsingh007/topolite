@@ -49,8 +49,9 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Address</label>
-								<div class="col-xs-7"><input type="text" ng-readonly="true" ng-model="visitModel.ADDRESS" class="form-control">
-                                <p class="ion-android-locate" ng-click="getGeoLocation()" style="cursor:pointer" ></p>
+								<div class="col-xs-7">
+                                <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="visitModel.ADDRESS" class="form-control">
+                                
                                 </div>
 							</div>
 							<div class="form-group">

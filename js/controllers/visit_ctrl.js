@@ -10,8 +10,8 @@ angular.module('topolite.visit_ctrl', [])
    $scope.visitModel.VISIT_TIME_TO = new Date();
    // $scope.date = new Date();
    // var date = new Date();
-   //$scope.visitModel.VISIT_TIME_FROM = $filter('date')(new Date(), 'HH:mm');
-	//console.log($scope.visitModel.VISIT_TIME_FROM);
+   // $scope.visitModel.VISIT_TIME_FROM = $filter('date')(new Date(), 'HH:mm');
+	 // console.log($scope.visitModel.VISIT_TIME_FROM);
    $scope.visitModel.VISIT_DATE = new Date();
    
    $scope.fillAreaArr = [];
@@ -76,12 +76,13 @@ angular.module('topolite.visit_ctrl', [])
   $scope.$on('$ionicView.beforeEnter', function() {
     //Call method when on bpDetail screen 
       if ($.inArray($state.current.name, ['visit.addVisit']) !== -1) {
-        //$scope.fillVisitDoc();
-        //$scope.fillVisitSalesObj();
+        $scope.fillVisitDoc();
+        $scope.fillVisitSalesObj();
       }
   });
    
    $scope.initVisitModel = function(){
+       $scope.visitModel = {};
        $scope.visitModel.Info = {};
    
        $scope.visitModel.Contact = [{
