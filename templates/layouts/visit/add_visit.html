@@ -149,8 +149,7 @@
                     <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Sales Person No </label>
                             <div class="col-xs-7">
-							<input type="text" class="form-control" ng-init="visitModel.Sales[$index]['SALES_PERSON_NO'] = fillSalesArr[0]['SALES_PERSON_NO'] " ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']" >
-							<select ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']" ng-options="item.SALES_PERSON_NO as item.SALES_PERSON_NO for item in fillSalesArr" ></select>							
+							<select class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']" ng-init="visitModel.Sales[$index]['SALES_PERSON_NO'] = fillSalesArr[0]['SALES_PERSON_NO'] " ng-options="item.SALES_PERSON_NO as item.SALES_PERSON_NO for item in fillSalesArr" ></select>							
 							</div>
                         </div>
                         <div class="form-group">

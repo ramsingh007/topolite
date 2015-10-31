@@ -1,4 +1,4 @@
-angular.module('topolite.reportctrl', [])
-.controller('report_ctrl', function() {
+angular.module('topolite.report_ctrl', [])
+.controller('ReportCtrl', function() {
 
 });

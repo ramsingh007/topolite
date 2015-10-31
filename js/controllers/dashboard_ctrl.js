@@ -2,7 +2,7 @@ angular.module('topolite.dashboard_ctrl', [])
 
 .controller('DashboardCtrl', function($ionicNavBarDelegate, $ionicSideMenuDelegate, $state, $localStorage, $http, $stateParams, $scope, $rootScope, webService) {
   	 
-	//$ionicNavBarDelegate.showBackButton(false);
+	$ionicNavBarDelegate.showBackButton(false);
 
 	 $scope.Company_No=$localStorage.currentUser.UserDetails.Company_No+'-'+$localStorage.currentUser.UserDetails.Location_No;
 
@@ -14,19 +14,15 @@ angular.module('topolite.dashboard_ctrl', [])
 
     $scope.change_location= function() {
 
- var value =$scope.selLoc.Comp_Location;
-    var values = value.split("-");
-    $scope.COMPANY = values[0];
-    $scope.LOCATION = values[1];
-  
+		var value =$scope.selLoc.Comp_Location;
+		var values = value.split("-");
+		$scope.COMPANY = values[0];
+		$scope.LOCATION = values[1];
 
-   $rootScope.currentUser.UserDetails.Location_No=$localStorage.currentUser.UserDetails.Location_No=$scope.LOCATION;
-   $rootScope.currentUser.UserDetails.Company_No=$localStorage.currentUser.UserDetails.Company_No=$scope.COMPANY;
-    	
-
-    	console.log($scope.selLoc);
-
-		webService.showPopup('Location has been changed', $rootScope.title_ok);
+		$rootScope.currentUser.UserDetails.Location_No=$localStorage.currentUser.UserDetails.Location_No=$scope.LOCATION;
+		$rootScope.currentUser.UserDetails.Company_No=$localStorage.currentUser.UserDetails.Company_No=$scope.COMPANY;
+		//console.log($scope.selLoc);
+		webService.showPopup('Location updated', $rootScope.title_ok);
     }
 
 

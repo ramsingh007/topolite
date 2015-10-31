@@ -65,7 +65,7 @@ if ($scope.signin.basicCheckValue == true) {
 
      $scope.signin.email=window.localStorage.getItem("password");
      $scope.signin.password=window.localStorage.getItem("password");
-     console.log($scope.signin.email);
+     //console.log($scope.signin.email);
 
   if($scope.signin.email != null &&  $scope.signin.password != null) {
             $scope.signIn();

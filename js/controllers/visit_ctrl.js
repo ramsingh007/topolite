@@ -1,6 +1,6 @@
-angular.module('topolite.VisitCtrl', [])
+angular.module('topolite.visit_ctrl', [])
 
-.controller('visit_Ctrl', function($ionicSideMenuDelegate, $state, $stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
+.controller('VisitCtrl', function($ionicSideMenuDelegate, $state, $stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
 
    $scope.params = $stateParams;
 
@@ -21,7 +21,7 @@ angular.module('topolite.VisitCtrl', [])
    
    $scope.fillVisitDoc = function(){
 	   webService.showIonLoader();  //show ionic loading
-		var urlParam = 'VisitService/VisitRecord.svc/GetDocSeries/'
+		 var urlParam = 'VisitService/VisitRecord.svc/GetDocSeries/'
 						+$rootScope.currentUser.UserDetails.Company_No
 						+'/'+$rootScope.currentUser.UserDetails.Location_No
 						+'/43';
@@ -44,7 +44,7 @@ angular.module('topolite.VisitCtrl', [])
 		});
    }
    
-   $scope.fillVisitDoc();
+   
    
    $scope.fillVisitSalesObj = function(){
 	   webService.showIonLoader();  //show ionic loading
@@ -73,7 +73,13 @@ angular.module('topolite.VisitCtrl', [])
 		});
    }
    
-   $scope.fillVisitSalesObj();
+  $scope.$on('$ionicView.beforeEnter', function() {
+    //Call method when on bpDetail screen 
+      if ($.inArray($state.current.name, ['visit.addVisit']) !== -1) {
+        //$scope.fillVisitDoc();
+        //$scope.fillVisitSalesObj();
+      }
+  });
    
    $scope.initVisitModel = function(){
        $scope.visitModel.Info = {};
@@ -107,8 +113,9 @@ angular.module('topolite.VisitCtrl', [])
 
  $scope.getGeoLocation= function(){
     var options = {timeout: 2000, enableHighAccuracy: true }; // also try with false.
-      navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
-    }
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+}
+     
      var onSuccess = function(position) {
       var le ='';
       $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&sensor=true').then(function(res){

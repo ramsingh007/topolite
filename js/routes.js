@@ -1,5 +1,5 @@
 'use strict';
-angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topolite.base_ctrl', 'topolite.auth_ctrl','topolite.Attendctrl', 'topolite.dashboard_ctrl', 'topolite.bp_ctrl','topolite.VisitCtrl','topolite.services', 'topolite.directives'])
+angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topolite.base_ctrl', 'topolite.auth_ctrl','topolite.Attendctrl', 'topolite.dashboard_ctrl', 'topolite.bp_ctrl','topolite.visit_ctrl','topolite.report_ctrl','topolite.services', 'topolite.directives'])
 
 .constant('myConfig', {
   'apiUrl': 'http://122.176.122.143:81/'
@@ -38,7 +38,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
  
  .state('bp', {
     abstract: true,
-    url: '/dashboard',
+    url: '/bp',
     templateUrl: 'templates/layouts/index.html'
   })
  .state('bp.bpSearch', {
@@ -95,7 +95,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 
  .state('visit', {
     abstract: true,
-    url: '/dashboard',
+    url: '/visit',
     templateUrl: 'templates/layouts/index.html'
   })
  .state('visit.visitSearch', {
@@ -103,7 +103,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/visit_search.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Visit Search'
 		}
 	}
@@ -114,7 +114,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/visit_list.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Visit List'
 		}
 	}
@@ -125,7 +125,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/visit_details.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Visit Details'
 		}
 	}
@@ -136,7 +136,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_visit.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Add Visit'
 		}
 	}
@@ -147,7 +147,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_info.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Update Visit'
 		}
 	}
@@ -159,7 +159,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_salesperson.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Update Visit'
 		}
 	}
@@ -173,7 +173,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_info.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Update Sales'
 		}
 	}
@@ -185,7 +185,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_contact.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Update Contact'
 		}
 	}
@@ -199,7 +199,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_product.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Add / Update Product'
 		}
 	}
@@ -212,7 +212,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_info.html',
-			controller: 'visit_Ctrl',
+			controller: 'VisitCtrl',
 			title: 'Add / Update info'
 		}
 	}
@@ -235,15 +235,15 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
   
  .state('report', {
     abstract: true,
-    url: '/dashboard',
+    url: '/report',
     templateUrl: 'templates/layouts/index.html'
   })
    .state('report.home', {
-    url: '/reports',
+    url: '/home',
 	views: {
 		'dashboard': {
 			templateUrl: 'templates/layouts/reports/reports.html',
-			controller: 'report_ctrl',
+			controller: 'ReportCtrl',
 			title: 'Report'
 		}
 	}
@@ -253,7 +253,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl: 'templates/layouts/reports/customer_report.html',
-			controller: 'report_ctrl',
+			controller: 'ReportCtrl',
 			title: 'Customer report'
 		}
 	}
@@ -263,7 +263,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	 views: {
 		'dashboard': {
 			templateUrl: 'templates/layouts/reports/customer_report_table.html',
-			controller: 'report_ctrl',
+			controller: 'ReportCtrl',
 			title: 'Customer report table'
 		}
 	}
@@ -273,7 +273,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/reports/pending_report.html',
-			controller: 'report_ctrl',
+			controller: 'ReportCtrl',
 			title: 'Pending report'
 		}
 	}
@@ -283,7 +283,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/reports/pending_report_table.html',
-			controller: 'report_ctrl',
+			controller: 'ReportCtrl',
 			title: 'Pending reports table'
 		}
 	}
@@ -293,7 +293,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/reports/target_acchievement.html',
-			controller: 'report_ctrl',
+			controller: 'ReportCtrl',
 			title:'target achievement'
 		}
 	}
@@ -303,7 +303,7 @@ angular.module('topolite', ['ngCookies', 'ngStorage','ionic', 'ui.router', 'topo
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/reports/target_acchievement_table.html',
-			controller: 'report_ctrl',
+			controller: 'ReportCtrl',
 			title: 'target achievement table'
 		}
 	}
