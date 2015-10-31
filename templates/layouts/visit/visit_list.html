@@ -7,7 +7,7 @@
       <div ng-show="visitResults.length!=0" class="item" ng-repeat="list in visitResults">
         <div class="master-head">
           <span>{{list.VISIT_ID}}</span>
-            <button class="button button-stable button-small" ng-click="goToState('visit.visitDetail',{vId:list.VISIT_ID})" >View</button>
+            <button class="button button-stable button-small" ng-click="goToState('visit.visitDetail',{vid:list.VISIT_ID})" >View</button>
             <button class="button button-stable button-small" ng-click="goToState('visit.addVisit')"  >Edit</button>
         </div>
         <div class="master-body">

@@ -121,7 +121,7 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
    
   })
  .state('visit.visitDetail', {
-    url: '/visit_detail/:vId',
+    url: '/visit_detail/:vid',
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/visit_details.html',
