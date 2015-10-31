@@ -6,6 +6,7 @@ angular.module('topolite.visit_ctrl', [])
 
 
    $scope.visitModel = {};
+   $scope.visitModel.DOC_SERIES = '';
    $scope.visitModel.VISIT_TIME_FROM = new Date();
    $scope.visitModel.VISIT_TIME_TO = new Date();
    // $scope.date = new Date();
@@ -33,8 +34,8 @@ angular.module('topolite.visit_ctrl', [])
 	    
 		    webService.hideIonLoader();//hide ionic loading
 		    if(respone.data.DocSeriesResult.Messsage.Success){
-		    	$scope.visitModel.DOC_SERIES = respone.data.DocSeriesResult.DocNo;
-		    }else{
+		    	$scope.visitModel.DOC_SERIES = respone.data.DocSeriesResult.Num_Type.DocNo;
+        }else{
 		        webService.showPopup(respone.data.GetBPByNameResult.Messsage.ErrorMsg, $rootScope.title_close);
 		    }
 
@@ -51,9 +52,9 @@ angular.module('topolite.visit_ctrl', [])
 		var urlParam = 'VisitService/VisitRecord.svc/GetSalesPerson/'
 						+$rootScope.currentUser.UserDetails.Company_No
 						+'/'+$rootScope.currentUser.UserDetails.Location_No
-						+'/'+$rootScope.currentUser.UserDetails.LoginName;
-						+'/null';
-						+'/'+$rootScope.currentUser.UserDetails.LoginName;
+						+'/'+$rootScope.currentUser.UserDetails.LoginName
+						+'/null'
+						+'/'+$rootScope.currentUser.UserDetails.LoginName
 
 		var methodType = 'GET'
 		var dataJson = JSON.stringify({});
@@ -63,7 +64,7 @@ angular.module('topolite.visit_ctrl', [])
 		    webService.hideIonLoader();//hide ionic loading
 		    if(respone.data.SalePersonDetailResult.Messsage.Success){
 		    	$scope.fillSalesArr = respone.data.SalePersonDetailResult.Result;
-		    }else{
+        }else{
 		        webService.showPopup(respone.data.SalePersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
 		    }
 
@@ -548,7 +549,30 @@ angular.module('topolite.visit_ctrl', [])
     
     });
 
- $scope.selected = undefined;
-    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', '49503', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    $scope.model = "";
+    $scope.clickedValueModel = "";
+    $scope.removedValueModel = "";
+
+    $scope.getTestItems = function (query) {
+        if (query) {
+            return {
+                items: [
+                    {id: "1", name: query + "1", view: "view: " + query + "1"},
+                    {id: "2", name: query + "2", view: "view: " + query + "2"},
+                    {id: "3", name: query + "3", view: "view: " + query + "3"}]
+            };
+        }
+        return {items: []};
+    };
+
+    $scope.itemsClicked = function (callback) {
+        $scope.clickedValueModel = callback;
+    };
+    $scope.itemsRemoved = function (callback) {
+        $scope.removedValueModel = callback;
+    };
+
+    
+
 });
 
