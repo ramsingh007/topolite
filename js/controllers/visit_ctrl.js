@@ -301,20 +301,14 @@ angular.module('topolite.visit_ctrl', [])
    $scope.AddVisitInfo = function(info){
 
 
-     if($scope.params.vid !=''){
+
         var urlParam = 'VisitService/VisitRecord.svc/SetAddInfoVisit';  
         var methodType = 'PUT';
-      }else{
-        var urlParam = 'VisitService/VisitRecord.svc/SetAddInfoVisit';  
-        var methodType = 'POST';
-      }
-      
-
-
-      var dataJson =JSON.stringify({
+        // var methodType = 'POST';
+        var dataJson =JSON.stringify({
         "Company_NO": $rootScope.currentUser.UserDetails.Company_No,
         "LOCATION_NO": $rootScope.currentUser.UserDetails.Location_No,
-        "User_ID": 'ADMIN',
+        "User_ID": '1',
         "DOC_NO": $scope.params.vid,       
         "DEMO_PERFORMED": info.DEMO_PERFORMED,
         "ORDER_RECEIVED":info.ORDER_RECEIVED,
@@ -635,8 +629,22 @@ angular.module('topolite.visit_ctrl', [])
     // };
 
 
-    
-    
+  
+   $scope.order = [{
+        id: '-1',
+        name: 'Select'},
+    {
+        id: 'C1',
+        name: 'Yes'},
+    {
+        id: 'C2',
+        name: 'No'}];
 
+$scope.info= {};
+$scope.info.ORDER_RECEIVED = '-1';
+$scope.info.DEMO_PERFORMED = '-1';
+  
+  
+       
 });
 
