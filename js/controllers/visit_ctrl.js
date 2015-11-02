@@ -4,16 +4,9 @@ angular.module('topolite.visit_ctrl', [])
 
    $scope.params = $stateParams;
 
-   $scope.selected = '';
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
-   $scope.visitModel.VISIT_TIME_FROM = new Date();
-   $scope.visitModel.VISIT_TIME_TO = new Date();
-   // $scope.date = new Date();
-   // var date = new Date();
-   // $scope.visitModel.VISIT_TIME_FROM = $filter('date')(new Date(), 'HH:mm');
-	 // console.log($scope.visitModel.VISIT_TIME_FROM);
-   $scope.visitModel.VISIT_DATE = new Date();
+   
    
    $scope.fillAreaArr = [];
    $scope.fillContactArr = [];
@@ -119,6 +112,14 @@ angular.module('topolite.visit_ctrl', [])
    $scope.showContact = true;
    $scope.fillVisitContacts = function(arCode){
     $scope.showContact = true;
+
+    $scope.visitModel.Contact = [{'CUST_CONTACT_PERSON':null,
+                                  'CONTACT_POSITION':null,
+                                  'MOBILE':null,
+                                  'EMAIL':null,
+                                 }];
+
+
       webService.showIonLoader();  //show ionic loading
       var urlParam = 'VisitService/VisitRecord.svc/GetContactPerson/'
               +$rootScope.currentUser.UserDetails.Company_No
@@ -147,8 +148,8 @@ angular.module('topolite.visit_ctrl', [])
    }
 
    $scope.setVisitSelContact =  function(idx){
-    var id = webService.findInJson('CONTACT_PERSON',$scope.visitModel.Contact[idx]['CONTACT_PERSON'],$scope.fillContactArr);
-    $scope.visitModel.Contact[idx]['DESIGNATION'] = $scope.fillContactArr[id]['DESIGNATION'];
+    var id = webService.findInJson('CONTACT_PERSON',$scope.visitModel.Contact[idx]['CUST_CONTACT_PERSON'],$scope.fillContactArr);
+    $scope.visitModel.Contact[idx]['CONTACT_POSITION'] = $scope.fillContactArr[id]['DESIGNATION'];
     $scope.visitModel.Contact[idx]['EMAIL'] = $scope.fillContactArr[id]['EMAIL']; 
     $scope.visitModel.Contact[idx]['MOBILE'] = $scope.fillContactArr[id]['MOBILE'];
    }
@@ -157,6 +158,9 @@ angular.module('topolite.visit_ctrl', [])
 
 
   $scope.getCustomID = function (query) {
+
+    if(query!=''){
+
         webService.showIonLoader();  //show ionic loading
         var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
                 +$rootScope.currentUser.UserDetails.Company_No
@@ -183,10 +187,13 @@ angular.module('topolite.visit_ctrl', [])
         });
 
         return modelItem;
+      }
+      return [];
     };
 
 $scope.getCustomIDClicked = function (callback) {
     console.log(callback.item);
+    $scope.visitModel.CUSTOMER_NO = callback.item.CUSTOMER_NO;
     $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
     $scope.fillVisitArea();
 };
@@ -288,6 +295,7 @@ $scope.getGroupIDRemoved = function (callback) {
 
 
 $scope.getCustomNAME = function (query) {
+        if(query!=''){
         webService.showIonLoader();  //show ionic loading
         var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
                 +$rootScope.currentUser.UserDetails.Company_No
@@ -314,34 +322,46 @@ $scope.getCustomNAME = function (query) {
         });
 
         return modelItem;
+      }
+      return [];
     };
 
 $scope.getCustomNAMEClicked = function (callback) {
-    console.log(callback.item);
+    //console.log(callback.item);
     $scope.visitModel.CUSTOMER_NO = callback.item.CUSTOMER_NO;
+    $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
     $scope.fillVisitArea();
 
 };
 $scope.getCustomNAMERemoved = function (callback) {
-     console.log(callback.item);
+     //console.log(callback.item);
    $scope.visitModel.CUSTOMER_NO = '';
    $scope.fillAreaArr.length = 0;
 };
 
-
+$scope.arCode = '';
 $scope.getCustConatct = function(){
   console.log($scope.visitModel.AREA_NAME);
-  var arCode = $scope.visitModel.AREA_NAME.split('-')
-  $scope.fillVisitContacts(arCode[0]);
+  $scope.arCode = $scope.visitModel.AREA_NAME.split('-')
+  $scope.fillVisitContacts($scope.arCode[0]);
 }
 
    $scope.initVisitModel = function(){
        $scope.visitModel = {};
-       $scope.visitModel.Info = {};
+       $scope.visitModel.VISIT_ID = '';
+       $scope.visitModel.CUSTOMER_NO = '';
+       $scope.visitModel.CUSTOMER_NAME = '';
+       $scope.visitModel.AREA_NAME = '';
+       $scope.visitModel.ADDRESS = '';
+       $scope.visitModel.REMARK = '';
+       //$scope.visitModel.VISIT_TIME_FROM = new Date();
+       //$scope.visitModel.VISIT_TIME_TO = new Date();
+       //$scope.visitModel.VISIT_DATE = new Date();
+       //$scope.visitModel.Info = {};
    
        $scope.visitModel.Contact = [{
-                                    'CONTACT_PERSON':null,
-                                    'DESIGNATION':null,
+                                    'CUST_CONTACT_PERSON':null,
+                                    'CONTACT_POSITION':null,
                                     'MOBILE':null,
                                     'EMAIL':null,
                                    }];
@@ -351,13 +371,12 @@ $scope.getCustConatct = function(){
                                     'SALES_PERSON_NAME':null,
                                     'NEXT_ACTION':null,
                                     'NEXT_ACTION_DATE':null,
-                                    'NEXT_ACTION_TIME':1,
-                                    'ALERT_REQ':'yes',
+                                    'NEXT_ACTION_TIME':null,
+                                    'ALERT':1,
                                     'ALERT_DATE':null,
-                                    'ALERT_TIME':null,
+                                    'ALERT_TIME':null
                                    }];
        
-       $scope.visitModel.Product = [];
    }
 
    $scope.initVisitModel();   
@@ -368,6 +387,7 @@ $scope.getCustConatct = function(){
 
  $scope.getGeoLocation= function(){
     var options = {timeout: 2000, enableHighAccuracy: true }; // also try with false.
+    webService.showIonLoader();  //show ionic loading
     navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
 }
      
@@ -376,11 +396,14 @@ $scope.getCustConatct = function(){
       $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&sensor=true').then(function(res){
         le = res.data.results[0].address_components.length;
           $scope.visitModel.ADDRESS = res.data.results[0].formatted_address;
+          webService.hideIonLoader();//hide ionic loading
         } ,function(err){
+          webService.hideIonLoader();//hide ionic loading
           webService.showPopup('Can\'t get location now. Try again!', $rootScope.title_close);
       });
      }
     var onError= function(error) {
+        webService.hideIonLoader();//hide ionic loading
         webService.showPopup(error, $rootScope.title_close);
     }
 
@@ -438,16 +461,42 @@ $scope.getCustConatct = function(){
 
       var urlParam = 'VisitService/VisitRecord.svc/SetAllVisit';  
       var methodType = 'POST';
-      var dataJson =JSON.stringify($scope.visitModel);
+      var dataJson =angular.toJson({
+                                    "Company_no": $rootScope.currentUser.UserDetails.Company_No,
+                                    "LOCATION_no": $rootScope.currentUser.UserDetails.Location_No,
+                                    "USER_ID": $rootScope.currentUser.UserDetails.LoginName,
+                                    "VISIT_DETAILS": $scope.visitModel.VISIT_DETAILS,
+                                    "ADDRESS": $scope.visitModel.ADDRESS,
+                                    "ADD_ID": $scope.visitModel.AREA_NAME.split('-')[0],
+                                    "CUSTOMER_NAME": $scope.visitModel.CUSTOMER_NAME,
+                                    "CUSTOMER_NO": $scope.visitModel.CUSTOMER_NO,
+                                    "NUM_TYPE_NO": $scope.visitModel.DOC_SERIES,
+                                    "VISIT_ID": "",
+                                    "REMARK": $scope.visitModel.REMARK,
+                                    "VISIT_DATE": $filter('date')($scope.visitModel.VISIT_DATE, 'MM/dd/yyyy'),
+                                    "VISIT_TIME_FROM": $scope.visitModel.VISIT_TIME_FROM,
+                                    "VISIT_TIME_TO": $scope.visitModel.VISIT_TIME_TO,
+                                    "Sale": webService.processObjectLine('Sales',$scope.visitModel.Sales),
+                                    "SaleContact": webService.processObjectLine('Contact',$scope.visitModel.Contact)
+                                });
     
-      webService.hideIonLoader(); 
       console.log(dataJson);
-      return;
 
       webService.webCall(urlParam,methodType,dataJson)
          .then(function(respone){
              webService.hideIonLoader(); 
-           
+             console.log(respone);
+
+             if(respone.data.Messsage.Success){
+
+              webService.showPopup(respone.data.Messsage.Success.ErrorMsg, $rootScope.title_ok).then(function(success){
+                $state.go(visit.visitDetail, {vid:respone.data.Messsage.VisitCode});
+              })
+
+             }else{
+                webService.showPopup(respone.data.Messsage.Success.ErrorMsg, $rootScope.title_close);
+             }
+
          },function(error){
             webService.hideIonLoader();  //show ionic loading
             webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
