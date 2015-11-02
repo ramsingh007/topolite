@@ -19,7 +19,7 @@
                        items-removed-method="itemsRemoved(callback)"
                        max-selected-items="1">
   -->
-   <select ng-model="Productadd.ITEM_TYPE"  ng-change="itemDetails(Productadd)">
+   <select class="form-control" ng-model="Productadd.ITEM_TYPE"  ng-change="itemDetails(Productadd)">
             <option value="E">ERP item</option>
             <option value="M">New ITM</option>
         </select>
@@ -28,8 +28,38 @@
         </label>
         <label class="item item-input item-stacked-label">
             <span>Item Code</span>
-            <input type="text" ng-model="Productadd.ITEM_CODE">
+          
+
+              <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="Productadd.ITEM_CODE"
+                       item-value-key="Stock_NO"
+                       item-view-value-key="Stock_NO"
+                       items-method="getProductID(query)"
+                       items-clicked-method="getProductIDClicked(callback)"
+                       items-removed-method="getProductIDRemoved(callback)"
+                       cancel-button-clicked-method="tesTing(callback)"
+                       max-selected-items="1"
+                       select-items-label="Search ITEM_CODE"
+                       selected-items-label="Selected ITEM_CODE:"
+                       component-id="Stock_NO" />
         </label>
+        
+        <label class="item item-input item-stacked-label">
+            <span>Item category</span>
+            <!-- <input type="text" ng-model="Productadd.category"> -->
+
+      <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="Productadd.category"
+                       item-value-key="Group_Code"
+                       item-view-value-key="Group_Code"
+                       items-method="getGroupID(query)"
+                       items-clicked-method="getGroupIDClicked(callback)"
+                       items-removed-method="getGroupIDRemoved(callback)"
+                       cancel-button-clicked-method="tesTing(callback)"
+                       max-selected-items="1"
+                       select-items-label="Search Group_Code"
+                       selected-items-label="Selected Group_Code:"
+                       component-id="Group_Code" />
+        </label>
+
         <label class="item item-input item-stacked-label">
             <span>Description</span>
             <input type="text" ng-model="Productadd.DESCRIPTION">
