@@ -1,6 +1,6 @@
 angular.module('topolite.services', [])
 
-.service('webService', function($ionicLoading, $ionicPopup, $http, myConfig, $rootScope, $timeout) {
+.service('webService', function($ionicLoading, $ionicPopup, $http, myConfig, $rootScope, $timeout,$filter) {
   var webService;
   webService = {
     webCall: function(urlParam, methodType, dataJson) {
@@ -41,12 +41,42 @@ angular.module('topolite.services', [])
           for (var key in object) { //this will iterate through key1 - key3
               var current = object[key];
               if (current[key1] == value) {
-                  console.log(key);
+                  //console.log(key);
                   return i; //return the index
               }
               i++; //increment if no found
           }
           return -1;
+      },
+      // Used to fetch the index of json through uniqueID of json
+      processObjectLine: function(objType,obj) { //pass it the desired matching key value pairs
+          var i = 1;
+          var lineKey = '';
+          var tmp = [];
+
+          switch (objType) {
+            case 'Contact':
+              lineKey = 'CONTACT_LI_NO';
+              for (var key in obj) { 
+                    obj[key][lineKey] = i;
+                    tmp.push(obj[key]);
+                    i++; 
+                }
+              break;
+            case 'Sales':
+              lineKey = 'SALES_LI_NO';
+              for (var key in obj) { 
+                    obj[key][lineKey] = i;
+                    obj[key]['ALERT_DATE'] = $filter('date')(obj[key]['ALERT_DATE'], 'MM/dd/yyyy');
+                    tmp.push(obj[key]);
+                    i++; 
+                }
+              break;
+          }
+
+          
+          console.log(tmp);
+          return tmp;
       }
   };
   return webService;
