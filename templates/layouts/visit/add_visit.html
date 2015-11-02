@@ -20,16 +20,20 @@
 								<label class="control-label col-xs-5">Visit ID</label>
 								<div class="col-xs-7"><input type="text" ng-readonly="true" ng-model="visitModel.VISIT_ID" class="form-control"></div>
 							</div>
+              <div class="form-group">
+                <label class="control-label col-xs-5">Visit Details</label>
+                <div class="col-xs-7"><input type="text" ng-model="visitModel.VISIT_DETAILS" class="form-control"></div>
+              </div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time From</label>
 								<div class="col-xs-7">
-                                    <input type="time" ng-model="visitModel.VISIT_TIME_FROM" class="form-control">
+                                    <input type="test" placeholder="HH.mm" class="form-control" ng-model="visitModel.VISIT_TIME_FROM" class="form-control">
 									</div>
 
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time To</label>
-								<div class="col-xs-7"><input type="time" ng-model="visitModel.VISIT_TIME_TO" class="form-control"></div>
+								<div class="col-xs-7"><input type="text" placeholder="HH.mm" class="form-control" ng-model="visitModel.VISIT_TIME_TO" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Date</label>
@@ -82,7 +86,7 @@
 								<label class="control-label col-xs-5">Area Name</label>
 								<div class="col-xs-7">
 
-                                <input type="date" ng-show="showArea" ng-model="visitModel.VISIT_DATE" class="form-control">
+                                <input type="text" ng-show="showArea" ng-model="visitModel.AREA_NAME" class="form-control">
 
                                 <select class="form-control" ng-show="!showArea" ng-model="visitModel.AREA_NAME" ng-options="item.AreaName as item.AreaName for item in fillAreaArr" ng-change="getCustConatct()" ></select>
 
@@ -132,14 +136,14 @@
                         <div class="form-group">
                             <label class="control-label col-xs-5">Person</label>
                             <div class="col-xs-7">
-                            <input type="text" class="form-control" ng-model="visitModel.Contact[$index]['CONTACT_PERSON']" ng-show="showContact" >
+                            <input type="text" class="form-control" ng-model="visitModel.Contact[$index]['CUST_CONTACT_PERSON']" ng-show="showContact" >
 
-                                <select class="form-control" ng-show="!showContact" ng-model="visitModel.Contact[$index]['CONTACT_PERSON']" ng-options="item.CONTACT_PERSON as item.CONTACT_PERSON for item in fillContactArr" ng-change="setVisitSelContact($index)"></select>
+                                <select class="form-control" ng-show="!showContact" ng-model="visitModel.Contact[$index]['CUST_CONTACT_PERSON']" ng-options="item.CONTACT_PERSON as item.CONTACT_PERSON for item in fillContactArr" ng-change="setVisitSelContact($index)"></select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Designation</label>
-                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Contact[$index]['DESIGNATION']"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Contact[$index]['CONTACT_POSITION']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Mobile No.</label>
@@ -154,8 +158,8 @@
                      <div class="form-group">
                         <div class="text-right">
                             <div class="padding plus-minus-btn" ng-click="visitModel.Contact.push({
-                                'CONTACT_PERSON':null,
-                                'DESIGNATION':null,
+                                'CUST_CONTACT_PERSON':null,
+                                'CONTACT_POSITION':null,
                                 'MOBILE':null,
                                 'EMAIL':null,
                                })">
@@ -208,7 +212,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Next Action Date</label>
-                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_DATE']"></div>
+                            <div class="col-xs-7"><input type="date" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_DATE']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Next Action Time</label>
@@ -217,20 +221,20 @@
                         <div class="form-group">
                             <label class="control-label col-xs-5">Alert Required</label>
                             <div class="col-xs-7">
-                                <select class="form-control" ng-init="visitModel.Sales[$index]['ALERT_REQ']='yes'" ng-model="visitModel.Sales[$index]['ALERT_REQ']">
-                                    <option value="yes">Yes</option>
-                                    <option value="no">No</option>
+                                <select class="form-control" ng-model="visitModel.Sales[$index]['ALERT']">
+                                    <option value=1 ng-selected="true">Yes</option>
+                                    <option value='N'>No</option>
                                 </select>
                             </div>
                         </div>
-                        <div ng-show="(visitModel.Sales[$index]['ALERT_REQ']=='yes')">
+                        <div ng-show="(visitModel.Sales[$index]['ALERT'] == 1)">
                         <div class="form-group"  >
                             <label class="control-label col-xs-5">Alert Date</label>
-                            <div class="col-xs-7"><input type="date" placeholder="yyyy-MM-dd" class="form-control" ng-model="visitModel.Sales[0]['ALERT_DATE']"></div>
+                            <div class="col-xs-7"><input type="date" class="form-control" ng-model="visitModel.Sales[$index]['ALERT_DATE']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Alert Time</label>
-                            <div class="col-xs-7"><input type="time" placeholder="HH:mm" class="form-control" ng-model="visitModel.Sales[0]['ALERT_TIME']"></div>
+                            <div class="col-xs-7"><input type="text" placeholder="HH.mm"  class="form-control" ng-model="visitModel.Sales[$index]['ALERT_TIME']"></div>
                         </div>
                         </div>
 
@@ -243,10 +247,10 @@
                                 'SALES_PERSON_NAME':null,
                                 'NEXT_ACTION':null,
                                 'NEXT_ACTION_DATE':null,
-                                'NEXT_ACTION_TIME':1,
-                                'ALERT_REQ':'yes',
+                                'NEXT_ACTION_TIME':null,
+                                'ALERT':1,
                                 'ALERT_DATE':null,
-                                'ALERT_TIME':null,
+                                'ALERT_TIME':null
                                })">
                                     <i class="ion-plus-circled"></i>
                                 </div>
