@@ -6,11 +6,16 @@
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
             <span>Order Received</span>
-            <input type="text" ng-model="info.ORDER_RECEIVED">
+    <select ng-model="info.ORDER_RECEIVED" ng-options="item.id as item.name for item in order">
+        </select>
+   
         </label>
         <label class="item item-input item-stacked-label">
             <span>Demo performed</span>
-            <input type="text" ng-model="info.DEMO_PERFORMED">
+        
+        <select ng-model="info.DEMO_PERFORMED" ng-options="item.id as item.name for item in order">
+        </select>
+
         </label>
         <label class="item item-input item-stacked-label">
             <span>Demo Product</span>
