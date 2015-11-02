@@ -203,6 +203,94 @@ $scope.getCustomIDRemoved = function (callback) {
    $scope.fillAreaArr.length = 0;
 };
 
+$scope.getProductID = function (query) {
+        webService.showIonLoader();  //show ionic loading
+        // var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
+        //         +$rootScope.currentUser.UserDetails.Company_No
+        //         +'/'+$rootScope.currentUser.UserDetails.Location_No
+        //         +'/'+query
+        //         +'/null'
+        //         +'/'+$rootScope.currentUser.UserDetails.LoginName
+      var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No+'/null/null/null';
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+          
+            webService.hideIonLoader();//hide ionic loading
+            if(respone.data.GetItemCodeResult.Messsage.Success){
+                 return respone.data.GetItemCodeResult.Result;
+            }/*else{
+                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
+            }*/
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+        });
+
+        return modelItem;
+    };
+
+$scope.getProductIDClicked = function (callback) {
+    console.log(callback.item);
+    // $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
+    // $scope.fillVisitArea();
+};
+$scope.getProductIDRemoved = function (callback) {
+   console.log(callback.item);
+   // $scope.visitModel.CUSTOMER_NAME = '';
+   // $scope.fillAreaArr.length = 0;
+};
+$scope.getGroupID = function (query) {
+        webService.showIonLoader();  //show ionic loading
+        // var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
+        //         +$rootScope.currentUser.UserDetails.Company_No
+        //         +'/'+$rootScope.currentUser.UserDetails.Location_No
+        //         +'/'+query
+        //         +'/null'
+        //         +'/'+$rootScope.currentUser.UserDetails.LoginName
+      var urlParam = 'VisitService/VisitRecord.svc/GetGroup/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+query;
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+
+          
+            webService.hideIonLoader();//hide ionic loading
+            if(respone.data.GetGroupCodeResult.Messsage.Success){
+                 return respone.data.GetGroupCodeResult.Result;
+
+            }/*else{
+                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
+            }*/
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+        });
+
+        return modelItem;
+    };
+
+$scope.getGroupIDClicked = function (callback) {
+    console.log(callback.item);
+    $scope.Productadd.DESCRIPTION= callback.item.Description;
+    // $scope.fillVisitArea();
+     console.log($scope.Productadd.DESCRIPTION);
+};
+$scope.getGroupIDRemoved = function (callback) {
+   console.log(callback.item);
+   $scope.Productadd.DESCRIPTION = '';
+   // $scope.fillAreaArr.length = 0;
+};
+
 
 
 

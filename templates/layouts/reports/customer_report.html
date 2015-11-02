@@ -1,33 +1,54 @@
-<ion-view title="Customer Report" >
-
-<ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-</ion-nav-buttons>
-
-<ion-content has-header="true" padding="true">
-<form>
-  <div class="list dashboard-page customerReport-page">
-	<div class="form-group">
-		<label>Date</label>
-		<input type="text" class="form-control">
+<!doctype html>
+<html>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <title>Tropolite</title>
+    <link type="text/css" rel="stylesheet" href="common/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="common/fonts/fonts.css">
+    <link type="text/css" rel="stylesheet" href="common/fonts/font-awesome.css">
+    <link type="text/css" rel="stylesheet" href="common/css/style.css">
+    <link type="text/css" rel="stylesheet" href="common/css/responsive.css">
+    <script type="text/javascript" src="common/js/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="common/js/bootstrap.js"></script>
+    <script type="text/javascript" src="common/js/index.js"></script>
+    <script type="text/javascript">
+		
+	</script>
+</head>
+<body>
+<header class="header fw">
+	<div class="container">
+    	<div class="row">
+        	 <div class="col-xs-3"><a href="#" class="back-btn"><i class="fa fa-chevron-left"></i> Back</a></div>
+             <div class="col-xs-7 text-center"><span class="page-title">Customer Report</span></div>
+             <!--div class="col-xs-4 no-pad-left text-right"><a href="#" class="btn btn-danger">Create New</a></div-->
+        </div>
     </div>
-	<div class="form-group">
-		<label>From</label>
-		<input type="text" class="form-control">
+</header>
+<div id="body_container" class="fw">
+    <div class="form-container fws">
+    	<div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" class="form-control">
+                        </div><div class="form-group">
+                            <label>To</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-	<div class="form-group">
-		<label>To</label>
-		<input type="text" class="form-control">
-    </div>
-	<div class="form-group">
-		<button ng-click="" class="button button-block button-small button-assertive">Get Result</button>
-	</div>
+    <div class="col"><a href="#" class="button button-block button-small button-assertive search">Get Result</a></div>
 </div>
-</form>
-  </ion-content>
 
-
-</ion-view>
-
-
-
+</body>
+</html>
