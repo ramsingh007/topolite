@@ -34,7 +34,20 @@ angular.module('topolite.services', [])
           }
         ]
       });
-    }
+    },
+    // Used to fetch the index of json through uniqueID of json
+      findInJson: function(key1, value, object) { //pass it the desired matching key value pairs
+          var i = 0;
+          for (var key in object) { //this will iterate through key1 - key3
+              var current = object[key];
+              if (current[key1] == value) {
+                  console.log(key);
+                  return i; //return the index
+              }
+              i++; //increment if no found
+          }
+          return -1;
+      }
   };
   return webService;
 });

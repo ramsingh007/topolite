@@ -373,15 +373,19 @@ angular.module('ion-autocomplete', []).directive('ionAutocomplete', [
                 // cancel handler for the cancel button which clears the search input field model and hides the
                 // search container and the ionic backdrop and calls the cancel button clicked callback
                 ionAutocompleteController.cancelClick = function () {
-                    ionAutocompleteController.searchQuery = undefined;
+                    //ionAutocompleteController.searchQuery = undefined;
+                    //console.log(ionAutocompleteController.searchQuery);
                     ionAutocompleteController.hideModal();
+
+                    
 
                     // call cancel button clicked callback
                     if (angular.isFunction(ionAutocompleteController.cancelButtonClickedMethod)) {
                         ionAutocompleteController.cancelButtonClickedMethod({
                             callback: {
                                 selectedItems: ionAutocompleteController.selectedItems.slice(),
-                                componentId: ionAutocompleteController.componentId
+                                componentId: ionAutocompleteController.componentId,
+                                searchQuery: ionAutocompleteController.searchQuery
                             }
                         });
                     }
