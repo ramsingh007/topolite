@@ -276,6 +276,7 @@ $scope.getGroupIDClicked = function (callback) {
     console.log(callback.item);
     $scope.Productadd.DESCRIPTION= callback.item.Description;
     // $scope.fillVisitArea();
+     console.log($scope.Productadd.DESCRIPTION);
 };
 $scope.getGroupIDRemoved = function (callback) {
    console.log(callback.item);

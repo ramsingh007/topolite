@@ -190,7 +190,4 @@ header .dash-page i{ color:#fff; font-size:28px;}
 
 .attendence-page input[type="text"]{ margin:0 0 0 10px; border-radius:0; width:52%; display:inline-block; vertical-align:top;}
 .attendence-page label{ float:left; width:60px; padding:6px 0 0;}
-.visit-listpage .form-control{ border-radius:0;}
-.reposts-page strong{ font-weight:normal}
-.reposts-page .item{ padding:15px 0;}
-
+.visit-listpage .form-control{ border-radius:0;}\
