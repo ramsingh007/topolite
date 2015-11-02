@@ -4,7 +4,7 @@ angular.module('topolite.visit_ctrl', [])
 
    $scope.params = $stateParams;
 
-
+   $scope.selected = '';
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
    $scope.visitModel.VISIT_TIME_FROM = new Date();
@@ -478,7 +478,7 @@ $scope.getCustConatct = function(){
 
              webService.showPopup(err, $rootScope.title_close).then(function(res){
 
-               $state.go('dashboard.visitDetail',{vid:$scope.params.vid})
+               $state.go('visit.visitDetail',{vid:$scope.params.vid})
 
              });
          
@@ -579,7 +579,7 @@ $scope.getCustConatct = function(){
     var urlParam = 'VisitService/VisitRecord.svc/GetVisitDetail/'
             +$rootScope.currentUser.UserDetails.Company_No
             +'/'+$rootScope.currentUser.UserDetails.Location_No
-            +'/'+$scope.params.vId+'/ADMIN';
+            +'/'+$scope.params.vid+'/ADMIN';
 
     var methodType = 'GET'
     var dataJson = JSON.stringify({});
@@ -614,37 +614,99 @@ $scope.getCustConatct = function(){
     });
   }
 
+
+
+   $scope.itemDetails = function(Productadd){
+
+// alert();
+      // webService.showIonLoader();  //show ionic loading
+ console.log(Productadd.ITEM_TYPE);
+      if (Productadd.ITEM_TYPE=='E') {
+    var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No+'/null/null/null';
+
+
+    var methodType = 'GET'
+    var dataJson = JSON.stringify({});
+    webService.webCall(urlParam,methodType,dataJson)
+    .then(function(respone){
+     
+ // $scope.Productadd.ITEM_TYPE = undefined;
+    $scope.itemcode=[];
+       
+  $scope.itemdetailss = respone.data.GetItemCodeResult.Result;
+      angular.forEach($scope.itemdetailss , function(value, key) {
+ $scope.itemcode.push(value.Stock_NO);
+    });
+      
+       console.log($scope.itemcode);
+        // webService.hideIonLoader();//hide ionic loading
+        // if(respone.data.GetVisitDataResult.Messsage.Success){
+
+        //   $scope.visitdetailss = respone.data.GetVisitDataResult.Result;
+        //   $scope.Saledetails= respone.data.GetVisitDataResult.Sale;
+        //   $scope.SaleContact= respone.data.GetVisitDataResult.SaleContact;
+        //   $scope.SaleProduct= respone.data.GetVisitDataResult.SaleProduct;
+        //   $scope.VisitAdditional= respone.data.GetVisitDataResult.VisitAdditional;
+  
+
+        //   // $scope.bpModel = respone.data.GetAllBPResult.BPResult;
+        //   // $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
+        //   // $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
+        //   // $scope.bpModel.PARENT_VENDOR = 'CST123';
+        //   // $scope.bpModel.PAYTERM = 'PT20';
+
+
+        // }else{
+        //     webService.showPopup(respone.data.GetAllBPResult.BPMesssage.ErrorMsg, $rootScope.title_close);
+        // }
+
+    },function(error){
+          webService.hideIonLoader();  //show ionic loading
+          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+    });
+
+
+};
+  }
+
+
+   // $scope.setPcode = function(site) {
+   // $scope.selected="ss";
+   //  };
+
     $scope.$on('$ionicView.beforeEnter', function() {
       
       //Call method when on bpDetail screen 
-      if (($.inArray($state.current.name, ['dashboard.visitDetail']) !== -1)  || ($.inArray($state.current.name, ['dashboard.bpCreate']) !== -1 && $scope.params.vId!='') ) {
+      if (($.inArray($state.current.name, ['visit.visitDetail']) !== -1)  || ($.inArray($state.current.name, ['dashboard.bpCreate']) !== -1 && $scope.params.vid!='') ) {
         $scope.VisitDetail();
       }
     
     });
 
-    $scope.model = "";
-    $scope.clickedValueModel = "";
-    $scope.removedValueModel = "";
+    // $scope.model = "";
+    // $scope.clickedValueModel = "";
+    // $scope.removedValueModel = "";
 
-    $scope.getTestItems = function (query) {
-        if (query) {
-            return {
-                items: [
-                    {id: "1", name: query + "1", view: "view: " + query + "1"},
-                    {id: "2", name: query + "2", view: "view: " + query + "2"},
-                    {id: "3", name: query + "3", view: "view: " + query + "3"}]
-            };
-        }
-        return {items: []};
-    };
+    // $scope.getTestItems = function (query) {
+    //     if (query) {
+    //         return {
+    //             items: [
+    //                 {id: "1", name: query + "1", view: "view: " + query + "1"},
+    //                 {id: "2", name: query + "2", view: "view: " + query + "2"},
+    //                 {id: "3", name: query + "3", view: "view: " + query + "3"}]
+    //         };
+    //     }
+    //     return {items: []};
+    // };
 
-    $scope.itemsClicked = function (callback) {
-        $scope.clickedValueModel = callback;
-    };
-    $scope.itemsRemoved = function (callback) {
-        $scope.removedValueModel = callback;
-    };
+    // $scope.itemsClicked = function (callback) {
+    //     $scope.clickedValueModel = callback;
+    // };
+    // $scope.itemsRemoved = function (callback) {
+    //     $scope.removedValueModel = callback;
+    // };
 
 
 
