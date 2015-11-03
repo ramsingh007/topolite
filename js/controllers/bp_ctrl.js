@@ -61,7 +61,7 @@ angular.module('topolite.bp_ctrl', [])
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
 		});
   }
 
@@ -99,7 +99,7 @@ angular.module('topolite.bp_ctrl', [])
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
 		});
   }
 
@@ -170,7 +170,7 @@ angular.module('topolite.bp_ctrl', [])
          
          },function(error){
             webService.hideIonLoader();  //show ionic loading
-            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+            webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
 
   }
@@ -193,7 +193,7 @@ angular.module('topolite.bp_ctrl', [])
 
 	$scope.add_contact = function(){
 
-		 $state.go('dashboard.addcontact');
+		 $state.go('bp.addcontact');
 		     
 	  //webService.showPopup('Contact Added Successfully', $rootScope.title_close);
 

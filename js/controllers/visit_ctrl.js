@@ -34,7 +34,7 @@ angular.module('topolite.visit_ctrl', [])
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
 		});
    }
    
@@ -63,7 +63,7 @@ angular.module('topolite.visit_ctrl', [])
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
 		});
    }
    $scope.setVisitSelSales = function(idx){
@@ -104,7 +104,7 @@ angular.module('topolite.visit_ctrl', [])
 
     },function(error){
           webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
    }
 
@@ -143,7 +143,7 @@ angular.module('topolite.visit_ctrl', [])
 
     },function(error){
           webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
    }
 
@@ -183,7 +183,7 @@ angular.module('topolite.visit_ctrl', [])
 
         },function(error){
               webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
         });
 
         return modelItem;
@@ -203,7 +203,7 @@ $scope.getCustomIDRemoved = function (callback) {
    $scope.fillAreaArr.length = 0;
 };
 
-      if (Productadd.ITEM_TYPE=='E') {
+    
 
 $scope.getProductID = function (query) {
         webService.showIonLoader();  //show ionic loading
@@ -231,12 +231,12 @@ $scope.getProductID = function (query) {
 
         },function(error){
               webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
         });
 
         return modelItem;
     };
-      }
+      
 
 $scope.getProductIDClicked = function (callback) {
     console.log(callback.item);
@@ -276,7 +276,7 @@ $scope.getGroupID = function (query) {
 
         },function(error){
               webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
         });
 
         return modelItem;
@@ -322,7 +322,7 @@ $scope.getCustomNAME = function (query) {
 
         },function(error){
               webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
         });
 
         return modelItem;
@@ -449,7 +449,7 @@ $scope.getCustConatct = function(){
         }
     },function(error){
           webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
   	
   }
@@ -503,7 +503,7 @@ $scope.getCustConatct = function(){
 
          },function(error){
             webService.hideIonLoader();  //show ionic loading
-            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+            webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
 
 
@@ -556,7 +556,7 @@ $scope.getCustConatct = function(){
          
          },function(error){
             webService.hideIonLoader();  //show ionic loading
-            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+            webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
 
     }
@@ -582,10 +582,9 @@ $scope.getCustConatct = function(){
         var urlParam = 'VisitService/VisitRecord.svc/SetProductVisit';  
         var methodType = 'POST';
       }
-      
 
 
-      var dataJson =JSON.stringify({
+    var dataJson =JSON.stringify({
         "Company_no": $rootScope.currentUser.UserDetails.Company_No,
         "LOCATION_no": $rootScope.currentUser.UserDetails.Location_No,
         "USER_ID": 'ADMIN',
@@ -619,7 +618,7 @@ $scope.getCustConatct = function(){
          
          },function(error){
             webService.hideIonLoader();  //show ionic loading
-            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+            webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
 
       // webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
@@ -745,7 +744,7 @@ $scope.getCustConatct = function(){
 
     },function(error){
           webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
   }
 

@@ -9,7 +9,7 @@ $ionicNavBarDelegate.showBackButton(false);
 	 $scope.selLoc = {'Comp_Location':$scope.Company_No};
 
  $scope.UserLocation = [];
- $scope.Company_No=$localStorage.currentUser.UserDetails.Company_No+'-'+$localStorage.currentUser.UserDetails.Location_No;
+ // $scope.Company_No=$localStorage.currentUser.UserDetails.Company_No+'-'+$localStorage.currentUser.UserDetails.Location_No;
 
 
 $scope.change_location= function() {
@@ -44,7 +44,7 @@ $scope.autoSignIn = function(){
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
 		});
 	}
 	

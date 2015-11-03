@@ -1,39 +1,18 @@
-<!doctype html>
-<html>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-    <title>Tropolite</title>
-    <link type="text/css" rel="stylesheet" href="common/css/bootstrap.css">
-    <link type="text/css" rel="stylesheet" href="common/fonts/fonts.css">
-    <link type="text/css" rel="stylesheet" href="common/fonts/font-awesome.css">
-    <link type="text/css" rel="stylesheet" href="common/css/style.css">
-    <link type="text/css" rel="stylesheet" href="common/css/responsive.css">
-    <script type="text/javascript" src="common/js/jquery-1.11.3.js"></script>
-    <script type="text/javascript" src="common/js/bootstrap.js"></script>
-    <script type="text/javascript" src="common/js/index.js"></script>
-    <script type="text/javascript">
-		
-	</script>
-</head>
-<body>
-<header class="header fw">
-	<div class="container">
-    	<div class="row">
-        	 <div class="col-xs-3"><a href="#" class="back-btn"><i class="fa fa-chevron-left"></i> Back</a></div>
-             <div class="col-xs-7 text-center"><span class="page-title">Pending Report</span></div>
-             <!--div class="col-xs-4 no-pad-left text-right"><a href="#" class="btn btn-danger">Create New</a></div-->
-        </div>
-    </div>
-</header>
-<div id="body_container" class="fw">
-    <div class="form-container fws">
-    	<div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                   <div class="table-responsive ">
+<ion-view title="Pending Report table" >
+
+<ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+</ion-nav-buttons>
+
+<ion-content has-header="true" padding="true">
+<form>
+  <div class="list dashboard-page customerReport-page">
+	<div class="table-responsive ">
 						<table class="table table-bordered borderhead">
+
 							<thead>
 								<tr>
+									<tr>
 									<th>S.No.</th>
 									<th>Customer Code</th>
 									<th>Customer Name</th>
@@ -41,39 +20,29 @@
 									<th>Invoice Date</th>
 									<th>Invoice Amount</th>
 								</tr>
+								</tr>
 							</thead>
-							<tbody>
+						
+								
+								<tbody ng-repeat="data in CReportResult">
 								<tr>
-									<td>1</td>
-									<td>011</td>
-									<td>Abc</td>
-									<td>20</td>
-									<td>13/05/16</td>
-									<td>400</td>
-								</tr><tr>
-									<td>2</td>
-									<td>011</td>
-									<td>Abc</td>
-									<td>20</td>
-									<td>13/05/16</td>
-									<td>400</td>
+									<td>{{current + $index+1}}</td>
+									<td>{{data.Customer_Code}}</td>
+									<td>{{data.Customer_Name}}</td>
+									<td>{{data.InVoice_No}}</td>
+								<td>{{data.Invoice_Date}}</td>
+								<td>{{data.Invoice_Amount}}</td>
 								</tr>
-								<tr>
-									<td>3</td>
-									<td>011</td>
-									<td>Abc</td>
-									<td>20</td>
-									<td>13/05/16</td>
-									<td>400</td>
-								</tr>
+								
 							</tbody>
 						</table>
 				   </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+</form>
+  </ion-content>
 
-</body>
-</html>
+
+</ion-view>
+
+
+

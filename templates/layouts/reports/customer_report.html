@@ -1,54 +1,53 @@
-<!doctype html>
-<html>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-    <title>Tropolite</title>
-    <link type="text/css" rel="stylesheet" href="common/css/bootstrap.css">
-    <link type="text/css" rel="stylesheet" href="common/fonts/fonts.css">
-    <link type="text/css" rel="stylesheet" href="common/fonts/font-awesome.css">
-    <link type="text/css" rel="stylesheet" href="common/css/style.css">
-    <link type="text/css" rel="stylesheet" href="common/css/responsive.css">
-    <script type="text/javascript" src="common/js/jquery-1.11.3.js"></script>
-    <script type="text/javascript" src="common/js/bootstrap.js"></script>
-    <script type="text/javascript" src="common/js/index.js"></script>
-    <script type="text/javascript">
-		
-	</script>
-</head>
-<body>
-<header class="header fw">
-	<div class="container">
-    	<div class="row">
-        	 <div class="col-xs-3"><a href="#" class="back-btn"><i class="fa fa-chevron-left"></i> Back</a></div>
-             <div class="col-xs-7 text-center"><span class="page-title">Customer Report</span></div>
-             <!--div class="col-xs-4 no-pad-left text-right"><a href="#" class="btn btn-danger">Create New</a></div-->
-        </div>
-    </div>
-</header>
-<div id="body_container" class="fw">
-    <div class="form-container fws">
-    	<div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <form>
-                        <div class="form-group">
-                            <label>Date</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>From</label>
-                            <input type="text" class="form-control">
-                        </div><div class="form-group">
-                            <label>To</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col"><a href="#" class="button button-block button-small button-assertive search">Get Result</a></div>
-</div>
+<ion-view title="Customer Report" >
 
-</body>
-</html>
+<ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+</ion-nav-buttons>
+
+<ion-content has-header="true" padding="true">
+<form>
+  <div class="list dashboard-page customerReport-page">
+	<div class="form-group">
+		<label>Date</label>
+		<input type="date" ng-model="Outstanding.date" class="form-control">
+    </div>
+	<div class="form-group">
+		<label>From</label>
+			<input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="Outstanding.OUTFromCustomer"
+                       item-value-key="Customer_Code"
+                       item-view-value-key="Customer_Code"
+                       items-method="OUTFromCustomer(query)"
+                       items-clicked-method="OUTFromCustomerClicked(callback)"
+                       items-removed-method="OUTFromCustomerRemoved(callback)"
+                       cancel-button-clicked-method="tesTing(callback)"
+                       max-selected-items="1"
+                       select-items-label="Search Name"
+                       selected-items-label="Selected Name:"
+                       component-id="Customer_Code" />
+    </div>
+	<div class="form-group">
+		<label>To</label>
+		<input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="Outstanding.OUTToCustomer"
+                       item-value-key="Customer_Code"
+                       item-view-value-key="Customer_Code"
+                       items-method="OUTToCustomer(query)"
+                       items-clicked-method="OUTToCustomerClicked(callback)"
+                       items-removed-method="OUTToCustomerRemoved(callback)"
+                       cancel-button-clicked-method="tesTing(callback)"
+                       max-selected-items="1"
+                       select-items-label="Search Name"
+                       selected-items-label="Selected Name:"
+                       component-id="Customer_Code" />
+    </div>
+	<div class="form-group">
+		<button ng-click="OutstandingReport(Outstanding)" class="button button-block button-small button-assertive">Get Result</button>
+	</div>
+</div>
+</form>
+  </ion-content>
+
+
+</ion-view>
+
+
+
