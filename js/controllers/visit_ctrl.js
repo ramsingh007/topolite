@@ -7,7 +7,7 @@ angular.module('topolite.visit_ctrl', [])
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
    
-   
+   $scope.Productadd={};
    $scope.fillAreaArr = [];
    $scope.fillContactArr = [];
    $scope.fillSalesArr = [];
@@ -203,6 +203,8 @@ $scope.getCustomIDRemoved = function (callback) {
    $scope.fillAreaArr.length = 0;
 };
 
+      if (Productadd.ITEM_TYPE=='E') {
+
 $scope.getProductID = function (query) {
         webService.showIonLoader();  //show ionic loading
         // var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
@@ -234,6 +236,7 @@ $scope.getProductID = function (query) {
 
         return modelItem;
     };
+      }
 
 $scope.getProductIDClicked = function (callback) {
     console.log(callback.item);
@@ -277,6 +280,7 @@ $scope.getGroupID = function (query) {
         });
 
         return modelItem;
+        // return [{'Group_Code':0001,'Description':'DFDS'}];
     };
 
 $scope.getGroupIDClicked = function (callback) {
@@ -747,60 +751,7 @@ $scope.getCustConatct = function(){
 
 
 
-   $scope.itemDetails = function(Productadd){
 
-// alert();
-      // webService.showIonLoader();  //show ionic loading
- console.log(Productadd.ITEM_TYPE);
-      if (Productadd.ITEM_TYPE=='E') {
-    var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
-            +$rootScope.currentUser.UserDetails.Company_No
-            +'/'+$rootScope.currentUser.UserDetails.Location_No+'/null/null/null';
-
-
-    var methodType = 'GET'
-    var dataJson = JSON.stringify({});
-    webService.webCall(urlParam,methodType,dataJson)
-    .then(function(respone){
-     
- // $scope.Productadd.ITEM_TYPE = undefined;
-    $scope.itemcode=[];
-       
-  $scope.itemdetailss = respone.data.GetItemCodeResult.Result;
-      angular.forEach($scope.itemdetailss , function(value, key) {
- $scope.itemcode.push(value.Stock_NO);
-    });
-      
-       console.log($scope.itemcode);
-        // webService.hideIonLoader();//hide ionic loading
-        // if(respone.data.GetVisitDataResult.Messsage.Success){
-
-        //   $scope.visitdetailss = respone.data.GetVisitDataResult.Result;
-        //   $scope.Saledetails= respone.data.GetVisitDataResult.Sale;
-        //   $scope.SaleContact= respone.data.GetVisitDataResult.SaleContact;
-        //   $scope.SaleProduct= respone.data.GetVisitDataResult.SaleProduct;
-        //   $scope.VisitAdditional= respone.data.GetVisitDataResult.VisitAdditional;
-  
-
-        //   // $scope.bpModel = respone.data.GetAllBPResult.BPResult;
-        //   // $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
-        //   // $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
-        //   // $scope.bpModel.PARENT_VENDOR = 'CST123';
-        //   // $scope.bpModel.PAYTERM = 'PT20';
-
-
-        // }else{
-        //     webService.showPopup(respone.data.GetAllBPResult.BPMesssage.ErrorMsg, $rootScope.title_close);
-        // }
-
-    },function(error){
-          webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
-    });
-
-
-};
-  }
 
 
    // $scope.setPcode = function(site) {
