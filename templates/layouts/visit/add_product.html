@@ -4,9 +4,10 @@
 
 <ion-content>
 	<div class="list list-inset">
+  <form>
     	<label class="item item-input item-stacked-label">
             <span>Item Type</span>
-        
+        </label>
 
       <select class="form-control" ng-model="VisitProd.ITEM_TYPE" ng-change="setProdForm()" >
             <option value="E" ng-selected="(VisitProd.ITEM_TYPE == 'E')">ERP item</option>
@@ -14,10 +15,11 @@
         </select>
         
 
-        </label>
+        
        
           <label class="item item-input item-stacked-label">
             <span>Item Group</span>
+            </label>
            <input type="text" ng-show="!showGroup" ng-model="VisitProd.ITEM_GROUP"> 
 
           <input ion-autocomplete ng-show="showGroup" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.ITEM_GROUP"
@@ -30,11 +32,11 @@
                        select-items-label="Search Group_Code"
                        selected-items-label="Selected Group_Code:"
                        component-id="Group_Code" />
-        </label>
+        
 
          <label class="item item-input item-stacked-label">
             <span>Item Code</span>
-
+          </label>
             <input type="text" ng-show="!showCode" ng-model="VisitProd.ITEM_CODE"> 
 
               <input ion-autocomplete ng-show="showCode" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.ITEM_CODE"
@@ -47,12 +49,13 @@
                        select-items-label="Search ITEM_CODE"
                        selected-items-label="Selected ITEM_CODE:"
                        component-id="Stock_NO" />
-        </label>
+        
         
         
 
         <label class="item item-input item-stacked-label">
             <span>Description</span>
+        </label>
             <input type="text" ng-show="!showDesc" ng-model="VisitProd.DESCRIPTION">
 
               <input ion-autocomplete ng-show="showDesc" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.DESCRIPTION"
@@ -65,20 +68,21 @@
                        select-items-label="Search DESCRIPTION"
                        selected-items-label="Selected DESCRIPTION:"
                        component-id="DESCRIPTION" />
-        </label>
+        
         <label class="item item-input item-stacked-label">
             <span>Quantity</span>
+        </label>  
             <input type="text" ng-model="VisitProd.QUANTITY">
-        </label>
+        
          <label class="item item-input item-stacked-label">
             <span>Remark</span>
-            <input type="text" ng-model="VisitProd.VISIT_REMARK">
         </label>
-        
+            <input type="text" ng-model="VisitProd.VISIT_REMARK">
+                
         <button class="button button-block button-small button-assertive" ng-click="AddVisitProd()">
         {{(params.pId != null) ? 'Update':'Add'}}
         </button>
-       
+       </form>
     </div>
 </ion-content>
 </ion-view>

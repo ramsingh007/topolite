@@ -205,9 +205,6 @@ $scope.getCustomIDRemoved = function (callback) {
 };
 
 
-
-
-
 $scope.getCustomNAME = function (query) {
         if(query!=''){
         webService.showIonLoader();  //show ionic loading
@@ -697,7 +694,7 @@ $scope.setProdForm = function(){
         var methodType = 'POST';
       }
 
-      var dataJson =JSON.stringify({
+    var dataJson =JSON.stringify({
         "Company_no": $rootScope.currentUser.UserDetails.Company_No,
         "LOCATION_no": $rootScope.currentUser.UserDetails.Location_No,
         "USER_ID": $rootScope.currentUser.UserDetails.LoginName,
@@ -784,6 +781,14 @@ $scope.setProdForm = function(){
     }
   /********************  Visit Prod Update Ends    *********************/
 
+$scope.setDateFor = function(input) {
+  var datePart = input.match(/\d+/g),
+  month = datePart[0], // get only two digits
+  day = datePart[1], year = datePart[2];
+
+  return new Date(year+'-'+month+'-'+day);
+}
+
 
 $scope.visitDetails = '';
 $scope.SalesDetails= '';
@@ -834,7 +839,7 @@ $scope.VisitAdditional= '';
          $scope.visitModel.ADDRESS = $scope.visitDetails.ADDRESS;
          $scope.visitModel.REMARK = $scope.visitDetails.REMARK;
 
-         $scope.visitModel.VISIT_DATE = $filter('date')($scope.visitDetails.VISIT_DATE,'yyyy-MM-dd');
+         $scope.visitModel.VISIT_DATE = $scope.setDateFor($scope.visitDetails.VISIT_DATE);
          $scope.visitModel.VISIT_TIME_FROM = $scope.visitDetails.VISIT_TIME_FROM;
          $scope.visitModel.VISIT_TIME_TO = $scope.visitDetails.VISIT_TIME_TO;
          
@@ -854,15 +859,15 @@ $scope.VisitAdditional= '';
                                       'SALES_PERSON_NO':$scope.SalesDetails[key]['SALES_PERSON_NO'],
                                       'SALES_PERSON_NAME':$scope.SalesDetails[key]['SALES_PERSON_NAME'],
                                       'NEXT_ACTION':$scope.SalesDetails[key]['NEXT_ACTION'],
-                                      'NEXT_ACTION_DATE':$filter('date')($scope.SalesDetails[key]['NEXT_ACTION_DATE'],'yyyy-MM-dd'),
+                                      'NEXT_ACTION_DATE':$scope.setDateFor($scope.SalesDetails[key]['NEXT_ACTION_DATE']),
                                       'NEXT_ACTION_TIME':$scope.SalesDetails[key]['NEXT_ACTION_TIME'],
                                       'ALERT':1,
-                                      'ALERT_DATE':$filter('date')($scope.SalesDetails[key]['ALERT_DATE'],'yyyy-MM-dd'),
+                                      'ALERT_DATE':$scope.setDateFor($scope.SalesDetails[key]['ALERT_DATE']),
                                       'ALERT_TIME':$scope.SalesDetails[key]['ALERT_TIME'],
                                     });
          }
 
-         console.log($scope.visitModel);
+         console.log(JSON.stringify($scope.visitModel));
 
          /* set model on Modify and Authorize visit ends*/
 
