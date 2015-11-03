@@ -68,14 +68,12 @@ angular.module('topolite.services', [])
               for (var key in obj) { 
                     obj[key][lineKey] = i;
                     obj[key]['ALERT_DATE'] = $filter('date')(obj[key]['ALERT_DATE'], 'MM/dd/yyyy');
+                    obj[key]['NEXT_ACTION_DATE'] = $filter('date')(obj[key]['NEXT_ACTION_DATE'], 'MM/dd/yyyy');
                     tmp.push(obj[key]);
                     i++; 
                 }
               break;
           }
-
-          
-          console.log(tmp);
           return tmp;
       }
   };

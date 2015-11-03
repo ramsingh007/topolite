@@ -1,4 +1,4 @@
-<ion-view title="{{(params.pId != '') ? 'Update':'Create'}} Product">
+<ion-view title="{{(params.pId != null) ? 'Update':'Add'}} Product">
 
 
 
@@ -8,63 +8,76 @@
             <span>Item Type</span>
         
 
-      <select class="form-control" ng-model="Productadd.ITEM_TYPE" >
-             <option value="">Select item</option>
-            <option value="E">ERP item</option>
-
-            <option value="M">New ITM</option>
+      <select class="form-control" ng-model="VisitProd.ITEM_TYPE" ng-change="setProdForm()" >
+            <option value="E" ng-selected="(VisitProd.ITEM_TYPE == 'E')">ERP item</option>
+            <option value="M" ng-selected="(VisitProd.ITEM_TYPE == 'M')">New ITM</option>
         </select>
         
 
         </label>
-        <label class="item item-input item-stacked-label">
-            <span>Item Code</span>
-          
+       
+          <label class="item item-input item-stacked-label">
+            <span>Item Group</span>
+           <input type="text" ng-show="!showGroup" ng-model="VisitProd.ITEM_GROUP"> 
 
-              <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="Productadd.ITEM_CODE"
-                       item-value-key="Stock_NO"
-                       item-view-value-key="Stock_NO"
-                       items-method="getProductID(query)"
-                       items-clicked-method="getProductIDClicked(callback)"
-                       items-removed-method="getProductIDRemoved(callback)"
-                       cancel-button-clicked-method="tesTing(callback)"
-                       max-selected-items="1"
-                       select-items-label="Search ITEM_CODE"
-                       selected-items-label="Selected ITEM_CODE:"
-                       component-id="Stock_NO" />
-        </label>
-        
-        <label class="item item-input item-stacked-label">
-            <span>Item category</span>
-            <!-- <input type="text" ng-model="Productadd.category"> -->
-
-      <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="Productadd.category"
+          <input ion-autocomplete ng-show="showGroup" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.ITEM_GROUP"
                        item-value-key="Group_Code"
                        item-view-value-key="Group_Code"
-                       items-method="getGroupID(query)"
-                       items-clicked-method="getGroupIDClicked(callback)"
-                       items-removed-method="getGroupIDRemoved(callback)"
-                       cancel-button-clicked-method="tesTing(callback)"
+                       items-method="getProdGroupID(query)"
+                       items-clicked-method="getProdGroupIDClicked(callback)"
+                       items-removed-method="getProdGroupIDRemoved(callback)"
                        max-selected-items="1"
                        select-items-label="Search Group_Code"
                        selected-items-label="Selected Group_Code:"
                        component-id="Group_Code" />
         </label>
 
-        <label class="item item-input item-stacked-label">
-            <span>Description</span>
-            <input type="text" ng-model="Productadd.DESCRIPTION">
-        </label>
-        <label class="item item-input item-stacked-label">
-            <span>Qty</span>
-            <input type="text" ng-model="Productadd.QUANTITY">
-        </label>
          <label class="item item-input item-stacked-label">
-            <span>Remarak</span>
-            <input type="text" ng-model="Productadd.VISIT_REMARK">
+            <span>Item Code</span>
+
+            <input type="text" ng-show="!showCode" ng-model="VisitProd.ITEM_CODE"> 
+
+              <input ion-autocomplete ng-show="showCode" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.ITEM_CODE"
+                       item-value-key="Stock_NO"
+                       item-view-value-key="Stock_NO"
+                       items-method="getProductCodeID(query)"
+                       items-clicked-method="getProductCodeIDClicked(callback)"
+                       items-removed-method="getProductCodeIDRemoved(callback)"
+                       max-selected-items="1"
+                       select-items-label="Search ITEM_CODE"
+                       selected-items-label="Selected ITEM_CODE:"
+                       component-id="Stock_NO" />
         </label>
         
-        <button class="button button-block button-small button-assertive" ng-click="AddVisitProd(Productadd)">ADD</button>
+        
+
+        <label class="item item-input item-stacked-label">
+            <span>Description</span>
+            <input type="text" ng-show="!showDesc" ng-model="VisitProd.DESCRIPTION">
+
+              <input ion-autocomplete ng-show="showDesc" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.DESCRIPTION"
+                       item-value-key="Description"
+                       item-view-value-key="Description"
+                       items-method="getProductDescID(query)"
+                       items-clicked-method="getProductDescIDClicked(callback)"
+                       items-removed-method="getProductDescIDRemoved(callback)"
+                       max-selected-items="1"
+                       select-items-label="Search DESCRIPTION"
+                       selected-items-label="Selected DESCRIPTION:"
+                       component-id="DESCRIPTION" />
+        </label>
+        <label class="item item-input item-stacked-label">
+            <span>Quantity</span>
+            <input type="text" ng-model="VisitProd.QUANTITY">
+        </label>
+         <label class="item item-input item-stacked-label">
+            <span>Remark</span>
+            <input type="text" ng-model="VisitProd.VISIT_REMARK">
+        </label>
+        
+        <button class="button button-block button-small button-assertive" ng-click="AddVisitProd()">
+        {{(params.pId != null) ? 'Update':'Add'}}
+        </button>
        
     </div>
 </ion-content>

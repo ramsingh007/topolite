@@ -3,11 +3,12 @@ angular.module('topolite.visit_ctrl', [])
 .controller('VisitCtrl', function($ionicSideMenuDelegate, $state, $stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
 
    $scope.params = $stateParams;
+   console.log($scope.params);
 
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
    
-   $scope.Productadd={};
+   
    $scope.fillAreaArr = [];
    $scope.fillContactArr = [];
    $scope.fillSalesArr = [];
@@ -34,7 +35,7 @@ angular.module('topolite.visit_ctrl', [])
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
 		});
    }
    
@@ -63,7 +64,7 @@ angular.module('topolite.visit_ctrl', [])
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
 		});
    }
    $scope.setVisitSelSales = function(idx){
@@ -104,7 +105,7 @@ angular.module('topolite.visit_ctrl', [])
 
     },function(error){
           webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
    }
 
@@ -115,7 +116,7 @@ angular.module('topolite.visit_ctrl', [])
 
     $scope.visitModel.Contact = [{'CUST_CONTACT_PERSON':null,
                                   'CONTACT_POSITION':null,
-                                  'MOBILE':null,
+                                  'MOBILE_NO':null,
                                   'EMAIL':null,
                                  }];
 
@@ -143,7 +144,7 @@ angular.module('topolite.visit_ctrl', [])
 
     },function(error){
           webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
    }
 
@@ -151,7 +152,7 @@ angular.module('topolite.visit_ctrl', [])
     var id = webService.findInJson('CONTACT_PERSON',$scope.visitModel.Contact[idx]['CUST_CONTACT_PERSON'],$scope.fillContactArr);
     $scope.visitModel.Contact[idx]['CONTACT_POSITION'] = $scope.fillContactArr[id]['DESIGNATION'];
     $scope.visitModel.Contact[idx]['EMAIL'] = $scope.fillContactArr[id]['EMAIL']; 
-    $scope.visitModel.Contact[idx]['MOBILE'] = $scope.fillContactArr[id]['MOBILE'];
+    $scope.visitModel.Contact[idx]['MOBILE_NO'] = $scope.fillContactArr[id]['MOBILE'];
    }
 
 
@@ -183,7 +184,7 @@ angular.module('topolite.visit_ctrl', [])
 
         },function(error){
               webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
         });
 
         return modelItem;
@@ -203,97 +204,6 @@ $scope.getCustomIDRemoved = function (callback) {
    $scope.fillAreaArr.length = 0;
 };
 
-      if (Productadd.ITEM_TYPE=='E') {
-
-$scope.getProductID = function (query) {
-        webService.showIonLoader();  //show ionic loading
-        // var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
-        //         +$rootScope.currentUser.UserDetails.Company_No
-        //         +'/'+$rootScope.currentUser.UserDetails.Location_No
-        //         +'/'+query
-        //         +'/null'
-        //         +'/'+$rootScope.currentUser.UserDetails.LoginName
-      var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
-            +$rootScope.currentUser.UserDetails.Company_No
-            +'/'+$rootScope.currentUser.UserDetails.Location_No+'/null/null/null';
-
-        var methodType = 'GET'
-        var dataJson = JSON.stringify({});
-        var modelItem = webService.webCall(urlParam,methodType,dataJson)
-        .then(function(respone){
-          
-            webService.hideIonLoader();//hide ionic loading
-            if(respone.data.GetItemCodeResult.Messsage.Success){
-                 return respone.data.GetItemCodeResult.Result;
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
-
-        },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
-        });
-
-        return modelItem;
-    };
-      }
-
-$scope.getProductIDClicked = function (callback) {
-    console.log(callback.item);
-    // $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
-    // $scope.fillVisitArea();
-};
-$scope.getProductIDRemoved = function (callback) {
-   console.log(callback.item);
-   // $scope.visitModel.CUSTOMER_NAME = '';
-   // $scope.fillAreaArr.length = 0;
-};
-$scope.getGroupID = function (query) {
-        webService.showIonLoader();  //show ionic loading
-        // var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
-        //         +$rootScope.currentUser.UserDetails.Company_No
-        //         +'/'+$rootScope.currentUser.UserDetails.Location_No
-        //         +'/'+query
-        //         +'/null'
-        //         +'/'+$rootScope.currentUser.UserDetails.LoginName
-      var urlParam = 'VisitService/VisitRecord.svc/GetGroup/'
-            +$rootScope.currentUser.UserDetails.Company_No
-            +'/'+query;
-
-        var methodType = 'GET'
-        var dataJson = JSON.stringify({});
-        var modelItem = webService.webCall(urlParam,methodType,dataJson)
-        .then(function(respone){
-
-          
-            webService.hideIonLoader();//hide ionic loading
-            if(respone.data.GetGroupCodeResult.Messsage.Success){
-                 return respone.data.GetGroupCodeResult.Result;
-
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
-
-        },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
-        });
-
-        return modelItem;
-        // return [{'Group_Code':0001,'Description':'DFDS'}];
-    };
-
-$scope.getGroupIDClicked = function (callback) {
-    console.log(callback.item);
-    $scope.Productadd.DESCRIPTION= callback.item.Description;
-    // $scope.fillVisitArea();
-     console.log($scope.Productadd.DESCRIPTION);
-};
-$scope.getGroupIDRemoved = function (callback) {
-   console.log(callback.item);
-   $scope.Productadd.DESCRIPTION = '';
-   // $scope.fillAreaArr.length = 0;
-};
 
 
 
@@ -322,7 +232,7 @@ $scope.getCustomNAME = function (query) {
 
         },function(error){
               webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
         });
 
         return modelItem;
@@ -347,7 +257,9 @@ $scope.arCode = '';
 $scope.getCustConatct = function(){
   console.log($scope.visitModel.AREA_NAME);
   $scope.arCode = $scope.visitModel.AREA_NAME.split('-')
-  $scope.fillVisitContacts($scope.arCode[0]);
+  if($scope.arCode[0]!=''){
+    $scope.fillVisitContacts($scope.arCode[0]);
+  }
 }
 
    $scope.initVisitModel = function(){
@@ -366,7 +278,7 @@ $scope.getCustConatct = function(){
        $scope.visitModel.Contact = [{
                                     'CUST_CONTACT_PERSON':null,
                                     'CONTACT_POSITION':null,
-                                    'MOBILE':null,
+                                    'MOBILE_NO':null,
                                     'EMAIL':null,
                                    }];
        
@@ -403,7 +315,7 @@ $scope.getCustConatct = function(){
           webService.hideIonLoader();//hide ionic loading
         } ,function(err){
           webService.hideIonLoader();//hide ionic loading
-          webService.showPopup('Can\'t get location now. Try again!', $rootScope.title_close);
+          webService.showPopup('Network error!', $rootScope.title_close);
       });
      }
     var onError= function(error) {
@@ -449,7 +361,7 @@ $scope.getCustConatct = function(){
         }
     },function(error){
           webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
   	
   }
@@ -461,10 +373,20 @@ $scope.getCustConatct = function(){
 
   /********************  Visit Add (Visit, Customer, Sales) Starts    *********************/
 
-   $scope.SaveVisit = function(){
+   $scope.SaveVisit = function(wsType){
 
-      var urlParam = 'VisitService/VisitRecord.svc/SetAllVisit';  
-      var methodType = 'POST';
+      if(wsType == 'Add'){
+        var urlParam = 'VisitService/VisitRecord.svc/SetAllVisit';  
+        var methodType = 'POST';
+        $scope.visitModel.VISIT_ID = '';
+      }else if(wsType == 'Update'){
+        var urlParam = 'VisitService/VisitRecord.svc/ModifyAllVisit';  
+        var methodType = 'PUT';
+      }else if(wsType == 'Authorize'){
+        var urlParam = 'VisitService/VisitRecord.svc/AuthorizeAllVisit';  
+        var methodType = 'PUT';
+      }
+
       var dataJson =angular.toJson({
                                     "Company_no": $rootScope.currentUser.UserDetails.Company_No,
                                     "LOCATION_no": $rootScope.currentUser.UserDetails.Location_No,
@@ -475,7 +397,7 @@ $scope.getCustConatct = function(){
                                     "CUSTOMER_NAME": $scope.visitModel.CUSTOMER_NAME,
                                     "CUSTOMER_NO": $scope.visitModel.CUSTOMER_NO,
                                     "NUM_TYPE_NO": $scope.visitModel.DOC_SERIES,
-                                    "VISIT_ID": "",
+                                    "VISIT_ID": $scope.visitModel.VISIT_ID,
                                     "REMARK": $scope.visitModel.REMARK,
                                     "VISIT_DATE": $filter('date')($scope.visitModel.VISIT_DATE, 'MM/dd/yyyy'),
                                     "VISIT_TIME_FROM": $scope.visitModel.VISIT_TIME_FROM,
@@ -484,6 +406,8 @@ $scope.getCustConatct = function(){
                                     "SaleContact": webService.processObjectLine('Contact',$scope.visitModel.Contact)
                                 });
     
+      console.log(urlParam);
+      console.log(methodType);
       console.log(dataJson);
 
       webService.webCall(urlParam,methodType,dataJson)
@@ -493,17 +417,17 @@ $scope.getCustConatct = function(){
 
              if(respone.data.Messsage.Success){
 
-              webService.showPopup(respone.data.Messsage.Success.ErrorMsg, $rootScope.title_ok).then(function(success){
-                $state.go(visit.visitDetail, {vid:respone.data.Messsage.VisitCode});
+              webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_ok).then(function(success){
+                $state.go('visit.visitDetail', {vid:respone.data.Messsage.VisitCode});
               })
 
              }else{
-                webService.showPopup(respone.data.Messsage.Success.ErrorMsg, $rootScope.title_close);
+                webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close);
              }
 
          },function(error){
             webService.hideIonLoader();  //show ionic loading
-            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+            webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
 
 
@@ -513,50 +437,60 @@ $scope.getCustConatct = function(){
 
   /********************  Visit Add (Additional Info) Starts    *********************/
 
+
+
+  
+   $scope.visitInfoOrder = [{
+          id: '-1',
+          name: 'Select'},
+      {
+          id: 'C1',
+          name: 'Yes'},
+      {
+          id: 'C2',
+          name: 'No'}];
+
+  $scope.visitInfo= {};
+  $scope.visitInfo.ORDER_RECEIVED = '-1';
+  $scope.visitInfo.DEMO_PERFORMED = '-1';
+    
+   
+
+if($scope.params.infoId !=null){
+    $scope.visitInfo = $scope.params.infoId;
+}
+
+  
+
    $scope.AddVisitInfo = function(info){
-
-
 
         var urlParam = 'VisitService/VisitRecord.svc/SetAddInfoVisit';  
         var methodType = 'PUT';
         // var methodType = 'POST';
         var dataJson =JSON.stringify({
-        "Company_NO": $rootScope.currentUser.UserDetails.Company_No,
-        "LOCATION_NO": $rootScope.currentUser.UserDetails.Location_No,
-        "User_ID": '1',
-        "DOC_NO": $scope.params.vid,       
-        "DEMO_PERFORMED": info.DEMO_PERFORMED,
-        "ORDER_RECEIVED":info.ORDER_RECEIVED,
-        "PRODUCT": 'sad',
-        "PRODUCT_DEMO": info.PRODUCT_DEMO
-    });
+            "Company_NO": $rootScope.currentUser.UserDetails.Company_No,
+            "LOCATION_NO": $rootScope.currentUser.UserDetails.Location_No,
+            "User_ID": $rootScope.currentUser.UserDetails.UserId,
+            "DOC_NO": $scope.params.vid,       
+            "DEMO_PERFORMED": $scope.visitInfo.DEMO_PERFORMED,
+            "ORDER_RECEIVED":$scope.visitInfo.ORDER_RECEIVED,
+            "PRODUCT": $scope.visitInfo.PRODUCT,
+            "PRODUCT_DEMO": $scope.visitInfo.PRODUCT_DEMO
+        });
 
-
-    
-      //webService.hideIonLoader(); 
-      //console.log(dataJson);
-      //return;
-
+      webService.showIonLoader();
       webService.webCall(urlParam,methodType,dataJson)
          .then(function(respone){
              webService.hideIonLoader(); 
              
-             if($scope.params.vid !=''){
-                var err = respone.data.Messsage.ErrorMsg;
-             }else{
-                var err = respone.data.Messsage.ErrorMsg;
-             }            
-             
-
-             webService.showPopup(err, $rootScope.title_close).then(function(res){
-
-                $state.go('dashboard.visitDetail',{vid:$scope.params.vid})
+             webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close).then(function(res){
+                $state.go('visit.visitDetail',{vid:$scope.params.vid})
 
              });
          
          },function(error){
             webService.hideIonLoader();  //show ionic loading
-            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+            webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
 
     }
@@ -565,53 +499,222 @@ $scope.getCustConatct = function(){
 
 
   /********************  Visit Add (Products) Starts    *********************/
-   $scope.AddVisitProd = function(Productadd){
+$scope.VisitProd = {};
+$scope.VisitProd.ITEM_GROUP = '';
+$scope.VisitProd.ITEM_TYPE = 'E';
 
-// alert(Productadd.ITEM_TYPE);
-//    console.log($scope.Productadd.ITEM_TYPE);
+$scope.showGroup = true;
+$scope.showCode = true;
+$scope.showDesc=true;
 
 
-//     console.log($scope.Productadd.VISIT_ID);
+if($scope.params.pId !=null){
+    $scope.VisitProd = $scope.params.pId;
+    
+    if($scope.VisitProd.ITEM_TYPE == 'M'){
+        $scope.showGroup=false;
+        $scope.showCode=false;
+        $scope.showDesc=false;
+      }else{
+        $scope.showGroup=true;
+        $scope.showCode=true;
+        $scope.showDesc=true;
+      }
+}
 
-      // webService.showIonLoader(); 
 
-      if($scope.params.pId !=''){
-        var urlParam = 'BPService/GetAllBPService.svc/ModifyAllBP';  
+
+$scope.getProdGroupID = function (query) {
+
+  if(query!=''){
+        webService.showIonLoader();  //show ionic loading
+        var urlParam = 'VisitService/VisitRecord.svc/GetGroup/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+query;
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+          webService.hideIonLoader();
+
+            if(respone.data.GetGroupCodeResult.Messsage.Success){
+                 return respone.data.GetGroupCodeResult.Result;
+
+            }/*else{
+                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
+            }*/
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
+        });
+
+        return modelItem;
+    }
+        
+        return [];
+};
+
+$scope.getProdGroupIDClicked = function (callback) {
+    console.log(callback.item);
+    $scope.VisitProd.ITEM_GROUP = callback.item.Group_Code;
+    $scope.VisitProd.ITEM_CODE = '';
+   $scope.VisitProd.DESCRIPTION = '';
+};
+$scope.getProdGroupIDRemoved = function (callback) {
+   console.log(callback.item);
+   $scope.VisitProd.ITEM_GROUP = '';
+   $scope.VisitProd.ITEM_CODE = '';
+   $scope.VisitProd.DESCRIPTION = '';
+};
+
+
+
+
+$scope.getProductCodeID = function (query) {
+
+    if($scope.VisitProd.ITEM_GROUP=='' || $scope.VisitProd.ITEM_GROUP=='undefined'){
+      webService.showPopup('Select item group first', $rootScope.title_close);
+    }else if(query!=''){
+        webService.showIonLoader();  //show ionic loading
+        var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No
+            +'/'+$scope.VisitProd.ITEM_GROUP
+            +'/'+query
+            +'/null';
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+          webService.hideIonLoader();
+            if(respone.data.GetItemCodeResult.Messsage.Success){
+                 return respone.data.GetItemCodeResult.Result;
+            }/*else{
+                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
+            }*/
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
+        });
+
+        return modelItem;
+      }
+        return [];
+    };
+
+$scope.getProductCodeIDClicked = function (callback) {
+    console.log(callback.item);
+    $scope.VisitProd.ITEM_CODE = callback.item.Stock_NO;
+    $scope.VisitProd.DESCRIPTION = callback.item.Description;
+};
+$scope.getProductCodeIDRemoved = function (callback) {
+   console.log(callback.item);
+   $scope.VisitProd.ITEM_CODE = '';
+   $scope.VisitProd.DESCRIPTION = '';
+};
+
+
+$scope.getProductDescID = function (query) {
+
+    if($scope.VisitProd.ITEM_GROUP==''){
+      webService.showPopup('Select item group first', $rootScope.title_close);
+    }else if(query!=''){
+        webService.showIonLoader();  //show ionic loading
+        var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No
+            +'/'+$scope.VisitProd.ITEM_GROUP
+            +'/null'
+            +'/'+query;
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+
+          console.log(respone);
+          
+          webService.hideIonLoader();
+            if(respone.data.GetItemCodeResult.Messsage.Success){
+                 return respone.data.GetItemCodeResult.Result;
+
+            }/*else{
+                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
+            }*/
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
+        });
+
+        return modelItem;
+      }
+        return [];
+    };
+
+$scope.getProductDescIDClicked = function (callback) {
+    console.log(callback.item);
+   $scope.VisitProd.ITEM_CODE = callback.item.Stock_NO;
+    $scope.VisitProd.DESCRIPTION = callback.item.Description;
+};
+$scope.getProductDescIDRemoved = function (callback) {
+   console.log(callback.item);
+   $scope.VisitProd.ITEM_CODE = '';
+   $scope.VisitProd.DESCRIPTION = '';
+};
+
+
+$scope.setProdForm = function(){
+  $scope.VisitProd.ITEM_GROUP = '';
+  $scope.VisitProd.DESCRIPTION = '';
+  $scope.VisitProd.ITEM_CODE = '';
+  $scope.VisitProd.QUANTITY = '';
+  $scope.VisitProd.VISIT_REMARK = '';
+
+  if($scope.VisitProd.ITEM_TYPE == 'M'){
+    $scope.showGroup=false;
+    $scope.showCode=false;
+    $scope.showDesc=false;
+  }else{
+    $scope.showGroup=true;
+    $scope.showCode=true;
+    $scope.showDesc=true;
+  }
+}
+
+
+   $scope.AddVisitProd = function(){
+
+      if($scope.params.pId !=null){
+        var urlParam = 'VisitService/VisitRecord.svc/ModifyProductVisit';  
         var methodType = 'PUT';
       }else{
         var urlParam = 'VisitService/VisitRecord.svc/SetProductVisit';  
         var methodType = 'POST';
       }
-      
-
 
       var dataJson =JSON.stringify({
         "Company_no": $rootScope.currentUser.UserDetails.Company_No,
         "LOCATION_no": $rootScope.currentUser.UserDetails.Location_No,
-        "USER_ID": 'ADMIN',
-        "VISIT_ID": $scope.params.vid,       
-        "DESCRIPTION": Productadd.DESCRIPTION,
-        "ITEM_CODE":Productadd.ITEM_CODE,
-        "ITEM_TYPE": Productadd.ITEM_TYPE,
-        "QUANTITY": Productadd.QUANTITY,        
-        "VISIT_REMARK":Productadd.VISIT_REMARK
+        "USER_ID": $rootScope.currentUser.UserDetails.LoginName,
+        "VISIT_ID": $scope.params.vid,
+        "ITEM_GROUP":$scope.VisitProd.ITEM_GROUP,
+        "DESCRIPTION": $scope.VisitProd.DESCRIPTION,
+        "ITEM_CODE":$scope.VisitProd.ITEM_CODE,
+        "ITEM_TYPE": $scope.VisitProd.ITEM_TYPE,
+        "QUANTITY": $scope.VisitProd.QUANTITY,        
+        "VISIT_REMARK":$scope.VisitProd.VISIT_REMARK
     });
-      //webService.hideIonLoader(); 
-      //console.log(dataJson);
-      //return;
-
+    
       webService.webCall(urlParam,methodType,dataJson)
          .then(function(respone){
              webService.hideIonLoader(); 
              
-             if($scope.params.vid !=''){
-                var err = respone.data.Messsage.ErrorMsg;
-             }else{
-                var err = respone.data.Messsage.ErrorMsg;
-             }            
-             
-
-             webService.showPopup(err, $rootScope.title_close).then(function(res){
+             webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close).then(function(res){
 
                $state.go('visit.visitDetail',{vid:$scope.params.vid})
 
@@ -619,21 +722,11 @@ $scope.getCustConatct = function(){
          
          },function(error){
             webService.hideIonLoader();  //show ionic loading
-            webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+            webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
 
-      // webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
-      //      $state.go('dashboard.visitDetails');
-      //  });
-
     }
-      $scope.AddSalesperson = function(){
-    
-      webService.showPopup('Record added successfully', $rootScope.title_ok).then(function() {
-           $state.go('visit.visitDetails');
-       });
-
-    }
+      
   /********************  Visit Add (Products) Ends    *********************/
 
 
@@ -691,30 +784,20 @@ $scope.getCustConatct = function(){
     }
   /********************  Visit Prod Update Ends    *********************/
 
-    /*$scope.save_product = function(){
-     webService.showPopup('Product added successfully', $rootScope.title_ok).then(function() {
-         $state.go('dashboard.visitDetails');
-      });
 
-    }
-
-    $scope.save_info = function(){
-     webService.showPopup('Aditional info  added successfully', $rootScope.title_close).then(function() {
-    $state.go('dashboard.visitDetails');
-   });
-  	
-    }
-  */
-
-
-
+$scope.visitDetails = '';
+$scope.SalesDetails= '';
+$scope.SaleContact= '';
+$scope.SaleProduct= '';
+$scope.VisitAdditional= '';
 
   $scope.VisitDetail = function(){
       // webService.showIonLoader();  //show ionic loading
     var urlParam = 'VisitService/VisitRecord.svc/GetVisitDetail/'
             +$rootScope.currentUser.UserDetails.Company_No
             +'/'+$rootScope.currentUser.UserDetails.Location_No
-            +'/'+$scope.params.vid+'/ADMIN';
+            +'/'+$scope.params.vid
+            +'/'+$rootScope.currentUser.UserDetails.LoginName;
 
     var methodType = 'GET'
     var dataJson = JSON.stringify({});
@@ -725,18 +808,63 @@ $scope.getCustConatct = function(){
         webService.hideIonLoader();//hide ionic loading
         if(respone.data.GetVisitDataResult.Messsage.Success){
 
-          $scope.visitdetailss = respone.data.GetVisitDataResult.Result;
-          $scope.Saledetails= respone.data.GetVisitDataResult.Sale;
+          $scope.visitDetails = respone.data.GetVisitDataResult.Result;
+          $scope.SalesDetails= respone.data.GetVisitDataResult.Sale;
           $scope.SaleContact= respone.data.GetVisitDataResult.SaleContact;
           $scope.SaleProduct= respone.data.GetVisitDataResult.SaleProduct;
           $scope.VisitAdditional= respone.data.GetVisitDataResult.VisitAdditional;
-  
 
-          // $scope.bpModel = respone.data.GetAllBPResult.BPResult;
-          // $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
-          // $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
-          // $scope.bpModel.PARENT_VENDOR = 'CST123';
-          // $scope.bpModel.PAYTERM = 'PT20';
+
+          /* set model on Modify and Authorize visit start */
+
+          $scope.visitModel.AREA_NAME = $scope.visitDetails.AREA_NAME;
+          $scope.visitModel.CUSTOMER_NO = $scope.visitDetails.CUSTOMER_NO;
+
+          $scope.arCode = $scope.visitModel.AREA_NAME.split('-');
+          if($scope.arCode[0]!=''){
+            $scope.fillVisitContacts($scope.arCode[0]);
+          }
+
+         $scope.visitModel.DOC_SERIES = $scope.visitDetails.DOC_SERIES;
+         $scope.visitModel.VISIT_ID = $scope.visitDetails.VISIT_ID;
+         $scope.visitModel.VISIT_DETAILS = $scope.visitDetails.VISIT_DETAILS;
+         
+         $scope.visitModel.CUSTOMER_NAME = $scope.visitDetails.CUSTOMER_NAME;
+         
+         $scope.visitModel.ADDRESS = $scope.visitDetails.ADDRESS;
+         $scope.visitModel.REMARK = $scope.visitDetails.REMARK;
+
+         $scope.visitModel.VISIT_DATE = $filter('date')($scope.visitDetails.VISIT_DATE,'yyyy-MM-dd');
+         $scope.visitModel.VISIT_TIME_FROM = $scope.visitDetails.VISIT_TIME_FROM;
+         $scope.visitModel.VISIT_TIME_TO = $scope.visitDetails.VISIT_TIME_TO;
+         
+         for(var key in $scope.SaleContact){
+          $scope.visitModel.Contact.length = 0;
+           $scope.visitModel.Contact.push({
+                                        'CUST_CONTACT_PERSON':$scope.SaleContact[key]['CONTACT_PERSON'],
+                                        'CONTACT_POSITION':$scope.SaleContact[key]['DESIGNATION'],
+                                        'MOBILE_NO':$scope.SaleContact[key]['MOBILE'],
+                                        'EMAIL':$scope.SaleContact[key]['EMAIL'],
+                                       });
+         }
+        
+        for(var key in $scope.SalesDetails){
+          $scope.visitModel.Sales.length = 0;
+         $scope.visitModel.Sales.push({
+                                      'SALES_PERSON_NO':$scope.SalesDetails[key]['SALES_PERSON_NO'],
+                                      'SALES_PERSON_NAME':$scope.SalesDetails[key]['SALES_PERSON_NAME'],
+                                      'NEXT_ACTION':$scope.SalesDetails[key]['NEXT_ACTION'],
+                                      'NEXT_ACTION_DATE':$filter('date')($scope.SalesDetails[key]['NEXT_ACTION_DATE'],'yyyy-MM-dd'),
+                                      'NEXT_ACTION_TIME':$scope.SalesDetails[key]['NEXT_ACTION_TIME'],
+                                      'ALERT':1,
+                                      'ALERT_DATE':$filter('date')($scope.SalesDetails[key]['ALERT_DATE'],'yyyy-MM-dd'),
+                                      'ALERT_TIME':$scope.SalesDetails[key]['ALERT_TIME'],
+                                    });
+         }
+
+         console.log($scope.visitModel);
+
+         /* set model on Modify and Authorize visit ends*/
 
 
         }else{
@@ -745,69 +873,20 @@ $scope.getCustConatct = function(){
 
     },function(error){
           webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Something went wrong! Please try again', $rootScope.title_close);
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
   }
 
 
-
-
-
-
-   // $scope.setPcode = function(site) {
-   // $scope.selected="ss";
-   //  };
-
     $scope.$on('$ionicView.beforeEnter', function() {
       
       //Call method when on bpDetail screen 
-      if (($.inArray($state.current.name, ['visit.visitDetail']) !== -1)  || ($.inArray($state.current.name, ['dashboard.bpCreate']) !== -1 && $scope.params.vid!='') ) {
+      if (($.inArray($state.current.name, ['visit.visitDetail']) !== -1)  || ($.inArray($state.current.name, ['visit.addVisit']) !== -1 && $scope.params.vid!='') ) {
         $scope.VisitDetail();
       }
     
     });
 
-    // $scope.model = "";
-    // $scope.clickedValueModel = "";
-    // $scope.removedValueModel = "";
-
-    // $scope.getTestItems = function (query) {
-    //     if (query) {
-    //         return {
-    //             items: [
-    //                 {id: "1", name: query + "1", view: "view: " + query + "1"},
-    //                 {id: "2", name: query + "2", view: "view: " + query + "2"},
-    //                 {id: "3", name: query + "3", view: "view: " + query + "3"}]
-    //         };
-    //     }
-    //     return {items: []};
-    // };
-
-    // $scope.itemsClicked = function (callback) {
-    //     $scope.clickedValueModel = callback;
-    // };
-    // $scope.itemsRemoved = function (callback) {
-    //     $scope.removedValueModel = callback;
-    // };
-
-
-
-  
-   $scope.order = [{
-        id: '-1',
-        name: 'Select'},
-    {
-        id: 'C1',
-        name: 'Yes'},
-    {
-        id: 'C2',
-        name: 'No'}];
-
-$scope.info= {};
-$scope.info.ORDER_RECEIVED = '-1';
-$scope.info.DEMO_PERFORMED = '-1';
-  
-  
        
 
 });

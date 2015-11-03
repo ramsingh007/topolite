@@ -1,4 +1,4 @@
-<ion-view title="Create Visit">
+<ion-view title="{{(params.vid != '') ? 'Update':'Create'}} Visit">
    
 <ion-content>
 <form class="form-horizontal">
@@ -147,7 +147,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Mobile No.</label>
-                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Contact[$index]['MOBILE']"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Contact[$index]['MOBILE_NO']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Email</label>
@@ -160,7 +160,7 @@
                             <div class="padding plus-minus-btn" ng-click="visitModel.Contact.push({
                                 'CUST_CONTACT_PERSON':null,
                                 'CONTACT_POSITION':null,
-                                'MOBILE':null,
+                                'MOBILE_NO':null,
                                 'EMAIL':null,
                                })">
                                 <i class="ion-plus-circled"></i>
@@ -262,9 +262,13 @@
     
 </div>
 </form>
- <div class="row" style="display:flex;">
-    <!--div class="col-50 col"><a ng-click="initVisitModel()"  class="button button-small button-assertive button-block search">Clear All</a></div-->
-     <div class="col-100 col"><a ng-click="SaveVisit()" class="button button-small button-assertive button-block search">Save</a></div>
+ <div class="row" style="display:flex;" ng-show="((params.vid == ''))">
+     <div class="col-100 col"><a ng-click="SaveVisit('Add')" class="button button-small button-assertive button-block search">Save</a></div>
+</div>
+
+<div class="row" style="display:flex;" ng-show="((params.vid != ''))">
+    <div class="col-50 col"><a ng-click="SaveVisit('Authorize')"  class="button button-small button-assertive button-block search">Authorize</a></div>
+     <div class="col-50 col"><a ng-click="SaveVisit('Update')" class="button button-small button-assertive button-block search">Update</a></div>
 </div>
 
 

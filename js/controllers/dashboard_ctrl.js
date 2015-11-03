@@ -54,7 +54,7 @@ $scope.autoSignIn = function(){
       $http.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&sensor=true').then(function(res){
         le = res.data.results[0].address_components.length;
         } ,function(err){
-          webService.showPopup('Network problem!', $rootScope.title_close);
+          webService.showPopup('Network error!', $rootScope.title_close);
       });
      }
     var onError= function(error) {

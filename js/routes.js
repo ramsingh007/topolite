@@ -132,7 +132,7 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
     
   })
  .state('visit.addVisit', {
-    url: '/add_visit',
+    url: '/add_visit/:vid/',
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_visit.html',
@@ -195,7 +195,8 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
    
 
  .state('visit.addProduct', {
- url: '/add_product/:vid/:pId',
+ url: '/add_product/:vid',
+ params: {pId:null},
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_product.html',
@@ -207,8 +208,8 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
   })
 
  .state('visit.addInfo', {
-    url: '/add_info/:vid/:infoId',
-
+    url: '/add_info/:vid',
+    params: {infoId:null},
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/visit/add_info.html',

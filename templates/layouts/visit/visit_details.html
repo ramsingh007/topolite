@@ -17,83 +17,65 @@
 				 <!--    <button class="button button-small btn-red right-btn">add</button> -->
                 </div>
 				<div class="list">
-				  <div class="item item-button-right">1
-					<!--button class="button button-small btn-red">
-					  <i class="ion-android-create"></i>
-					</button-->
+				  <div class="item item-button-right">{{visitDetails.STATUS}}
+					
+					<button class="button button-small btn-red" ng-click="goToState('visit.addVisit',{vid:visitDetails.VISIT_ID})" ng-show="(visitDetails.STATUS == 'OPEN')">Update</button>
+
 				  </div>
 				  <div class="item">					
 					Doc Series
 					<span class="item-note">
-					 {{visitdetailss.DOC_SERIES}}
+					 {{visitDetails.DOC_SERIES}}
 					</span>
 				  </div> <div class="item">					
 					Visit ID
 					<span class="item-note">
-					 {{visitdetailss.VISIT_ID}}
+					 {{visitDetails.VISIT_ID}}
 					</span>
 				  </div> <div class="item">					
 					Visit Time From
 					<span class="item-note">
-					  {{visitdetailss.VISIT_TIME_FROM}}
+					  {{visitDetails.VISIT_TIME_FROM}}
 					</span>
 				  </div> <div class="item">					
 					Visit Time To
 					<span class="item-note">
-					  {{visitdetailss.VISIT_TIME_TO}}
+					  {{visitDetails.VISIT_TIME_TO}}
 					</span>
 				  </div> <div class="item">					
 					Visit Date
 					<span class="item-note">
-					  {{visitdetailss.VISIT_DATE}}
+					  {{visitDetails.VISIT_DATE}}
 					</span>
 				  </div> 	<div class="item">					
 					Customer Id
 					<span class="item-note">
-					  {{visitdetailss.CUSTOMER_NO}}
+					  {{visitDetails.CUSTOMER_NO}}
 					</span>
 				  </div> 	<div class="item">					
 					Customer Name
 					<span class="item-note">
-					  {{visitdetailss.CUSTOMER_NAME}}
+					  {{visitDetails.CUSTOMER_NAME}}
 					</span>
 				  </div> 
 				  <div class="item">					
 					Area Name
 					<span class="item-note">
-					  {{visitdetailss.AREA_NAME}}
+					  {{visitDetails.AREA_NAME}}
 					</span>
 				  </div> 
 				  <div class="item">					
 					Address
 					<span class="item-note">
-					  {{visitdetailss.ADDRESS}}
+					  {{visitDetails.ADDRESS}}
 					</span>
 				  </div> 
 				   <div class="item">					
-					Branch
-					<span class="item-note">
-					  {{visitdetailss.dd}}
-					</span>
-				  </div> 	
-				   <div class="item">					
 					Remark
 					<span class="item-note">
-					  {{visitdetailss.REMARK}}
+					  {{visitDetails.REMARK}}
 					</span>
 				  </div> 	
-				   <div class="item">					
-					Location
-					<span class="item-note">
-					  {{visitdetailss.LOCATION}}
-					</span>
-				  </div> 	
-				  <div class="item">					
-					Status
-					<span class="item-note">
-					  {{visitdetailss.STATUS}}
-					</span>
-				  </div> 				  
 				</div>	               
             </div>
     
@@ -101,33 +83,31 @@
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-telephone"></i> Customer/Contact Form</span>
-				 <button class="button button-small btn-red right-btn"  ng-click="goToState('dashboard.addContact')" >add</button>
-                </div>				
-				<div class="list">
-				  <div class="item item-button-right">1
-					<button class="button button-small btn-red" ng-click="goToState('dashboard.addContact',{vid:visitdetailss.VISIT_ID,cid:1})">
-					  <i class="ion-android-create"></i>
-					</button>
-				  </div>
+				 <!-- <button class="button button-small btn-red right-btn"  ng-click="goToState('visit.addContact')" >Add</button> -->
+                </div>
+
+                <p ng-show="(SaleContact.length == 0)">No results found!</p>
+
+				<div class="list" ng-show="(SaleContact.length != 0)" ng-repeat="list in SaleContact">
 				  <div class="item">					
 					Contact Person
 					<span class="item-note">
-					  354433 538 3
+					  {{list.CONTACT_PERSON}}
 					</span>
 				  </div> <div class="item">					
 					Position
 					<span class="item-note">
-					  354433 538 3
+					  {{list.DESIGNATION}}
 					</span>
 				  </div> <div class="item">					
 					Mobile No.
 					<span class="item-note">
-					  354433 538 3
+					  {{list.MOBILE}}
 					</span>
 				  </div> <div class="item">					
 					Email
 					<span class="item-note">
-					  354433 538 3
+					  {{list.MOBILE}}
 					</span>
 				  </div> 				  
 				</div>		
@@ -139,65 +119,53 @@
             
             <div class="row">
                 <div class="white_box heading-area">
-                   <span><i class="ion-ios-person"></i> Sales Person Form</span>
-				    <button class="button button-small btn-red right-btn" ng-click="goToState('dashboard.add_salesperson')">add</button>
+                   <span><i class="ion-ios-person"></i>Sales Person Form</span>
+				    <!-- <button class="button button-small btn-red right-btn" ng-click="goToState('dashboard.add_salesperson')">Add</button> -->
                 </div>
-                 <p ng-show="Saledetails==''">NO Sales Person Details  </p>
-               <div ng-repeat="spf in Saledetails">
-               <div class="list">
-				  <div class="item item-button-right">1
-					<button class="button button-small btn-red" ng-click="goToState('dashboard.add_salesperson',{vid:visitdetailss.VISIT_ID,lid:1})">
-					  <i class="ion-android-create"></i>
-					</button>
-				  </div>
+               
+               <p ng-show="(SalesDetails.length == 0)">No results found!</p>
+               
+               <div class="list" ng-show="(SalesDetails.length != 0)" ng-repeat="list in SalesDetails">
 				  <div class="item">					
 					Sales Person No
 					<span class="item-note">
-					 {{spf.SALES_PERSON_NO}}
+					 {{list.SALES_PERSON_NO}}
 					</span>
 				  </div> <div class="item">					
 					Name
 					<span class="item-note">
-					  {{spf.SALES_PERSON_NAME}}
+					  {{list.SALES_PERSON_NAME}}
 					</span>
 				  </div> <div class="item">					
 					Next Action
 					<span class="item-note">
-					  {{spf.NEXT_ACTION}}
+					  {{list.NEXT_ACTION}}
 					</span>
 				  </div> <div class="item">					
 					Next Action Date
 					<span class="item-note">
-					  {{spf.NEXT_ACTION_DATE}}
+					  {{list.NEXT_ACTION_DATE}}
 					</span>
 				  </div> 
 				  <div class="item">					
 					Next Action Time
 					<span class="item-note">
-					  {{spf.NEXT_ACTION_TIME}}
+					  {{list.NEXT_ACTION_TIME}}
 					</span>
 				  </div> 	
 				  <div class="item">					
-					Alert Required
-					<span class="item-note">
-				<!-- 	  {{Saledetails}} -->
-					</span>
-				  </div> 
-				  <div class="item">					
 					Alert Date
 					<span class="item-note">
-					 {{spf.ALERT_DATE}}
+					 {{list.ALERT_DATE}}
 					</span>
 				  </div> 
 				  <div class="item">					
 					Alert Time
 					<span class="item-note">
-					  {{spf.ALERT_TIME}}
-				
+					  {{list.ALERT_TIME}}
 					</span>
 				  </div> 					  
 				</div>	
-            </div>
             </div>
 <!--end repeat sales person div-->
 
@@ -207,35 +175,37 @@
 				 <div class="white_box heading-area">
                     <span><i class="fa fa-map-marker"></i> Additional info</span>
 
-	 <button class="button button-small btn-red right-btn" ng-click="goToState('visit.addInfo',{vid:visitdetailss.VISIT_ID})" >add</button>
+	 					<button ng-show="(VisitAdditional.length == 0 && visitDetails.STATUS == 'OPEN')" class="button button-small btn-red right-btn" ng-click="goToState('visit.addInfo',{vid:visitDetails.VISIT_ID})" >Add</button>
+
+	 					<button ng-show="(VisitAdditional.length !=0 && visitDetails.STATUS == 'OPEN')" class="button button-small btn-red right-btn" ng-click="goToState('visit.addInfo',{vid:visitDetails.VISIT_ID,infoId:VisitAdditional[0]})" >Edit</button>
+
 				    
                 </div>
-                <p ng-show="VisitAdditional==''">NO Additional info Found</p>
-                <div ng-repeat="adinfo in VisitAdditional"> 
-                <div class="list">
-				  <div class="item item-button-right">1
-					<button class="button button-small btn-red"  ng-click="goToState('dashboard.addInfo',{vid:visitdetailss.VISIT_ID,infoId:1})">
-					  <i class="ion-android-create"></i>
-					</button>
-				  </div>
+                <p ng-show="(VisitAdditional.length ==0)">No results found!</p>
+                
+                <div class="list" ng-show="(VisitAdditional.length !=0)" ng-repeat="list in VisitAdditional">
 				  <div class="item">					
 					Order Received
 					<span class="item-note">
-					 {{adinfo.ALERT_DATE}}
+					 {{list.ORDER_RECEIVED}}
 					</span>
 				  </div> <div class="item">					
 					Demo Performed
 					<span class="item-note">
-					  {{adinfo.ALERT_DATE}}
+					  {{list.DEMO_PERFORMED}}
 					</span>
 				  </div> <div class="item">					
 					Demo Product
 					<span class="item-note">
-					 {{adinfo.ALERT_DATE}}
+					 {{list.PRODUCT_DEMO}}
+					</span>
+				  </div> <div class="item">					
+					Product
+					<span class="item-note">
+					 {{list.PRODUCT}}
 					</span>
 				  </div> 			  
 				</div>	
-            </div>
             <div>
             <!--end repeat Additional info person div-->
   
@@ -245,53 +215,55 @@
 				 <div class="white_box heading-area">
                      <span><i class="fa fa-map-marker"></i> Product </span>
 
-				    <button class="button button-small btn-red right-btn"  ng-click="goToState('visit.addProduct',{vid:visitdetailss.VISIT_ID})" >add</button>
+				    <button class="button button-small btn-red right-btn"  ng-click="goToState('visit.addProduct',{vid:visitDetails.VISIT_ID})" >Add</button>
 
                 </div>
-                <p ng-show="SaleProduct==''">NO Product Found</p>
-                 <div ng-repeat="product in SaleProduct"> 
-               
-               <div class="list">
-				  <div class="item item-button-right">1
-					<button class="button button-small btn-red" ng-click="goToState('dashboard.addProduct',{vid:visitdetailss.VISIT_ID,pId:1})">
+                
+                <p ng-show="(SaleProduct.length ==0)">No results found!</p>
+                
+                <div class="list" ng-show="(SaleProduct.length !=0)" ng-repeat="list in SaleProduct">
+				  <div class="item item-button-right">&nbsp;
+					<button class="button button-small btn-red" ng-click="goToState('visit.addProduct',{vid:visitDetails.VISIT_ID,pId:list}); ">
 					  <i class="ion-android-create"></i>
 					</button>
 				  </div>
 				  <div class="item">					
-					Order Received
-					<span class="item-note">
-					  {{product.ALERT_DATE}}
+					Item Type
+					<span class="item-note" ng-show="(list.ITEM_TYPE == 'E')">
+					 ERP item
+					</span>
+					<span class="item-note" ng-show="(list.ITEM_TYPE == 'M')">
+					 New ITM
 					</span>
 				  </div> <div class="item">					
-					Item category
+					Item Group
 					<span class="item-note">
-					  {{product.ITEM_TYPE}}
+					   {{list.ITEM_GROUP}}
 					</span>
 				  </div> <div class="item">					
 					Item Code
 					<span class="item-note">
-					   {{product.ITEM_CODE}}
+					   {{list.ITEM_CODE}}
 					</span>
-				  </div> <div class="item">					
-					Description
-					<span class="item-note">
-					   {{product.DESCRIPTION}}
-					</span>
-				  </div> 
+				  </div>
 				  <div class="item">					
 					Qty
 					<span class="item-note">
-					   {{product.QUANTITY}}
+					   {{list.QUANTITY}}
 					</span>
-				  </div> 
-				  <div class="item">					
-					Remark
+				  </div><div class="item">					
+					Description
 					<span class="item-note">
-					   {{product.VISIT_REMARK}}
+					   {{list.DESCRIPTION}}
+					</span>
+				  </div>  
+				  <div class="item">					
+					Visit Remark
+					<span class="item-note">
+					   {{list.VISIT_REMARK}}
 					</span>
 				  </div> 				  
 				</div>	
-            </div>
             </div>
 
 
