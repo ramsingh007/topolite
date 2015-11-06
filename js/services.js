@@ -9,7 +9,8 @@ angular.module('topolite.services', [])
         method: methodType,
         data: dataJson,
         headers:{
-          'Content-Type':'application/x-www-form-urlencoded'
+          'Content-Type':'application/x-www-form-urlencoded',
+           'Accept': '*/*'
         }
       });
     },
@@ -69,6 +70,16 @@ angular.module('topolite.services', [])
                     obj[key][lineKey] = i;
                     obj[key]['ALERT_DATE'] = $filter('date')(obj[key]['ALERT_DATE'], 'MM/dd/yyyy');
                     obj[key]['NEXT_ACTION_DATE'] = $filter('date')(obj[key]['NEXT_ACTION_DATE'], 'MM/dd/yyyy');
+                    
+                    if(obj[key]['NEXT_ACTION_TIME'] ==''){
+                        obj[key]['NEXT_ACTION_TIME'] = '99.99';
+                    }
+
+                    if(obj[key]['ALERT'] == 'N'){
+                        obj[key]['ALERT_DATE'] = '1900-01-01';
+                        obj[key]['ALERT_TIME'] = '99.99';
+                    }
+
                     tmp.push(obj[key]);
                     i++; 
                 }

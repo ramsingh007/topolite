@@ -34,7 +34,17 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
 		}
 	}
   })
-
+ .state('dashboard.attendance', {
+    url: '/attendance',
+	views: {
+		'dashboard': {
+			templateUrl:'templates/layouts/dashboard/attendance.html',
+			controller: 'DashboardCtrl',
+			title:'attendance'
+		}
+	}
+  })
+  
  
  .state('bp', {
     abstract: true,
@@ -82,7 +92,8 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
 	}
   })
  .state('bp.addcontact', {
-    url: '/add_contact/:bpId/:ID',
+    url: '/add_contact/:bpId/:lId',
+    params: {lineData:''},
 	views: {
 		'dashboard': {
 			templateUrl:'templates/layouts/bp/add_contact.html',
@@ -91,6 +102,18 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
 		}
 	}
   })
+ .state('bp.editcontact', {
+    url: '/edit_contact/:bpId/:lin_id',
+
+	views: {
+		'dashboard': {
+			templateUrl:'templates/layouts/bp/add_contact.html',
+			controller: 'BPctrl',
+			title: 'BPContactCreateUpdate'
+		}
+	}
+  })
+
 
 
  .state('visit', {
@@ -221,18 +244,7 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
   })
  
  
- .state('dashboard.attendance', {
-    url: '/attendance',
-	views: {
-		'dashboard': {
-			templateUrl:'templates/layouts/attendance/attendance.html',
-			controller: 'attend_Ctrl',
-			title:'attendance'
-		}
-	}
-   
-  })
-  
+
   
  .state('report', {
     abstract: true,
@@ -321,6 +333,8 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
 
   $rootScope.bpResults = [];
    $rootScope.visitResults = [];
+
+   
 
 
   $rootScope.currentUser = $localStorage.currentUser;

@@ -1,11 +1,11 @@
-<ion-view title="{{(params.cid != '') ? 'Update':'Create'}} Info">
+<ion-view title="{{(params.lId != '') ? 'Update':'Create'}} Contact">
 
 
 
 <ion-content>
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
-            <span>Contact Person</span>
+            <span>Contact Person{{ram}}</span>
             <input type="text" ng-model="contact.Received">
         </label>
         <label class="item item-input item-stacked-label">
@@ -22,7 +22,9 @@
         </label>
        
         
-        <button class="button button-block button-small button-assertive" ng-click="save_contact(contact)">ADD</button>
+        <button ng-show="(params.lId == '')" class="button button-block button-small button-assertive" ng-click="save_contact('Add')">ADD</button>
+
+        <button ng-show="(params.lId != '')" class="button button-block button-small button-assertive" ng-click="save_contact('Update')">Update</button>
        
     </div>
 </ion-content>

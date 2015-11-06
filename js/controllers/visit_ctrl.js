@@ -7,6 +7,7 @@ angular.module('topolite.visit_ctrl', [])
 
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
+   $scope.currDate = $filter('date')(new Date(), 'yyyy-MM-DD');
    
    
    $scope.fillAreaArr = [];
@@ -260,34 +261,34 @@ $scope.getCustConatct = function(){
 }
 
    $scope.initVisitModel = function(){
-       $scope.visitModel = {};
+       //$scope.visitModel = {};
        $scope.visitModel.VISIT_ID = '';
        $scope.visitModel.CUSTOMER_NO = '';
        $scope.visitModel.CUSTOMER_NAME = '';
        $scope.visitModel.AREA_NAME = '';
        $scope.visitModel.ADDRESS = '';
        $scope.visitModel.REMARK = '';
-       //$scope.visitModel.VISIT_TIME_FROM = new Date();
-       //$scope.visitModel.VISIT_TIME_TO = new Date();
-       //$scope.visitModel.VISIT_DATE = new Date();
-       //$scope.visitModel.Info = {};
+       $scope.visitModel.VISIT_DETAILS = '';
+       $scope.visitModel.VISIT_DATE = $scope.currDate;
+       $scope.visitModel.VISIT_TIME_FROM = '';
+       $scope.visitModel.VISIT_TIME_TO = '';
    
        $scope.visitModel.Contact = [{
-                                    'CUST_CONTACT_PERSON':null,
-                                    'CONTACT_POSITION':null,
-                                    'MOBILE_NO':null,
-                                    'EMAIL':null,
+                                    'CUST_CONTACT_PERSON':'',
+                                    'CONTACT_POSITION':'',
+                                    'MOBILE_NO':'',
+                                    'EMAIL':'',
                                    }];
        
        $scope.visitModel.Sales = [{
-                                    'SALES_PERSON_NO':null,
-                                    'SALES_PERSON_NAME':null,
-                                    'NEXT_ACTION':null,
-                                    'NEXT_ACTION_DATE':null,
-                                    'NEXT_ACTION_TIME':null,
+                                    'SALES_PERSON_NO':'',
+                                    'SALES_PERSON_NAME':'',
+                                    'NEXT_ACTION':'',
+                                    'NEXT_ACTION_DATE':$scope.currDate,
+                                    'NEXT_ACTION_TIME':'',
                                     'ALERT':1,
-                                    'ALERT_DATE':null,
-                                    'ALERT_TIME':null
+                                    'ALERT_DATE':$scope.currDate,
+                                    'ALERT_TIME':''
                                    }];
        
    }
@@ -317,7 +318,7 @@ $scope.getCustConatct = function(){
      }
     var onError= function(error) {
         webService.hideIonLoader();//hide ionic loading
-        webService.showPopup(error, $rootScope.title_close);
+        webService.showPopup('Unable to access location!', $rootScope.title_close);
     }
 
 /********************  Get location  ends  *********************/
@@ -382,6 +383,16 @@ $scope.getCustConatct = function(){
       }else if(wsType == 'Authorize'){
         var urlParam = 'VisitService/VisitRecord.svc/AuthorizeAllVisit';  
         var methodType = 'PUT';
+      }
+
+
+      if($scope.visitModel.VISIT_TIME_FROM == ''){
+        $scope.visitModel.VISIT_TIME_FROM = '0.00';
+      }
+
+
+      if($scope.visitModel.VISIT_TIME_TO == ''){
+        $scope.visitModel.VISIT_TIME_FROM = '0.00';
       }
 
       var dataJson =angular.toJson({

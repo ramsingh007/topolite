@@ -6,19 +6,19 @@
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
             <span>Contact Person</span>
-            <input type="text" ng-model="bp_contact.c_person">
+            <input  maxlength="60" type="text" ng-model="bp_contact.CONTACT_PERSON">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Designation</span>
-            <input type="text" ng-model="bp_contact.designation">
+            <input   maxlength="40" type="text" ng-model="bp_contact.DESIGNATION">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Email</span>
-            <input type="text" ng-model="bp_contact.email">
+            <input type="email" ng-model="bp_contact.EMAIL">
         </label>
         <label class="item item-input item-stacked-label">
-            <span>Phone no</span>
-            <input type="text" ng-model="bp_contact.phone_no">
+            <span>Mobile No</span>
+            <input restrict-input="^[0-9]*$" maxlength="10" type="text" ng-model="bp_contact.MOBILE_NO">
         </label>
         
         <button class="button button-block button-small button-assertive" ng-click="save_contact(bp_contact)">ADD</button>

@@ -1,11 +1,11 @@
-<ion-view title="{{bpDetail.BPResult.BP_Code}}">
+<ion-view title="BP Detail">
    
 
 
 
-    <ion-nav-buttons side="right">
-          <button class="button button-small" ng-click="add_contact()">Add Contact</button>
-    </ion-nav-buttons>
+    <!-- <ion-nav-buttons side="right">
+  <button class="button button-small" ng-click="goToState('bp.addcontact',{bpId:bpDetail.BPResult.BP_Code})">Add Contact</button>
+    </ion-nav-buttons> -->
 
 <ion-content>
 
@@ -17,14 +17,16 @@
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-location"></i>BP Reports</span>
-            <button class="button button-small btn-red right-btn">add</button>
+          <button class="button button-small btn-red right-btn"
+          ng-click="goToState('bp.bpCreate',{bpId:bpDetail.BPResult.BP_Code})"
+          >Edit</button>
                 </div>
         <div class="list">
-          <div class="item item-button-right">1
+         <!--  <div class="item item-button-right">1
           <button class="button button-small btn-red"  >
             <i class="ion-android-create"></i>
           </button>
-          </div>
+          </div> -->
           <div class="item">          
           BP Code
           <span class="item-note">
@@ -67,12 +69,7 @@
           {{bpDetail.BPResult.COUNTRY}}
           </span>
           </div> 
-          <div class="item">          
-          Zip
-          <span class="item-note">
-          {{bpDetail.BPResult.Zip}}
-          </span>
-          </div> 
+        
           <div class="item">          
           Payterm
           <span class="item-note">
@@ -120,41 +117,55 @@
           <span class="item-note">
           {{bpDetail.BPResult.PAN_NO}}
           </span>
+          </div>
+          <div class="item">          
+          Phone No.
+          <span class="item-note">
+          {{bpDetail.BPResult.PHONE_NO}}
+          </span>
+          </div>
+          <div class="item">          
+          Visit Location
+          <span class="item-note">
+          {{bpDetail.BPResult.VISIT_LOCATION}}
+          </span>
           </div> 
            
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-telephone"></i> Customer/Contact Form</span>
-         <button class="button button-small btn-red right-btn">add</button>
-                </div>        
+         <button ng-click="goToState('bp.addcontact')" class="button button-small btn-red right-btn">add</button>
+                </div>  
+    <div class="list" ng-repeat="contact in bpContacts">      
         <div class="list">
-          <div class="item item-button-right">1
-          <button class="button button-small btn-red">
+          <div class="item item-button-right" >{{contact.LI_NO}}
+          <button class="button button-small btn-red" ng-click="goToState('bp.addcontact',{bpId:bpDetail.BPResult.BP_Code,lId:contact.LI_NO,lineData:contact})" >
             <i class="ion-android-create"></i>
           </button>
           </div>
           <div class="item">          
           Contact Person
           <span class="item-note">
-{{bpDetail.BPSetContact.CONTACT_PERSON}}
+{{contact.CONTACT_PERSON}}
           </span>
           </div> <div class="item">         
           Designation
           <span class="item-note">
-{{bpDetail.BPSetContact.DESIGNATION}}
+{{contact.DESIGNATION}}
           </span>
           </div> <div class="item">         
           Email
           <span class="item-note">
-{{bpDetail.BPSetContact.EMAIL}}
+{{contact.EMAIL}}
           </span>
           </div> <div class="item">         
           Phone No
           <span class="item-note">
-{{bpDetail.BPSetContact.PHONE}}
+{{contact.MOBILE_NO}}
           </span>
           </div>          
         </div>    
+      </div>
           
             </div>
      
