@@ -3,9 +3,9 @@
 
 
 
-    <!-- <ion-nav-buttons side="right">
-  <button class="button button-small" ng-click="goToState('bp.addcontact',{bpId:bpDetail.BPResult.BP_Code})">Add Contact</button>
-    </ion-nav-buttons> -->
+    <ion-nav-buttons side="right" ng-show="($scope.bpMap!='')">
+   <a href="geo:0,0?q={{bpMap}}" class="button button-small">View Location</a>
+    </ion-nav-buttons>
 
 <ion-content>
 
@@ -17,6 +17,8 @@
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-location"></i>BP Reports</span>
+
+                  
           <button class="button button-small btn-red right-btn"
           ng-click="goToState('bp.bpCreate',{bpId:bpDetail.BPResult.BP_Code})"
           >Edit</button>
@@ -134,7 +136,7 @@
             <div class="row">
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-telephone"></i> Customer/Contact Form</span>
-         <button ng-click="goToState('bp.addcontact')" class="button button-small btn-red right-btn">add</button>
+         <button  ng-click="goToState('bp.addcontact',{bpId:bpDetail.BPResult.BP_Code})" class="button button-small btn-red right-btn">add</button>
                 </div>  
     <div class="list" ng-repeat="contact in bpContacts">      
         <div class="list">

@@ -7,7 +7,7 @@ angular.module('topolite.visit_ctrl', [])
 
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
-   $scope.currDate = $filter('date')(new Date(), 'yyyy-MM-DD');
+   $scope.currDate = new Date(); //$filter('date')(new Date(), 'dd/MM/yyyy');
    
    
    $scope.fillAreaArr = [];
@@ -290,8 +290,9 @@ $scope.getCustConatct = function(){
                                     'ALERT_DATE':$scope.currDate,
                                     'ALERT_TIME':''
                                    }];
-       
-   }
+
+      console.log($scope.visitModel);
+    }  
 
    $scope.initVisitModel();   
 
@@ -373,6 +374,64 @@ $scope.getCustConatct = function(){
 
    $scope.SaveVisit = function(wsType){
 
+    var msg ='';
+    var ctMsg ='';
+    var saleMsg ='';
+    
+    if($scope.visitModel.CUSTOMER_NO == ''){
+      msg = "Please enter customer no!";
+    }else if($scope.visitModel.CUSTOMER_NAME ==''){
+      msg = "Please enter customer name!";
+    }else if($scope.visitModel.AREA_NAME ==''){
+      msg = "Please select area!";
+    }else if($scope.visitModel.AREA_NAME ==''){
+      msg = "Please select area!";
+    }else if($scope.visitModel.ADDRESS ==''){
+      msg = "Please enter address!";
+    }
+
+    for(var j in $scope.visitModel.Contact){
+        
+        if($scope.visitModel.Contact[j]['CUST_CONTACT_PERSON'] == ''){
+          ctMsg = "Please enter contact person!";
+        }else if($scope.visitModel.Contact[j]['CONTACT_POSITION'] ==''){
+          ctMsg = "Please enter designation!";
+        }else if($scope.visitModel.Contact[j]['MOBILE_NO'] ==''){
+          ctMsg = "Please enter mobile no!";
+        }
+
+        if(ctMsg!=''){break;}
+        j++;
+    }
+
+
+    for(var i in $scope.visitModel.Sales){
+        
+        if($scope.visitModel.Sales[i]['SALES_PERSON_NO'] == ''){
+          saleMsg = "Please select sales no!";
+        }else if($scope.visitModel.Sales[i]['SALES_PERSON_NAME'] ==''){
+          saleMsg = "Please enter sales name!";
+        }else if($scope.visitModel.Sales[i]['NEXT_ACTION'] !='' && $scope.visitModel.Sales[i]['NEXT_ACTION_TIME'] == ''){
+          saleMsg = "Please enter next action time!";
+        }else if($scope.visitModel.Sales[i]['ALERT'] =='1' && $scope.visitModel.Sales[i]['ALERT_DATE'] == ''){
+          saleMsg = "Please enter alert date!";
+        }else if($scope.visitModel.Sales[i]['ALERT'] =='1' && $scope.visitModel.Sales[i]['ALERT_TIME'] == ''){
+          saleMsg = "Please enter alert time!";
+        }
+
+        if(saleMsg!=''){break;}
+        i++;
+    }
+
+
+    if(msg!=''){
+        webService.showPopup(msg, $rootScope.title_ok);
+    }else if(ctMsg!=''){
+        webService.showPopup(ctMsg, $rootScope.title_ok);
+    }else if(saleMsg!=''){
+        webService.showPopup(saleMsg, $rootScope.title_ok);
+    }else{
+
       if(wsType == 'Add'){
         var urlParam = 'VisitService/VisitRecord.svc/SetAllVisit';  
         var methodType = 'POST';
@@ -384,6 +443,9 @@ $scope.getCustConatct = function(){
         var urlParam = 'VisitService/VisitRecord.svc/AuthorizeAllVisit';  
         var methodType = 'PUT';
       }
+
+
+
 
 
       if($scope.visitModel.VISIT_TIME_FROM == ''){
@@ -439,6 +501,9 @@ $scope.getCustConatct = function(){
          });
 
 
+    }
+
+
   }
   /********************  Visit Add (Visit, Customer, Sales) Ends    *********************/
 
@@ -472,6 +537,18 @@ if($scope.params.infoId !=null){
 
    $scope.AddVisitInfo = function(info){
 
+    var msg ='';
+    
+    if($scope.visitInfo.ORDER_RECEIVED == 'C1' && $scope.visitInfo.PRODUCT ==''){
+      msg = "Please enter info1!";
+    }else if($scope.visitInfo.DEMO_PERFORMED == 'C1' && $scope.visitInfo.PRODUCT_DEMO ==''){
+      msg = "Please enter product demo!";
+    }
+
+    if(msg!=''){
+      webService.showPopup(msg, $rootScope.title_ok);
+    }else{
+
         var urlParam = 'VisitService/VisitRecord.svc/SetAddInfoVisit';  
         var methodType = 'PUT';
         // var methodType = 'POST';
@@ -500,6 +577,8 @@ if($scope.params.infoId !=null){
             webService.hideIonLoader();  //show ionic loading
             webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
+
+      }   
 
     }
   /********************  Visit Add (Additional Info) Ends    *********************/
@@ -697,6 +776,23 @@ $scope.setProdForm = function(){
 
    $scope.AddVisitProd = function(){
 
+    var msg ='';
+    
+    if($scope.VisitProd.ITEM_TYPE == 'E' && $scope.VisitProd.ITEM_GROUP ==''){
+      msg = "Please enter item group!";
+    }else if($scope.VisitProd.ITEM_CODE == ''){
+      msg = "Please enter item code!";
+    }else if($scope.VisitProd.DESCRIPTION == ''){
+      msg = "Please enter description!";
+    }else if($scope.VisitProd.QUANTITY == ''){
+      msg = "Please enter quantity!";
+    }
+
+    if(msg!=''){
+        webService.showPopup(msg, $rootScope.title_ok);
+    }else{
+
+
       if($scope.params.pId !=null){
         var urlParam = 'VisitService/VisitRecord.svc/ModifyProductVisit';  
         var methodType = 'PUT';
@@ -732,6 +828,8 @@ $scope.setProdForm = function(){
             webService.hideIonLoader();  //show ionic loading
             webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
+
+       }  
 
     }
       

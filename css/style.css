@@ -169,6 +169,10 @@ form .notice{ display: block; text-align: right; text-transform: uppercase; font
   margin: 0 10px;
   padding: 0 10px;
 }
+
+input.ng-dirty.ng-invalid {
+      border: 1px solid red;
+    }
 .heading-area {
   Margin-top: 10px;
 }
@@ -190,4 +194,8 @@ header .dash-page i{ color:#fff; font-size:28px;}
 
 .attendence-page input[type="text"]{ margin:0 0 0 10px; border-radius:0; width:52%; display:inline-block; vertical-align:top;}
 .attendence-page label{ float:left; width:60px; padding:6px 0 0;}
-.visit-listpage .form-control{ border-radius:0;}\
+.visit-listpage .form-control{ border-radius:0;}
+
+
+
+

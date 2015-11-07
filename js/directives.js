@@ -14,7 +14,7 @@ angular.module('topolite.directives', [])
                         value = ele.value;
                     }else{
                         ele.value = value;
-                        alert('Please Enter Valid Data');
+                        alert('Please enter valid data');
                     }
                 });
             }

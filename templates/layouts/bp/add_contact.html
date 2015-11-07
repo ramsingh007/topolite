@@ -1,16 +1,16 @@
-<ion-view title="ADD CONTACT">
-
+<ion-view title="{{(params.lId != '') ? 'Update':'Create'}} Contact">
 
 
 <ion-content>
+<form ng-submit="((params.lId != '') ? save_contact('Update'):save_contact('Add'))" >
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
             <span>Contact Person</span>
-            <input  maxlength="60" type="text" ng-model="bp_contact.CONTACT_PERSON">
+            <input  maxlength="60" type="text" ng-model="bp_contact.CONTACT_PERSON" ng-required="true">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Designation</span>
-            <input   maxlength="40" type="text" ng-model="bp_contact.DESIGNATION">
+            <input   maxlength="40" type="text" ng-model="bp_contact.DESIGNATION" ng-required="true">
         </label>
         <label class="item item-input item-stacked-label">
             <span>Email</span>
@@ -18,12 +18,16 @@
         </label>
         <label class="item item-input item-stacked-label">
             <span>Mobile No</span>
-            <input restrict-input="^[0-9]*$" maxlength="10" type="text" ng-model="bp_contact.MOBILE_NO">
+        <input restrict-input="^[0-9]*$" maxlength="10" type="text" ng-model="bp_contact.MOBILE_NO" ng-required="true">
         </label>
-        
-        <button class="button button-block button-small button-assertive" ng-click="save_contact(bp_contact)">ADD</button>
+       
+        <button type="submit" ng-show="(params.lId == '')" class="button button-block button-small button-assertive" >ADD</button>
+
+        <button ng-show="(params.lId != '')" class="button button-block button-small button-assertive" >Update</button>
+       
        
     </div>
+</form>
 </ion-content>
 </ion-view>
 

@@ -6,7 +6,9 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
 })
 
 
-.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
+.config(function($compileProvider, $stateProvider, $urlRouterProvider,$httpProvider) {
+
+	$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|geo):/);
 
    $httpProvider.defaults.useXDomain = true;
    delete $httpProvider.defaults.headers.common['X-Requested-With'];

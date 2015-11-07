@@ -68,12 +68,39 @@ angular.module('topolite.bp_ctrl', [])
 		});
   }
 
+$scope.bp_contact.EMAIL='';
+ $scope.initbpModel = function(){
+       //$scope.visitModel = {};
+          $scope.bpModel.ADDRESS1='';
+          $scope.bpModel.ADDRESS2='';
+          $scope.bpModel.AREA_CODE='';
+          $scope.bpModel.BP_Code='';   
+          $scope.bpModel.CITY='';
+          $scope.bpModel.COUNTRY='';
+          $scope.bpModel.CURRENCY='';
+          $scope.bpModel.Company_NO='';     
+          $scope.bpModel.EMAIL_ID='';   
+          $scope.bpModel.Location_NO='';
+          $scope.bpModel.NAME='';
+          $scope.bpModel.PAN_NO='';
+          // "PAY_TERM": $scope.bpModel.PAYTERM,       
+          $scope.bpModel.STATE='';
+          $scope.bpModel.TIN_GRN='';
+          $scope.bpModel.LOCATION='';
+          $scope.bpModel.SALES_PERSON_NO='';
+          $scope.bpModel.CST_NO='';
+          $scope.bpModel.PHONE_NO='';
+          $scope.bpModel.Zip='';
+
+
+     }
+      $scope.initbpModel();
   /********************  BP Search ends    *********************/
 
 
   /********************  BP Detail Starts    *********************/
   $scope.bpDetail = [];
-
+  $scope.bpMap = '';
   $scope.BPgetDetail = function(){
   		webService.showIonLoader();  //show ionic loading
 		var urlParam = 'BPService/GetAllBPService.svc/GetBP/'
@@ -92,9 +119,20 @@ angular.module('topolite.bp_ctrl', [])
           $scope.bpModel = respone.data.GetAllBPResult.BPResult;
           $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
           $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
-        $scope.bpModel.PARENT_VENDOR = 'CST123';
+        //$scope.bpModel.PARENT_VENDOR = 'CST123';
+         // $scope.bpModel.CURRENCY=''
         $scope.bpContacts=respone.data.GetAllBPResult.BPSetContact;
 
+        if($scope.bpModel.VISIT_LOCATION!=''){
+          $scope.bpMap = $scope.bpModel.VISIT_LOCATION;
+        }else if($scope.bpModel.COUNTRY!=''){
+          $scope.bpMap = $scope.bpModel.ADDRESS1
+                         +','+$scope.bpModel.ADDRESS2
+                         +','+$scope.bpModel.CITY
+                         +','+$scope.bpModel.STATE
+                         +','+$scope.bpModel.COUNTRY;
+        }
+        
 
 		    }else{
 		        webService.showPopup(respone.data.GetAllBPResult.BPMesssage.ErrorMsg, $rootScope.title_close);
@@ -115,10 +153,27 @@ angular.module('topolite.bp_ctrl', [])
   /********************  BP Create/Update Starts    *********************/
   $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
   $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
-  $scope.bpModel.PARENT_VENDOR = 'CST123';
-  $scope.bpModel.PAYTERM = 'PT20';
+  //$scope.bpModel.PARENT_VENDOR = 'CST123';
+  //$scope.bpModel.PAYTERM = 'PT20';
 
   $scope.BPAddUpdate = function(){
+    var msg ='';
+    
+    if($scope.bpModel.BP_Code == ''){
+      msg = "Please enter BP Code!";
+    }else if($scope.bpModel.NAME ==''){
+      msg = "Please enter name!";
+    }else if($scope.bpModel.ADDRESS1 ==''){
+      msg = "Please enter address1!";
+    }else if($scope.bpModel.CITY ==''){
+      msg = "Please enter city!";
+    }else if($scope.bpModel.PHONE_NO ==''){
+      msg = "Please enter mobile no!";
+    }
+
+    if(msg!=''){
+        webService.showPopup(msg, $rootScope.title_ok);
+    }else{
 
       webService.showIonLoader(); 
 
@@ -147,10 +202,10 @@ angular.module('topolite.bp_ctrl', [])
         // "PAY_TERM": $scope.bpModel.PAYTERM,       
         "STATE": $scope.bpModel.STATE,
         "TIN_GRN": $scope.bpModel.TIN_GRN,
-        "LOCATION": "sdh",
-        "SALES_PERSON_NO": "ADMIN",
-        "CST_NO": "123265",
-        "PHONE_NO": "123265",
+        "LOCATION":$scope.bpModel.LOCATION,
+        "SALES_PERSON_NO": $scope.bpModel.SALES_PERSON_NO,
+        "CST_NO": $scope.bpModel.CST_NO,
+        "PHONE_NO": $scope.bpModel.PHONE_NO,
         "Zip": $scope.bpModel.Zip
     });
       //webService.hideIonLoader(); 
@@ -178,6 +233,7 @@ angular.module('topolite.bp_ctrl', [])
             webService.hideIonLoader();  //show ionic loading
             webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
+       }
 
   }
 
@@ -233,6 +289,51 @@ $scope.getSalesIDRemoved = function (callback) {
    console.log(callback.item);
    $scope.bpModel.SALES_PERSON_NO = '';
 };
+
+///get group
+
+$scope.getGroupID = function (query) {
+
+    if(query!=''){
+
+        webService.showIonLoader();  //show ionic loading
+        var urlParam = 'BPService/GetAllBPService.svc/GetArea/'
+                +$rootScope.currentUser.UserDetails.Company_No
+                +'/'+$rootScope.currentUser.UserDetails.Location_No
+                +'/'+query;
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+          
+            webService.hideIonLoader();//hide ionic loading
+            if(respone.data.GetBPAreaResult.BPMessage.Success){
+                 return respone.data.GetBPAreaResult.BPResult;
+            }/*else{
+                return [{ 'CUSTOMER_NO':respone.data.GetBPAreaResult.BPMessage.ErrorMsg }];
+            }*/
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
+        });
+
+        return modelItem;
+      }
+      return [];
+    };
+
+$scope.getGroupClicked = function (callback) {
+    console.log(callback.item);
+
+    $scope.bpModel.SALES_PERSON_NO = callback.item.SALES_PERSON_NO;
+};
+$scope.getGroupRemoved = function (callback) {
+   console.log(callback.item);
+   $scope.bpModel.SALES_PERSON_NO = '';
+};
+
 
 
 
@@ -290,7 +391,7 @@ $scope.getSalesIDRemoved = function (callback) {
             if(respone.data.GetAllBPResult.BPMesssage.Success){
               var countc=respone.data.GetAllBPResult.BPSetContact;
 
-              $rootScope.contactlen=countc.length;
+              $rootScope.contactlen=countc.length+1;
               console.log(countc.length);
                  $state.go('bp.addcontact');
             }/*else{
@@ -316,6 +417,20 @@ $scope.getSalesIDRemoved = function (callback) {
 
 	$scope.save_contact = function(process){
 
+    var msg ='';
+    
+    if($scope.bp_contact.CONTACT_PERSON == ''){
+      msg = "Please enter contact person!";
+    }else if($scope.bp_contact.DESIGNATION ==''){
+      msg = "Please enter designation!";
+    }else if($scope.bp_contact.MOBILE_NO ==''){
+      msg = "Please enter mobile no!";
+    }
+
+    if(msg!=''){
+        webService.showPopup(msg, $rootScope.title_ok);
+    }else{
+
 
           webService.showIonLoader(); 
        
@@ -325,6 +440,8 @@ $scope.getSalesIDRemoved = function (callback) {
         }else if(process == 'Update'){
             var urlParam = 'BPService/GetAllBPService.svc/ModifyBPContact';  
           var methodType = 'PUT';
+
+          $rootScope.contactlen = $scope.bp_contact.LI_NO;
         }
 
         
@@ -339,7 +456,7 @@ $scope.getSalesIDRemoved = function (callback) {
      "CONTACT_PERSON": $scope.bp_contact.CONTACT_PERSON,
     "DESIGNATION": $scope.bp_contact.DESIGNATION,
     "EMAIL": $scope.bp_contact.EMAIL,
-    "LI_NO":$rootScope.contactlen+1,
+    "LI_NO":$rootScope.contactlen,
     "MOBILE_NO":$scope.bp_contact.MOBILE_NO});
       //webService.hideIonLoader(); 
       //console.log(dataJson);
@@ -349,14 +466,19 @@ $scope.getSalesIDRemoved = function (callback) {
          .then(function(respone){
              webService.hideIonLoader(); 
              
-         
-                var err = respone.data.BPSetResult.ErrorMsg;
-                    
              
+             if($scope.params.lId !=''){
+                var err = respone.data.ModifyBPResult.ErrorMsg;
+             }else{
+                var err = respone.data.BPSetResult.ErrorMsg;
+             }   
+                
+             
+ webService.showPopup(err, $rootScope.title_close).then(function(res){
 
-             webService.showPopup(err, $rootScope.title_close).then(function(res){
 
                 // $state.go('bp.bpSearch')
+               $state.go('bp.bpDetail',{bpId:$scope.params.bpId})
 
              });
          
@@ -364,7 +486,7 @@ $scope.getSalesIDRemoved = function (callback) {
             webService.hideIonLoader();  //show ionic loading
             webService.showPopup('Webservice response error!', $rootScope.title_close);
          });
-
+    }
 	 
 	}
 
@@ -482,17 +604,17 @@ $scope.params =  $stateParams;
 
          if($scope.params.lineData !='undefined'){
           console.log($scope.params.bpId);
+ $rootScope.dtdttd=$scope.params.lineData;
 
 
-
-          $scope.ram=$scope.params.bpId;
+          // $scope.ram=$scope.params.bpId;
              $scope.bp_contact.CONTACT_PERSON = $scope.params.lineData.CONTACT_PERSON;
             $scope.bp_contact.DESIGNATION =$scope.params.lineData.DESIGNATION;
             $scope.bp_contact.EMAIL = $scope.params.lineData.EMAIL;
-            $rootScope.contactlen = $scope.bp_contact.LI_NO = $scope.params.lineData.LI_NO ;
+            $scope.bp_contact.LI_NO = $scope.params.lineData.LI_NO ;
             $scope.bp_contact.MOBILE_NO = $scope.params.lineData.MOBILE_NO ;
+         
           }
-
       }
 
      
