@@ -19,13 +19,14 @@
     <ion-side-menu side="left" ng-controller="NavController">
 
       <ion-header-bar class="bar bar-header bar-assertive">
-        <h1 class="title">MENU</h1>
+        <h1 class="title">Menu</h1>
       </ion-header-bar>
       <ion-content has-header="true">
         <ul class="list">
           <li><a ui-sref="dashboard.home" class="item" ng-click="toggleLeft()">Home</a></li>
-          <li><a ui-sref="bp.bpSearch" class="item" ng-click="toggleLeft()">BP Search</a></li>
-          <li><a  ui-sref="visit.visitSearch" class="item" ng-click="toggleLeft()">Visit Search</a></li>
+          <li><a ui-sref="bp.bpSearch" class="item" ng-click="toggleLeft()">BP Master</a></li>
+          <li><a  ui-sref="visit.visitSearch" class="item" ng-click="toggleLeft()">Visit Record</a></li>
+          <li><a  ui-sref="dashboard.attendance" class="item" ng-click="toggleLeft()">Attendance Punching</a></li>
 		  <li><a  ui-sref="report.home" class="item" ng-click="toggleLeft()">Reports</a></li>
 		  
 		      <li><a ng-click="logout()" class="item">Logout</a></li>

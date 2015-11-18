@@ -3,17 +3,17 @@
 
 
 <ion-content>
+<form>
 	<div class="list list-inset">
-    <form>
     	<label class="item item-input item-stacked-label">
             <span>Order Received</span>
         </label>
-        <select ng-model="visitInfo.ORDER_RECEIVED" ng-options="item.id as item.name for item in visitInfoOrder"></select>
+        <select class="form-control" ng-model="visitInfo.ORDER_RECEIVED" ng-options="item.id as item.name for item in visitInfoOrder"></select>
    
         <label class="item item-input item-stacked-label">
             <span>Demo performed</span>
         </label>
-        <select ng-model="visitInfo.DEMO_PERFORMED" ng-options="item.id as item.name for item in visitInfoOrder"></select>
+        <select class="form-control" ng-model="visitInfo.DEMO_PERFORMED" ng-options="item.id as item.name for item in visitInfoOrder"></select>
 
         
         <label class="item item-input item-stacked-label">
@@ -29,7 +29,6 @@
         <button class="button button-block button-small button-assertive" ng-click="AddVisitInfo()">
             {{(params.infoId != null) ? 'Update':'Add'}}
         </button>
-       </form>
     </div>
 </ion-content>
 </ion-view>

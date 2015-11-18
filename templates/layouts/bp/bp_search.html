@@ -8,7 +8,18 @@
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
             <span>Business Partners/Customers</span>
-            <input type="text" ng-model="bpSearch.bp_code">
+            <!-- <input type="text" ng-model="bpSearch.bp_code"> -->
+
+            <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpSearch.bp_code" item-value-key="BP_Code"
+                                           item-view-value-key="BP_Code"
+                                           items-method="BPSearchPerson(query,'code')"
+                                           items-clicked-method="BPSearchPersonClicked(callback,'code')"
+                                           items-removed-method="BPSearchPersonRemoved(callback,'code')"
+                                           max-selected-items="1"
+                                           select-items-label="Search BP Code"
+                                           selected-items-label="Selected BP Code:"
+                                           component-id="VISIT" />
+
         </label>
         <label class="item item-input item-stacked-label">
             <span>Name</span>
@@ -17,10 +28,9 @@
             <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpSearch.cp_name"
                        item-value-key="NAME"
                        item-view-value-key="NAME"
-                       items-method="BPSearchPerson(query)"
-                       items-clicked-method="BPSearchPersonClicked(callback)"
-                       items-removed-method="BPSearchPersonRemoved(callback)"
-                       cancel-button-clicked-method="tesTing(callback)"
+                       items-method="BPSearchPerson(query,'name')"
+                       items-clicked-method="BPSearchPersonClicked(callback,'name')"
+                       items-removed-method="BPSearchPersonRemoved(callback,'name')"
                        max-selected-items="1"
                        select-items-label="Search Name"
                        selected-items-label="Selected Name:"

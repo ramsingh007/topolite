@@ -37,7 +37,7 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Date</label>
-								<div class="col-xs-7"><input type="date" ng-model="visitModel.VISIT_DATE" ng-max="visitModel.VISIT_DATE" class="form-control"></div>
+								<div class="col-xs-7"><input type="date" ng-model="visitModel.VISIT_DATE" data-date-enddate="2014-07-29" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Customer Id</label>
@@ -151,7 +151,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Email</label>
-                            <div class="col-xs-7"><input type="email" class="form-control" ng-model="visitModel.Contact[$index]['EMAIL']"></div>
+                            <div class="col-xs-7"><input type="email" class="form-control" ng-model="visitModel.Contact[$index]['EMAIL']" ng-blur="ValidateEmail(visitModel.Contact[$index]['EMAIL'])"></div>
                         </div>
                     </div>
 
@@ -222,8 +222,8 @@
                             <label class="control-label col-xs-5">Alert Required</label>
                             <div class="col-xs-7">
                                 <select class="form-control" ng-model="visitModel.Sales[$index]['ALERT']">
-                                    <option value=1 ng-selected="true">Yes</option>
-                                    <option value='N'>No</option>
+                                    <option value=1 >Yes</option>
+                                    <option value='N' ng-selected="true">No</option>
                                 </select>
                             </div>
                         </div>
@@ -246,10 +246,10 @@
                                 'SALES_PERSON_NO':'',
                                 'SALES_PERSON_NAME':'',
                                 'NEXT_ACTION':'',
-                                'NEXT_ACTION_DATE':currDate,
+                                'NEXT_ACTION_DATE':'',
                                 'NEXT_ACTION_TIME':'',
-                                'ALERT':1,
-                                'ALERT_DATE':currDate,
+                                'ALERT':'N',
+                                'ALERT_DATE':'',
                                 'ALERT_TIME':''
                                })">
                                     <i class="ion-plus-circled"></i>

@@ -11,7 +11,7 @@
 
       <select class="form-control" ng-model="VisitProd.ITEM_TYPE" ng-change="setProdForm()" >
             <option value="E" ng-selected="(VisitProd.ITEM_TYPE == 'E')">ERP item</option>
-            <option value="M" ng-selected="(VisitProd.ITEM_TYPE == 'M')">New ITM</option>
+            <option value="M" ng-selected="(VisitProd.ITEM_TYPE == 'M')">New Item</option>
         </select>
         
 
@@ -19,8 +19,9 @@
        
           <label class="item item-input item-stacked-label">
             <span>Item Group</span>
+            <input type="text" ng-show="!showGroup" ng-model="VisitProd.ITEM_GROUP"> 
             </label>
-           <input type="text" ng-show="!showGroup" ng-model="VisitProd.ITEM_GROUP"> 
+           
 
           <input ion-autocomplete ng-show="showGroup" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.ITEM_GROUP"
                        item-value-key="Group_Code"
@@ -52,7 +53,11 @@
         </label>
         
         
-
+  <label class="item item-input item-stacked-label">
+            <span>Quantity</span>
+            <input type="text" ng-model="VisitProd.QUANTITY">
+        </label>
+        
         <label class="item item-input item-stacked-label">
             <span>Description</span>
             <input type="text" ng-show="!showDesc" ng-model="VisitProd.DESCRIPTION">
@@ -68,10 +73,7 @@
                        selected-items-label="Selected DESCRIPTION:"
                        component-id="DESCRIPTION" />
         </label>
-        <label class="item item-input item-stacked-label">
-            <span>Quantity</span>
-            <input type="text" ng-model="VisitProd.QUANTITY">
-        </label>
+      
          <label class="item item-input item-stacked-label">
             <span>Remark</span>
             <input type="text" ng-model="VisitProd.VISIT_REMARK">

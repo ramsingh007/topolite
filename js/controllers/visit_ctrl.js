@@ -4,11 +4,10 @@ angular.module('topolite.visit_ctrl', [])
 
    $scope.params = $stateParams;
    console.log($scope.params);
-
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
+   // $scope.visitModel.SALES_PERSON_NO = $localStorage.currentUser.UserDetails.Company_No;
    $scope.currDate = new Date(); //$filter('date')(new Date(), 'dd/MM/yyyy');
-   
    
    $scope.fillAreaArr = [];
    $scope.fillContactArr = [];
@@ -16,59 +15,72 @@ angular.module('topolite.visit_ctrl', [])
    
    
    $scope.fillVisitDoc = function(){
-	   webService.showIonLoader();  //show ionic loading
-		 var urlParam = 'VisitService/VisitRecord.svc/GetDocSeries/'
-						+$rootScope.currentUser.UserDetails.Company_No
-						+'/'+$rootScope.currentUser.UserDetails.Location_No
-						+'/43';
+     webService.showIonLoader();  //show ionic loading
+     var urlParam = 'VisitService/VisitRecord.svc/GetDocSeries/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No
+            +'/43';
 
-		var methodType = 'GET'
-		var dataJson = JSON.stringify({});
-		webService.webCall(urlParam,methodType,dataJson)
-		.then(function(respone){
-	    
-		    webService.hideIonLoader();//hide ionic loading
-		    if(respone.data.DocSeriesResult.Messsage.Success){
-		    	$scope.visitModel.DOC_SERIES = respone.data.DocSeriesResult.Num_Type.DocNo;
+    var methodType = 'GET'
+    var dataJson = JSON.stringify({});
+    webService.webCall(urlParam,methodType,dataJson)
+    .then(function(respone){
+      
+        webService.hideIonLoader();//hide ionic loading
+        if(respone.data.DocSeriesResult.Messsage.Success){
+          $scope.visitModel.DOC_SERIES = respone.data.DocSeriesResult.Num_Type.DocNo;
         }else{
-		        webService.showPopup(respone.data.GetBPByNameResult.Messsage.ErrorMsg, $rootScope.title_close);
-		    }
+            webService.showPopup(respone.data.GetBPByNameResult.Messsage.ErrorMsg, $rootScope.title_close);
+        }
 
-		},function(error){
-		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
-		});
+    },function(error){
+          webService.hideIonLoader();  //show ionic loading
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
+    });
    }
    
    
    
    $scope.fillVisitSalesObj = function(){
-	   webService.showIonLoader();  //show ionic loading
-		var urlParam = 'VisitService/VisitRecord.svc/GetSalesPerson/'
-						+$rootScope.currentUser.UserDetails.Company_No
-						+'/'+$rootScope.currentUser.UserDetails.Location_No
-						+'/'+$rootScope.currentUser.UserDetails.LoginName
-						+'/null'
-						+'/'+$rootScope.currentUser.UserDetails.LoginName
+     webService.showIonLoader();  //show ionic loading
+    var urlParam = 'VisitService/VisitRecord.svc/GetSalesPerson/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No
+            +'/'+$rootScope.currentUser.UserDetails.LoginName
+            +'/null'
+            +'/'+$rootScope.currentUser.UserDetails.LoginName
 
-		var methodType = 'GET'
-		var dataJson = JSON.stringify({});
-		webService.webCall(urlParam,methodType,dataJson)
-		.then(function(respone){
-	    
-		    webService.hideIonLoader();//hide ionic loading
-		    if(respone.data.SalePersonDetailResult.Messsage.Success){
-		    	$scope.fillSalesArr = respone.data.SalePersonDetailResult.Result;
+    var methodType = 'GET'
+    var dataJson = JSON.stringify({});
+    webService.webCall(urlParam,methodType,dataJson)
+    .then(function(respone){
+      
+        webService.hideIonLoader();//hide ionic loading
+        if(respone.data.SalePersonDetailResult.Messsage.Success){
+          $scope.fillSalesArr = respone.data.SalePersonDetailResult.Result;
+
+
+           
+          if($.inArray($state.current.name, ['visit.addVisit']) !== -1 && $scope.params.vid!=''){
+            $scope.VisitDetail();
+          }else if($.inArray($state.current.name, ['visit.addVisit']) !== -1){
+            for(var i in $scope.visitModel.Sales){
+                $scope.visitModel.Sales[i]['SALES_PERSON_NO'] = $rootScope.currentUser.UserDetails.LoginName;
+                $scope.visitModel.Sales[i]['SALES_PERSON_NAME'] = $rootScope.currentUser.UserDetails.UserName;
+            }
+          }
+
         }else{
-		        webService.showPopup(respone.data.SalePersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
-		    }
+            webService.showPopup(respone.data.SalePersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
+        }
 
-		},function(error){
-		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
-		});
+    },function(error){
+          webService.hideIonLoader();  //show ionic loading
+          webService.showPopup('Webservice response error!', $rootScope.title_close);
+    });
    }
    $scope.setVisitSelSales = function(idx){
+
     var id = webService.findInJson('SALES_PERSON_NO',$scope.visitModel.Sales[idx]['SALES_PERSON_NO'],$scope.fillSalesArr);
       $scope.visitModel.Sales[idx]['SALES_PERSON_NAME'] = $scope.fillSalesArr[id]['SALES_PERSON_NAME'];
   }
@@ -78,6 +90,9 @@ angular.module('topolite.visit_ctrl', [])
       if ($.inArray($state.current.name, ['visit.addVisit']) !== -1) {
         $scope.fillVisitDoc();
         $scope.fillVisitSalesObj();
+
+
+       
       }
   });
 
@@ -115,10 +130,10 @@ angular.module('topolite.visit_ctrl', [])
    $scope.fillVisitContacts = function(arCode){
     $scope.showContact = true;
 
-    $scope.visitModel.Contact = [{'CUST_CONTACT_PERSON':null,
-                                  'CONTACT_POSITION':null,
-                                  'MOBILE_NO':null,
-                                  'EMAIL':null,
+    $scope.visitModel.Contact = [{'CUST_CONTACT_PERSON':'',
+                                  'CONTACT_POSITION':'',
+                                  'MOBILE_NO':'',
+                                  'EMAIL':'',
                                  }];
 
 
@@ -260,6 +275,17 @@ $scope.getCustConatct = function(){
   }
 }
 
+/* Email Validation */
+$scope.ValidateEmail = function(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return (true)
+  }
+    webService.showPopup('You have entered an invalid email address!', $rootScope.title_ok);
+    return (false)
+}
+
    $scope.initVisitModel = function(){
        //$scope.visitModel = {};
        $scope.visitModel.VISIT_ID = '';
@@ -284,10 +310,10 @@ $scope.getCustConatct = function(){
                                     'SALES_PERSON_NO':'',
                                     'SALES_PERSON_NAME':'',
                                     'NEXT_ACTION':'',
-                                    'NEXT_ACTION_DATE':$scope.currDate,
+                                    'NEXT_ACTION_DATE':'',
                                     'NEXT_ACTION_TIME':'',
-                                    'ALERT':1,
-                                    'ALERT_DATE':$scope.currDate,
+                                    'ALERT':'N',
+                                    'ALERT_DATE':'',
                                     'ALERT_TIME':''
                                    }];
 
@@ -328,7 +354,7 @@ $scope.getCustConatct = function(){
 
 
 
-	/********************  Visit Search Starts    *********************/
+  /********************  Visit Search Starts    *********************/
   $scope.visitSearch = {};
   $scope.visitSearch.visitId = null;
 
@@ -362,12 +388,57 @@ $scope.getCustConatct = function(){
           webService.hideIonLoader();  //show ionic loading
           webService.showPopup('Webservice response error!', $rootScope.title_close);
     });
-  	
+    
   }
+
+
+  $scope.getVisitID = function (query) {
+        if(query!=''){
+        webService.showIonLoader();  //show ionic loading
+        var urlParam = 'VisitService/VisitRecord.svc/GetVisitRecord/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No
+            +'/'+query
+            +'/'+$rootScope.currentUser.UserDetails.LoginName
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+            
+            webService.hideIonLoader();//hide ionic loading
+            if(respone.data.GetVisitRecordIDResult.Messsage.Success){
+               return respone.data.GetVisitRecordIDResult.Result;
+            }/*else{
+                webService.showPopup(respone.data.GetVisitRecordIDResult.Messsage.ErrorMsg, $rootScope.title_close);
+            }*/
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
+        });
+
+        return modelItem;
+      }
+      return [];
+    };
+
+$scope.getVisitIDClicked = function (callback) {
+    //console.log(callback.item);
+    $scope.visitSearch.visitId = callback.item.VISIT_ID;
+
+};
+$scope.getVisitIDRemoved = function (callback) {
+     //console.log(callback.item);
+   $scope.visitSearch.visitId = '';
+};
+
+
+
   
   /********************  Visit Search Ends    *********************/
 
-	
+  
 
 
   /********************  Visit Add (Visit, Customer, Sales) Starts    *********************/
@@ -399,6 +470,7 @@ $scope.getCustConatct = function(){
         }else if($scope.visitModel.Contact[j]['MOBILE_NO'] ==''){
           ctMsg = "Please enter mobile no!";
         }
+        console.log($scope.visitModel.Contact);
 
         if(ctMsg!=''){break;}
         j++;
@@ -411,6 +483,8 @@ $scope.getCustConatct = function(){
           saleMsg = "Please select sales no!";
         }else if($scope.visitModel.Sales[i]['SALES_PERSON_NAME'] ==''){
           saleMsg = "Please enter sales name!";
+        }else if($scope.visitModel.Sales[i]['NEXT_ACTION'] !='' && $scope.visitModel.Sales[i]['NEXT_ACTION_DATE'] == ''){
+          saleMsg = "Please enter next action date!";
         }else if($scope.visitModel.Sales[i]['NEXT_ACTION'] !='' && $scope.visitModel.Sales[i]['NEXT_ACTION_TIME'] == ''){
           saleMsg = "Please enter next action time!";
         }else if($scope.visitModel.Sales[i]['ALERT'] =='1' && $scope.visitModel.Sales[i]['ALERT_DATE'] == ''){
@@ -454,7 +528,7 @@ $scope.getCustConatct = function(){
 
 
       if($scope.visitModel.VISIT_TIME_TO == ''){
-        $scope.visitModel.VISIT_TIME_FROM = '0.00';
+        $scope.visitModel.VISIT_TIME_TO = '0.00';
       }
 
       var dataJson =angular.toJson({
@@ -526,6 +600,8 @@ $scope.getCustConatct = function(){
   $scope.visitInfo= {};
   $scope.visitInfo.ORDER_RECEIVED = '-1';
   $scope.visitInfo.DEMO_PERFORMED = '-1';
+  $scope.visitInfo.PRODUCT = '';
+  $scope.visitInfo.PRODUCT_DEMO = '';
     
    
 
@@ -535,15 +611,17 @@ if($scope.params.infoId !=null){
 
   
 
-   $scope.AddVisitInfo = function(info){
-
+   $scope.AddVisitInfo = function(){
+    console.log($scope.visitInfo);
     var msg ='';
     
-    if($scope.visitInfo.ORDER_RECEIVED == 'C1' && $scope.visitInfo.PRODUCT ==''){
+    if($scope.visitInfo.ORDER_RECEIVED == 'C1'){
       msg = "Please enter info1!";
     }else if($scope.visitInfo.DEMO_PERFORMED == 'C1' && $scope.visitInfo.PRODUCT_DEMO ==''){
       msg = "Please enter product demo!";
     }
+
+
 
     if(msg!=''){
       webService.showPopup(msg, $rootScope.title_ok);
@@ -589,6 +667,11 @@ if($scope.params.infoId !=null){
 $scope.VisitProd = {};
 $scope.VisitProd.ITEM_GROUP = '';
 $scope.VisitProd.ITEM_TYPE = 'E';
+
+$scope.VisitProd.DESCRIPTION ='';
+$scope.VisitProd.ITEM_CODE ='';
+$scope.VisitProd.QUANTITY ='';     
+$scope.VisitProd.VISIT_REMARK ='';
 
 $scope.showGroup = true;
 $scope.showCode = true;
@@ -775,7 +858,6 @@ $scope.setProdForm = function(){
 
 
    $scope.AddVisitProd = function(){
-
     var msg ='';
     
     if($scope.VisitProd.ITEM_TYPE == 'E' && $scope.VisitProd.ITEM_GROUP ==''){
@@ -818,11 +900,15 @@ $scope.setProdForm = function(){
          .then(function(respone){
              webService.hideIonLoader(); 
              
-             webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close).then(function(res){
+             if(respone.data.Messsage.Success){
+               webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close).then(function(res){
 
-               $state.go('visit.visitDetail',{vid:$scope.params.vid})
+                 $state.go('visit.visitDetail',{vid:$scope.params.vid})
 
-             });
+               });
+           }else{
+                webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close);
+           }
          
          },function(error){
             webService.hideIonLoader();  //show ionic loading
@@ -891,11 +977,15 @@ $scope.setProdForm = function(){
   /********************  Visit Prod Update Ends    *********************/
 
 $scope.setDateFor = function(input) {
-  var datePart = input.match(/\d+/g),
-  month = datePart[0], // get only two digits
-  day = datePart[1], year = datePart[2];
-
-  return new Date(year+'-'+month+'-'+day);
+  
+  if(input!='' && input!=null){
+      var datePart = input.match(/\d+/g),
+      month = datePart[0], // get only two digits
+      day = datePart[1], year = datePart[2];
+      return new Date(year+'-'+month+'-'+day);
+  }else{
+      return '';
+  }
 }
 
 
@@ -953,14 +1043,14 @@ $scope.VisitAdditional= '';
          $scope.visitModel.VISIT_TIME_TO = $scope.visitDetails.VISIT_TIME_TO;
          
          for(var key in $scope.SaleContact){
-          $scope.visitModel.Contact.length = 0;
-           $scope.visitModel.Contact.push({
-                                        'CUST_CONTACT_PERSON':$scope.SaleContact[key]['CONTACT_PERSON'],
-                                        'CONTACT_POSITION':$scope.SaleContact[key]['DESIGNATION'],
-                                        'MOBILE_NO':$scope.SaleContact[key]['MOBILE'],
-                                        'EMAIL':$scope.SaleContact[key]['EMAIL'],
-                                       });
-         }
+            $scope.visitModel.Contact.length = 0;
+             $scope.visitModel.Contact.push({
+                                          'CUST_CONTACT_PERSON':$scope.SaleContact[key]['CONTACT_PERSON'],
+                                          'CONTACT_POSITION':$scope.SaleContact[key]['DESIGNATION'],
+                                          'MOBILE_NO':$scope.SaleContact[key]['MOBILE'],
+                                          'EMAIL':$scope.SaleContact[key]['EMAIL'],
+                                         });
+           }
         
         for(var key in $scope.SalesDetails){
           $scope.visitModel.Sales.length = 0;
@@ -975,6 +1065,40 @@ $scope.VisitAdditional= '';
                                       'ALERT_TIME':$scope.SalesDetails[key]['ALERT_TIME'],
                                     });
          }
+
+
+          webService.showIonLoader();  //show ionic loading
+          var urlParam = 'VisitService/VisitRecord.svc/GetContactPerson/'
+                  +$rootScope.currentUser.UserDetails.Company_No
+                  +'/'+$rootScope.currentUser.UserDetails.Location_No
+                  +'/'+$scope.visitModel.CUSTOMER_NO
+                  +'/'+$scope.visitModel.AREA_NAME.split('-')[0]
+                  +'/null';
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+          
+            webService.hideIonLoader();//hide ionic loading
+            if(respone.data.ContactPersonDetailResult.Messsage.Success){
+              $scope.fillContactArr = respone.data.ContactPersonDetailResult.Result;
+              $scope.showContact = false;
+
+              for(var key in $scope.SaleContact){
+$scope.visitModel.Contact[key]['CUST_CONTACT_PERSON']=$scope.SaleContact[key]['CONTACT_PERSON'];
+               }
+            }else{
+                webService.showPopup(respone.data.ContactPersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
+            }
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Contacts list no results!', $rootScope.title_close);
+        });
+
+         
+
 
          console.log(JSON.stringify($scope.visitModel));
 
@@ -995,7 +1119,7 @@ $scope.VisitAdditional= '';
     $scope.$on('$ionicView.beforeEnter', function() {
       
       //Call method when on bpDetail screen 
-      if (($.inArray($state.current.name, ['visit.visitDetail']) !== -1)  || ($.inArray($state.current.name, ['visit.addVisit']) !== -1 && $scope.params.vid!='') ) {
+      if (($.inArray($state.current.name, ['visit.visitDetail']) !== -1) ) {
         $scope.VisitDetail();
       }
     

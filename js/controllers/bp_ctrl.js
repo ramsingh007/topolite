@@ -87,7 +87,7 @@ $scope.bp_contact.EMAIL='';
           $scope.bpModel.STATE='';
           $scope.bpModel.TIN_GRN='';
           $scope.bpModel.LOCATION='';
-          $scope.bpModel.SALES_PERSON_NO='';
+          $scope.bpModel.SALES_PERSON_NO= $rootScope.currentUser.UserDetails.LoginName;
           $scope.bpModel.CST_NO='';
           $scope.bpModel.PHONE_NO='';
           $scope.bpModel.Zip='';
@@ -97,6 +97,16 @@ $scope.bp_contact.EMAIL='';
       $scope.initbpModel();
   /********************  BP Search ends    *********************/
 
+/* Email Validation */
+$scope.ValidateEmail = function(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return (true)
+  }
+    webService.showPopup('You have entered an invalid email address!', $rootScope.title_ok);
+    return (false)
+}
 
   /********************  BP Detail Starts    *********************/
   $scope.bpDetail = [];
@@ -157,6 +167,7 @@ $scope.bp_contact.EMAIL='';
   //$scope.bpModel.PAYTERM = 'PT20';
 
   $scope.BPAddUpdate = function(){
+       // console.log($scope.bpModel.AREA_CODE[0]);
     var msg ='';
     
     if($scope.bpModel.BP_Code == ''){
@@ -189,7 +200,7 @@ $scope.bp_contact.EMAIL='';
       var dataJson =JSON.stringify({
         "ADDRESS1": $scope.bpModel.ADDRESS1,
         "ADDRESS2": $scope.bpModel.ADDRESS2,
-        "AREA_CODE": $scope.bpModel.AREA_CODE,
+        "AREA_CODE": $scope.bpModel.AREA_CODE[0],
         "BP_Code": $scope.bpModel.BP_Code,       
         "CITY": $scope.bpModel.CITY,
         "COUNTRY":$scope.bpModel.COUNTRY,
@@ -208,6 +219,8 @@ $scope.bp_contact.EMAIL='';
         "PHONE_NO": $scope.bpModel.PHONE_NO,
         "Zip": $scope.bpModel.Zip
     });
+
+
       //webService.hideIonLoader(); 
       //console.log(dataJson);
       //return;
@@ -217,17 +230,27 @@ $scope.bp_contact.EMAIL='';
              webService.hideIonLoader(); 
              
              if($scope.params.bpId !=''){
-                var err = respone.data.ModifyBPResult.ErrorMsg;
+                
+                if(respone.data.ModifyBPResult.Success){
+                  webService.showPopup(respone.data.ModifyBPResult.ErrorMsg, $rootScope.title_close).then(function(res){
+                      $state.go('bp.bpDetail',{bpId:$scope.params.bpId})
+                   });
+                 }else{
+                    webService.showPopup(respone.data.ModifyBPResult.ErrorMsg, $rootScope.title_close);
+                 }
+
              }else{
-                var err = respone.data.BPSetResult.ErrorMsg;
+                if(respone.data.BPSetResult.Success){
+                  webService.showPopup(respone.data.BPSetResult.ErrorMsg, $rootScope.title_close).then(function(res){
+                      $state.go('bp.bpDetail',{bpId:$scope.bpModel.BP_Code})
+                   });
+                 }else{
+                    webService.showPopup(respone.data.BPSetResult.ErrorMsg, $rootScope.title_close);
+                 }
              }            
              
 
-             webService.showPopup(err, $rootScope.title_close).then(function(res){
-
-                $state.go('bp.bpSearch')
-
-             });
+             
          
          },function(error){
             webService.hideIonLoader();  //show ionic loading
@@ -544,16 +567,25 @@ $scope.getGroupRemoved = function (callback) {
 
   /********************  BP view contact ends    *********************/
 
-$scope.BPSearchPerson = function (query) {
+$scope.BPSearchPerson = function (query,fieldName) {
   if (query!='') {
         webService.showIonLoader();  
 
-        
+      
+
+     if(fieldName == 'name'){   
      var urlParam = 'BPService/GetAllBPService.svc/GetBPName/'
             +$rootScope.currentUser.UserDetails.Company_No
             +'/'+$rootScope.currentUser.UserDetails.Location_No
             +'/'+'null'
             +'/'+query;
+      }else{
+          var urlParam = 'BPService/GetAllBPService.svc/GetBPName/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No
+            +'/'+query
+            +'/null';
+      }      
           
         var methodType = 'GET'
         var dataJson = JSON.stringify({});
@@ -578,15 +610,23 @@ $scope.BPSearchPerson = function (query) {
     };
       
 
-$scope.BPSearchPersonClicked = function (callback) {
+$scope.BPSearchPersonClicked = function (callback,fieldName) {
     console.log(callback.item);
-    // $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
-    // $scope.fillVisitArea();
+
+    if(fieldName == 'name'){
+      $scope.bpSearch.cp_name = callback.item.NAME;
+    }else{
+      $scope.bpSearch.bp_code = callback.item.BP_Code;
+    }
+    
 };
-$scope.BPSearchPersonRemoved = function (callback) {
+$scope.BPSearchPersonRemoved = function (callback,fieldName) {
    console.log(callback.item);
-   // $scope.visitModel.CUSTOMER_NAME = '';
-   // $scope.fillAreaArr.length = 0;
+   if(fieldName == 'name'){
+      $scope.bpSearch.cp_name = '';
+    }else{
+      $scope.bpSearch.bp_code = '';
+    }
 };
 
 $scope.params =  $stateParams;

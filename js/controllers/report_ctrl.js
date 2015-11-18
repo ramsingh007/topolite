@@ -1,10 +1,16 @@
 angular.module('topolite.report_ctrl', [])
 .controller('ReportCtrl', function($filter,$state,$scope,$rootScope, $ionicSideMenuDelegate,$localStorage,webService) {
  $scope.report={};
+  $scope.Outstanding={};
+  $scope.pending={};
  // $scope.CurrYear = new Date();
  $scope.CurrYear = $filter('date')(new Date(),'yyyy');//2014 like
 
  $scope.report.Year =$scope.CurrYear;
+ $scope.Outstanding.date=new Date();
+ $scope.pending.FromDate=new Date();
+ $scope.pending.ToDate=new Date();
+
 
 
  
@@ -453,10 +459,22 @@ $scope.OUTToCustomerRemoved = function (callback) {
    // $scope.fillAreaArr.length = 0;
 };
 
-  $scope.Outstanding={};
+
 $scope.OutstandingReport = function(Outstanding){
+
+
+	if ($scope.Outstanding.OUTFromCustomer= 'undefined') {
+
+       $scope.Outstanding.OUTFromCustomer='null';
+
+	};
+
+	if ($scope.Outstanding.OUTToCustomer='undefined') {
+
+		$scope.Outstanding.OUTToCustomer='null';
+	};
 	
-console.log($scope.newfromdate);
+console.log($scope.Outstanding.OUTFromCustomer);
 	$scope.newoutfromdate = $filter('date')($scope.Outstanding.date, 'yyyy-MM-dd');
 	console.log($scope.newfromdate);
 	
@@ -504,9 +522,23 @@ console.log($scope.newfromdate);
 
 
   //search c report
-$scope.pending={};
+
 // {From_Date}/{To_Date}/{From_Customer}/{To_Customer}/{USER_ID}")]
 $scope.CReport = function(pending){
+
+	if ($scope.pending.FromCustomer= 'undefined') {
+
+       $scope.pending.FromCustomer='null';
+
+	};
+
+	if ($scope.pending.ToCustomer='undefined') {
+
+		$scope.pending.ToCustomer='null';
+	};
+	
+
+
 	$scope.newfromdate = $filter('date')($scope.pending.FromDate, 'yyyy-MM-dd');
 	$scope.newTOdate = $filter('date')($scope.pending.ToDate, 'yyyy-MM-dd');
 	console.log($scope.newdate);
