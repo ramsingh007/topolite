@@ -117,7 +117,7 @@ $scope.change_location= function() {
              if(respone.data.Messsage.Success){
 
               webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_ok).then(function(success){
-                //$state.go('visit.visitDetail', {vid:respone.data.Messsage.VisitCode});
+                $state.go('dashboard.home');
               })
 
              }else{
@@ -132,13 +132,14 @@ $scope.change_location= function() {
 	$scope.time_out= function(){
 		webService.showIonLoader();  //show ionic loading
 		 $scope.Out_Location=$rootScope.attend;
+     console.log($scope.Attendence.Timeout);
     $scope.Timeout = $filter('date')($scope.Attendence.Timeout, 'hh:mm');
 		 var urlParam ='/AttendanceService/AttendanceService.svc/ModifyAttendance';  
         
 		var methodType ='PUT'
 	 var dataJson = JSON.stringify({
       "ASS_Code":$rootScope.currentUser.UserDetails.LoginName,
-        "In_Time":'00:00',
+        "In_Time":$scope.Attendence.TimeIn,
         "Out_Time":$scope.Timeout,
         "In_Location":'null',
         "Out_Location":$scope.Out_Location
@@ -152,7 +153,7 @@ $scope.change_location= function() {
              if(respone.data.Messsage.Success){
 
               webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_ok).then(function(success){
-                //$state.go('visit.visitDetail', {vid:respone.data.Messsage.VisitCode});
+                $state.go('dashboard.home');
               })
 
              }else{
@@ -165,9 +166,63 @@ $scope.change_location= function() {
 		});
 	}
 	
+//check time for attandance
+$scope.getAttendance= function(){
+
+
+webService.showIonLoader();  //show ionic loading
+
+      var urlParam = 'AttendanceService/AttendanceService.svc/GetAttendance/'+$rootScope.currentUser.UserDetails.LoginName;
+      var methodType = 'GET'
+      var dataJson = JSON.stringify({});
+      webService.webCall(urlParam,methodType,dataJson)
+         .then(function(respone){
+            
+            webService.hideIonLoader();//hide ionic loading
+            if(respone.data.AttendanceDataResult.Messsage.Success){
+
+               $scope.attendResult=respone.data.AttendanceDataResult.Result;
+
+               // $scope.checkAttend=$filter('date')($scope.attendResult.IN_TIME, 'hh:mm');
+               // console.log($scope.checkAttend);
+
+               var str = $scope.attendResult.IN_TIME;
+               var str2 = $scope.attendResult.OUT_TIME;
+               var res = str.substring(0, 2);
+                var res2 = str2.substring(0, 2);
+               console.log(res);
+               $scope.checkTimein=res;
+               $scope.checkTimeout=res2;
+               var timein=str.substring(0, 5);
+              
+              // $scope.Attendence.TimeIn=$scope.attendResult.IN_TIME;
+
+                $scope.Attendence = {
+       TimeIn: new Date(0000, 0, 0, str.substring(0, 2), str.substring(3, 5), 0),
+       Timeout: new Date(0000, 0, 0, str2.substring(0, 2), str2.substring(3, 5), 0)
+     };
+               // if (res >0) {
+
+             
+    
+               // };
+               
+            }else{
+                webService.showPopup(respone.data.AttendanceDataResult.Messsage.ErrorMsg, $rootScope.title_close);
+            }
+
+          },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Something went wrong! Please login again', $rootScope.title_close);
+          });
+
+
+  }
+
+
 $scope.$on('$ionicView.beforeEnter', function() {
 	 $scope.autoSignIn();
-	
+	$scope.getAttendance();
 
 
 });
