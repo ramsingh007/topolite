@@ -180,6 +180,8 @@ $scope.ValidateEmail = function(mail)
       msg = "Please enter city!";
     }else if($scope.bpModel.PHONE_NO ==''){
       msg = "Please enter mobile no!";
+    }else if($scope.bpModel.LOCATION ==''){
+      msg = "Please enter location";
     }
 
     if(msg!=''){
@@ -560,6 +562,7 @@ $scope.getGroupRemoved = function (callback) {
 	// 	// //  ng-click="goToState('dashboard.bpDetail',{bpId:list.BP_Code})"
 		
 	// }
+
 
 
   // $scope.visitInfo.CURRENCY = '';

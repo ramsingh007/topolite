@@ -80,14 +80,14 @@
             <input type="text" maxlength="40" ng-model="bpModel.CST_NO">
         </label>
         <label class="item item-input item-stacked-label">
-            <span>PAN</span>
+            <span>PAN No.</span>
             <input type="text" maxlength="40" ng-model="bpModel.PAN_NO">
         </label>
 
 
         <label class="item item-input item-stacked-label">
-             <span>Visit Location</span>
-        <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="bpModel.LOCATION" class="form-control">
+             <span>Customer Location</span>
+        <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="bpModel.LOCATION" class="form-control" ng-required="true">
       </label>
   <label class="item item-input item-stacked-label">
             <span>Sales Person</span>

@@ -615,7 +615,7 @@ if($scope.params.infoId !=null){
     console.log($scope.visitInfo);
     var msg ='';
     
-    if($scope.visitInfo.ORDER_RECEIVED == 'C1'){
+    if($scope.visitInfo.PRODUCT == ''){
       msg = "Please enter info1!";
     }else if($scope.visitInfo.DEMO_PERFORMED == 'C1' && $scope.visitInfo.PRODUCT_DEMO ==''){
       msg = "Please enter product demo!";

@@ -1,6 +1,6 @@
 angular.module('topolite.dashboard_ctrl', [])
 
-.controller('DashboardCtrl', function($ionicNavBarDelegate,$filter, $ionicSideMenuDelegate, $state, $localStorage, $http, $stateParams, $scope, $rootScope, webService) {
+.controller('DashboardCtrl', function($ionicNavBarDelegate,$filter, $ionicSideMenuDelegate, $state, $localStorage, $http, $stateParams, $scope, $rootScope, webService,$log, StripeCheckout) {
 	 
 $ionicNavBarDelegate.showBackButton(false);
 
@@ -218,6 +218,26 @@ webService.showIonLoader();  //show ionic loading
 
 
   }
+
+  //stripe payment
+
+   $scope.sdf = function(){
+    alert('ds');
+console.log('asd');
+     // var handler = StripeCheckout.configure({
+     //          name: "Custom Example",
+     //          token: function(token, args) {
+     //            $log.debug("Got stripe token: " + token.id);
+     //          }
+     //      });
+
+     //      this.doCheckout = function(token, args) {
+     //        var options = {
+     //          description: "Ten dollahs!",
+     //          amount: 1000
+     //        };
+  }
+  
 
 
 $scope.$on('$ionicView.beforeEnter', function() {
