@@ -11,7 +11,7 @@
             <!-- <input type="text" ng-model="bpSearch.bp_code"> -->
 
             <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpSearch.bp_code" item-value-key="BP_Code"
-                                           item-view-value-key="BP_Code"
+                                           item-view-value-key="label"
                                            items-method="BPSearchPerson(query,'code')"
                                            items-clicked-method="BPSearchPersonClicked(callback,'code')"
                                            items-removed-method="BPSearchPersonRemoved(callback,'code')"
@@ -27,7 +27,7 @@
 
             <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpSearch.cp_name"
                        item-value-key="NAME"
-                       item-view-value-key="NAME"
+                       item-view-value-key="label"
                        items-method="BPSearchPerson(query,'name')"
                        items-clicked-method="BPSearchPersonClicked(callback,'name')"
                        items-removed-method="BPSearchPersonRemoved(callback,'name')"

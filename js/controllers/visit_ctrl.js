@@ -409,7 +409,13 @@ $scope.ValidateEmail = function(mail)
             webService.hideIonLoader();//hide ionic loading
             if(respone.data.GetVisitRecordIDResult.Messsage.Success){
                return respone.data.GetVisitRecordIDResult.Result;
-            }/*else{
+            }
+
+
+
+
+
+            /*else{
                 webService.showPopup(respone.data.GetVisitRecordIDResult.Messsage.ErrorMsg, $rootScope.title_close);
             }*/
 

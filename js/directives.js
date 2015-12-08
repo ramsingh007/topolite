@@ -10,12 +10,14 @@ angular.module('topolite.directives', [])
 
 
                 ele.addEventListener('keyup',function(e){
-                    if (regex.test(ele.value)){
+                    if(ele.value!=''){
+                    if (regex.test(ele.value) ){
                         value = ele.value;
                     }else{
                         ele.value = value;
                         alert('Please enter valid data');
                     }
+                }
                 });
             }
         };

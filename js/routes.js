@@ -329,23 +329,25 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
 
 })
 
-.run(function($rootScope,$state,$localStorage,$http, webService) {
-  $rootScope.title_ok = 'Ok';
-  $rootScope.title_close = 'Close';
-
-  $rootScope.bpResults = [];
+.run(function($rootScope,$state,$localStorage,$http, webService, $ionicPlatform) {
+   $rootScope.title_ok = 'Ok';
+   $rootScope.title_close = 'Close';
+   $rootScope.bpResults = [];
    $rootScope.visitResults = [];
+   $rootScope.currentUser = $localStorage.currentUser;
 
-   
-
-
-  $rootScope.currentUser = $localStorage.currentUser;
-  $rootScope.$watch('currentUser', function() {
+   $rootScope.$watch('currentUser', function() {
     if($rootScope.currentUser == undefined){
       $rootScope.currentUser = $localStorage.currentUser = {}
     }
   });
 
+
+$ionicPlatform.onHardwareBackButton(function() {
+
+	webService.hideIonLoader(); 
+ 
+});
 
   //Global Method to traverse from view itself
   $rootScope.goToState = function(toState, param) {
@@ -357,13 +359,7 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
   };
 
 
-
-  
-
-})
-
-.run(function($ionicPlatform,$state) {
-  $ionicPlatform.ready(function() {
+$ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -372,4 +368,21 @@ angular.module('topolite', ['ngCookies','ion-autocomplete','ngStorage','ionic', 
     }
   });
 
-});
+
+
+
+  
+
+})
+
+// .run(function($ionicPlatform,$state,webService) {
+
+
+  
+
+
+
+
+
+// });
+

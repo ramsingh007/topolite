@@ -10,7 +10,7 @@
         </label>
         <label class="item item-input item-stacked-label">
             <span>Name*</span>
-            <input maxlength="60" type="text" ng-model="bpModel.NAME" ng-required="true">
+            <input maxlength="60" type="text" ng-model="bpModel.NAME" ng-required="true" >
         </label>
       
     
@@ -39,10 +39,10 @@
        
         
         <label class="item item-input item-stacked-label">
-            <span>Area Code</span>
+            <span>Area Code*</span>
            <!--  <input type="text" maxlength="40" ng-model="bpModel.AREA_CODE"> -->
 
-             <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpModel.AREA_CODE"
+             <input  ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpModel.AREA_CODE"
                        item-value-key="AREA_CODE"
                        item-view-value-key="AREA_NAME"
                        items-method="getGroupID(query)"
@@ -66,7 +66,7 @@
             <input type="text" maxlength="40" ng-model="bpModel.Zip">
         </label>
         <label class="item item-input item-stacked-label">
-            <span>Currency</span>
+            <span>Currency </span>
 
         </label>
          <select class="form-control" ng-model="bpModel.CURRENCY" ng-options="item.Key as item.Currency for item in Currency"></select>
@@ -86,7 +86,7 @@
 
 
         <label class="item item-input item-stacked-label">
-             <span>Customer Location</span>
+             <span>Customer Location*</span>
         <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="bpModel.LOCATION" class="form-control" ng-required="true">
       </label>
   <label class="item item-input item-stacked-label">

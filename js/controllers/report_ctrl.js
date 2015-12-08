@@ -585,6 +585,15 @@ $scope.$on('$ionicView.beforeEnter', function() {
   	$scope.Getyear();
   	$scope.GetPeriod();
     	
+    	if ($.inArray($state.current.name, ['report.pending_report']) !== -1) {
+    		$scope.pending={};
+    		     
+    		    
+      
+      }
+
+
+
 
  
     	//Call method when on bpDetail screen	
