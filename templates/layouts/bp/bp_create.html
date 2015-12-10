@@ -44,12 +44,12 @@
 
              <input  ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpModel.AREA_CODE"
                        item-value-key="AREA_CODE"
-                       item-view-value-key="AREA_NAME"
+                       item-view-value-key="label"
                        items-method="getGroupID(query)"
                        items-clicked-method="getGroupClicked(callback)"
                        items-removed-method="getGroupRemoved(callback)"
                        max-selected-items="1"
-                       select-items-label="Search Sales AREA_CODE"
+                       select-items-label="Search Sales AREA CODE"
                        selected-items-label="Selected AREA_NAME:"
                        component-id="AREA_CODE" />
         </label>
@@ -66,7 +66,7 @@
             <input type="text" maxlength="40" ng-model="bpModel.Zip">
         </label>
         <label class="item item-input item-stacked-label">
-            <span>Currency </span>
+            <span>Currency {{bpModel.CURRENCY}}</span>
 
         </label>
          <select class="form-control" ng-model="bpModel.CURRENCY" ng-options="item.Key as item.Currency for item in Currency"></select>
@@ -95,7 +95,7 @@
 
             <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpModel.SALES_PERSON_NO"
                        item-value-key="SALES_PERSON_NO"
-                       item-view-value-key="NAME"
+                       item-view-value-key="label"
                        items-method="getSalesID(query)"
                        items-clicked-method="getSalesIDClicked(callback)"
                        items-removed-method="getSalesIDRemoved(callback)"

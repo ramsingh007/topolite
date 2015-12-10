@@ -15,7 +15,7 @@
                             <!-- <input type="text" class="form-control" ng-model="visitSearch.visitId"> -->
 
                             <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="visitSearch.visitId" item-value-key="VISIT_ID"
-                                           item-view-value-key="VISIT_ID"
+                                           item-view-value-key="label"
                                            items-method="getVisitID(query)"
                                            items-clicked-method="getVisitIDClicked(callback)"
                                            items-removed-method="getVisitIDRemoved(callback)"

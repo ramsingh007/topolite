@@ -15,7 +15,7 @@
 		<label>From Customer</label>
 			<input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="Outstanding.OUTFromCustomer"
                        item-value-key="Customer_Code"
-                       item-view-value-key="Customer_Code"
+                       item-view-value-key="label"
                        items-method="OUTFromCustomer(query)"
                        items-clicked-method="OUTFromCustomerClicked(callback)"
                        items-removed-method="OUTFromCustomerRemoved(callback)"
@@ -29,7 +29,7 @@
 		<label>To Customer</label>
 		<input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="Outstanding.OUTToCustomer"
                        item-value-key="Customer_Code"
-                       item-view-value-key="Customer_Code"
+                       item-view-value-key="label"
                        items-method="OUTToCustomer(query)"
                        items-clicked-method="OUTToCustomerClicked(callback)"
                        items-removed-method="OUTToCustomerRemoved(callback)"

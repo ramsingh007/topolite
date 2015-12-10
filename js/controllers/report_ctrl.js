@@ -381,9 +381,22 @@ $scope.OUTFromCustomer = function (query) {
         .then(function(respone){
           
             webService.hideIonLoader();//hide ionic loading
-            if(respone.data.GetCustomerCodeResult.Message.Success){
-                 return respone.data.GetCustomerCodeResult.Result;
-            }/*else{
+
+
+            // if(respone.data.GetCustomerCodeResult.Message.Success){
+            //      return respone.data.GetCustomerCodeResult.Result;
+            // }
+
+             if(respone.data.GetCustomerCodeResult.Message.Success){
+                 var x = [];
+                 var dat = respone.data.GetCustomerCodeResult.Result;
+                 for(var i in dat){
+                    x.push({'Customer_Code':dat[i]['Customer_Code'],'Customer_Name':dat[i]['Customer_Name'],'label':dat[i]['Customer_Code']+' ( '+dat[i]['Customer_Name']+' )'});
+                 }
+                 return x;
+            }
+
+            /*else{
                 return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
             }*/
 
@@ -431,9 +444,19 @@ $scope.OUTFromCustomerRemoved = function (callback) {
         .then(function(respone){
           
             webService.hideIonLoader();//hide ionic loading
-            if(respone.data.GetCustomerCodeResult.Message.Success){
-                 return respone.data.GetCustomerCodeResult.Result;
-            }/*else{
+            // if(respone.data.GetCustomerCodeResult.Message.Success){
+            //      return respone.data.GetCustomerCodeResult.Result;
+            // }
+             if(respone.data.GetCustomerCodeResult.Message.Success){
+                 var x = [];
+                 var dat = respone.data.GetCustomerCodeResult.Result;
+                 for(var i in dat){
+                    x.push({'Customer_Code':dat[i]['Customer_Code'],'Customer_Name':dat[i]['Customer_Name'],'label':dat[i]['Customer_Code']+' ( '+dat[i]['Customer_Name']+' )'});
+                 }
+                 return x;
+            }
+
+            /*else{
                 return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
             }*/
 
@@ -450,7 +473,7 @@ $scope.OUTFromCustomerRemoved = function (callback) {
 
 $scope.OUTToCustomerClicked = function (callback) {
     console.log(callback.item);
-    // $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
+    // $scope.Outstanding.OUTFromCustomer = callback.item.Customer_Name;
     // $scope.fillVisitArea();
 };
 $scope.OUTToCustomerRemoved = function (callback) {
@@ -461,15 +484,15 @@ $scope.OUTToCustomerRemoved = function (callback) {
 
 
 $scope.OutstandingReport = function(Outstanding){
+// alert($scope.Outstanding.OUTFromCustomer);
 
-
-	if ($scope.Outstanding.OUTFromCustomer= 'undefined') {
+	if ($scope.Outstanding.OUTFromCustomer=='undefined') {
 
        $scope.Outstanding.OUTFromCustomer='null';
 
 	};
 
-	if ($scope.Outstanding.OUTToCustomer='undefined') {
+	if ($scope.Outstanding.OUTToCustomer=='undefined') {
 
 		$scope.Outstanding.OUTToCustomer='null';
 	};

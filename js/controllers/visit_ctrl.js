@@ -192,9 +192,21 @@ angular.module('topolite.visit_ctrl', [])
         .then(function(respone){
           
             webService.hideIonLoader();//hide ionic loading
-            if(respone.data.GetCustomerIDResult.Messsage.Success){
-                 return respone.data.GetCustomerIDResult.Result;
-            }/*else{
+            // if(respone.data.GetCustomerIDResult.Messsage.Success){
+            //      return respone.data.GetCustomerIDResult.Result;
+            // }
+
+
+ if(respone.data.GetCustomerIDResult.Messsage.Success){
+                 var x = [];
+                 var dat = respone.data.GetCustomerIDResult.Result;
+                 for(var i in dat){
+                    x.push({'CUSTOMER_NO':dat[i]['CUSTOMER_NO'],'CUSTOMER_NAME':dat[i]['CUSTOMER_NAME'],'label':dat[i]['CUSTOMER_NO']+' ( '+dat[i]['CUSTOMER_NAME']+' )'});
+                 }
+                 return x;
+            }
+
+            /*else{
                 return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
             }*/
 
@@ -407,10 +419,18 @@ $scope.ValidateEmail = function(mail)
         .then(function(respone){
             
             webService.hideIonLoader();//hide ionic loading
-            if(respone.data.GetVisitRecordIDResult.Messsage.Success){
-               return respone.data.GetVisitRecordIDResult.Result;
-            }
+            // if(respone.data.GetVisitRecordIDResult.Messsage.Success){
+            //    return respone.data.GetVisitRecordIDResult.Result;
+            // }
 
+ if(respone.data.GetVisitRecordIDResult.Messsage.Success){
+                 var x = [];
+                 var dat = respone.data.GetVisitRecordIDResult.Result;
+                 for(var i in dat){
+                    x.push({'VISIT_ID':dat[i]['VISIT_ID'],'CUSTOMER_NAME':dat[i]['CUSTOMER_NAME'],'label':dat[i]['VISIT_ID']+' ( '+dat[i]['CUSTOMER_NAME']+' )'});
+                 }
+                 return x;
+            }
 
 
 
@@ -621,9 +641,11 @@ if($scope.params.infoId !=null){
     console.log($scope.visitInfo);
     var msg ='';
     
-    if($scope.visitInfo.PRODUCT == ''){
-      msg = "Please enter info1!";
-    }else if($scope.visitInfo.DEMO_PERFORMED == 'C1' && $scope.visitInfo.PRODUCT_DEMO ==''){
+    if($scope.visitInfo.ORDER_RECEIVED == -1){
+      msg = "Please select order received!";
+    }else if($scope.visitInfo.DEMO_PERFORMED == -1){
+      msg = "Please select demo received!";
+    }else if($scope.visitInfo.PRODUCT_DEMO == ''){
       msg = "Please enter product demo!";
     }
 

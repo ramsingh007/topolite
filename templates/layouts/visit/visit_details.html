@@ -187,12 +187,12 @@
 				  <div class="item">					
 					Order Received
 					<span class="item-note">
-					 {{list.ORDER_RECEIVED}}
+					{{(list.ORDER_RECEIVED =='C1') ? 'YES':'NO'}}
 					</span>
 				  </div> <div class="item">					
 					Demo Performed
 					<span class="item-note">
-					  {{list.DEMO_PERFORMED}}
+				{{(list.DEMO_PERFORMED =='C1') ? 'YES':'NO'}}
 					</span>
 				  </div> <div class="item">					
 					Demo Product

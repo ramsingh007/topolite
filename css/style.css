@@ -197,5 +197,58 @@ header .dash-page i{ color:#fff; font-size:28px;}
 .visit-listpage .form-control{ border-radius:0;}
 
 .white-add{white-space: normal;margin-top: 5px;}
+.menu-open .menu-content{transform:none!important;-webkit-transform:none!important;-moz-transform:none!important; -ms-transform:none!important;}
+.menu-left {
+  left: -200px;
+  margin-top: 44px;
+  transition:all 0.5s ease 0s;
+  -webkit-transition:all 0.5s ease 0s;
+  -moz-transition:all 0.5s ease 0s;
+  -ms-transition:all 0.5s ease 0s;
+}
+.menu-open .menu-left {left: 0;margin-top: 44px;z-index: 9 !important;  transition:all 0.5s ease 0s;
+  -webkit-transition:all 0.5s ease 0s;
+  -moz-transition:all 0.5s ease 0s;
+  -ms-transition:all 0.5s ease 0s;
+}
+.overflow-menu {
+  background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 44px;
+  width: 100%;
+  z-index: 3;
+  display: block;
+  transition:all 0.5s ease 0s;
+  -webkit-transition:all 0.5s ease 0s;
+  -moz-transition:all 0.5s ease 0s;
+  -ms-transition:all 0.5s ease 0s;
+  visibility: hidden;
+}
+/*.menu-open .menu-left::after {
+  background: rgba(0, 0, 0, 0.7) none repeat scroll 0 0;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 44px;
+  width: 100%;
+  z-index: -1;
+    transition:all 0.5s ease 0s;
+  -webkit-transition:all 0.5s ease 0s;
+  -moz-transition:all 0.5s ease 0s;
+  -ms-transition:all 0.5s ease 0s;
+}*/
+.menu-open .overflow-menu{display: block;transition:all 0.5s ease 0s;
+  -webkit-transition:all 0.5s ease 0s;
+  -moz-transition:all 0.5s ease 0s;
+  -ms-transition:all 0.5s ease 0s;
+  visibility: visible;
 
+}
+
+.z-auto{
+  z-index: auto;
+}
 
