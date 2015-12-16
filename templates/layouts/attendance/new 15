@@ -1,0 +1,31 @@
+
+- AutoScroll on each form 
+- Email validation test on each form
+- Date format on each form (Current date)
+- Time Format and current time
+- Authorize visit error message send to Visit detail
+
+
+- "Welcome LoginName into MiSAP" message on Dashboard
+
+
+
+Report: 
+
+- on submit model input fields are set to null  DONE
+
+- T&A reports, sales person should be null in URL DONE
+- Check on Enter form submit should work  
+
+
+
+
+Create BP:
+
+- on Enter form submit not working DONE
+- Clear All method is not defined on controller DONE
+- Autoscroll city, Area code is not working DONE
+
+
+
+

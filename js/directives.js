@@ -1,4 +1,6 @@
 angular.module('topolite.directives', [])
+
+
 .directive('restrictInput', [function(){
 
         return {
@@ -21,4 +23,6 @@ angular.module('topolite.directives', [])
                 });
             }
         };
-    }]);    
+    }]);
+
+

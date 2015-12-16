@@ -1,9 +1,9 @@
 angular.module('topolite.visit_ctrl', [])
 
-.controller('VisitCtrl', function($ionicSideMenuDelegate, $state, $stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
+.controller('VisitCtrl', function($ionicSideMenuDelegate, $state,$ionicScrollDelegate, $location,$stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
 
    $scope.params = $stateParams;
-   console.log($scope.params);
+   //console.log($scope.params);
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
    // $scope.visitModel.SALES_PERSON_NO = $localStorage.currentUser.UserDetails.Company_No;
@@ -41,61 +41,74 @@ angular.module('topolite.visit_ctrl', [])
    
    
    
-   $scope.fillVisitSalesObj = function(){
-     webService.showIonLoader();  //show ionic loading
-    var urlParam = 'VisitService/VisitRecord.svc/GetSalesPerson/'
+  $scope.getVisitSalesID = function(query,idx){
+      
+      console.log(idx);
+
+      if(query!=null){
+        var urlParam = 'VisitService/VisitRecord.svc/GetSalesPerson/'
             +$rootScope.currentUser.UserDetails.Company_No
             +'/'+$rootScope.currentUser.UserDetails.Location_No
             +'/'+$rootScope.currentUser.UserDetails.LoginName
             +'/null'
             +'/'+$rootScope.currentUser.UserDetails.LoginName
 
-    var methodType = 'GET'
-    var dataJson = JSON.stringify({});
-    webService.webCall(urlParam,methodType,dataJson)
-    .then(function(respone){
-      
-        webService.hideIonLoader();//hide ionic loading
-        if(respone.data.SalePersonDetailResult.Messsage.Success){
-          $scope.fillSalesArr = respone.data.SalePersonDetailResult.Result;
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+          
+            webService.hideIonLoader();//hide ionic loading
+          
+            if(respone.data.SalePersonDetailResult.Messsage.Success){
+                
+                var x = [];
+                 var dat = respone.data.SalePersonDetailResult.Result;
+                 for(var i in dat){
+                    x.push({'SALES_PERSON_NO':dat[i]['SALES_PERSON_NO'],'SALES_PERSON_NAME':dat[i]['SALES_PERSON_NAME'],'label':dat[i]['SALES_PERSON_NO']+' ( '+dat[i]['SALES_PERSON_NAME']+' )'});
+                 }
 
 
-           
-          if($.inArray($state.current.name, ['visit.addVisit']) !== -1 && $scope.params.vid!=''){
-            $scope.VisitDetail();
-          }else if($.inArray($state.current.name, ['visit.addVisit']) !== -1){
-            for(var i in $scope.visitModel.Sales){
-                $scope.visitModel.Sales[i]['SALES_PERSON_NO'] = $rootScope.currentUser.UserDetails.LoginName;
-                $scope.visitModel.Sales[i]['SALES_PERSON_NAME'] = $rootScope.currentUser.UserDetails.UserName;
-            }
-          }
+                return x
+            }/*else{
+                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
+            }*/
 
-        }else{
-            webService.showPopup(respone.data.SalePersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
-        }
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
+        });
 
-    },function(error){
-          webService.hideIonLoader();  //show ionic loading
-          webService.showPopup('Webservice response error!', $rootScope.title_close);
-    });
-   }
-   $scope.setVisitSelSales = function(idx){
+        return modelItem;
+      }
+      return [];
+
+}
+
+
+
+$scope.getVisitSalesIDClicked = function (callback,idx) {
+    //console.log(callback.item);
+    //console.log(idx);
+    $scope.visitModel.Sales[idx]['SALES_PERSON_NO'] = callback.item.SALES_PERSON_NO;
+    $scope.visitModel.Sales[idx]['SALES_PERSON_NAME'] = callback.item.SALES_PERSON_NAME;
+};
+
+$scope.getVisitSalesIDRemoved = function (callback,idx) {
+   //console.log(callback.item);
+   //console.log(idx);
+   $scope.visitModel.Sales[idx]['SALES_PERSON_NO'] = '';
+   $scope.visitModel.Sales[idx]['SALES_PERSON_NAME'] = '';
+};
+
+  
+  $scope.setVisitSelSales = function(idx){
 
     var id = webService.findInJson('SALES_PERSON_NO',$scope.visitModel.Sales[idx]['SALES_PERSON_NO'],$scope.fillSalesArr);
       $scope.visitModel.Sales[idx]['SALES_PERSON_NAME'] = $scope.fillSalesArr[id]['SALES_PERSON_NAME'];
   }
    
-  $scope.$on('$ionicView.beforeEnter', function() {
-      //Call method when on bpDetail screen 
-      if ($.inArray($state.current.name, ['visit.addVisit']) !== -1) {
-        $scope.fillVisitDoc();
-        $scope.fillVisitSalesObj();
-
-
-       
-      }
-  });
-
+ 
 
   $scope.showArea = true;
   $scope.fillVisitArea = function(){
@@ -155,7 +168,7 @@ angular.module('topolite.visit_ctrl', [])
           $scope.fillContactArr = respone.data.ContactPersonDetailResult.Result;
           $scope.showContact = false;
         }else{
-            webService.showPopup(respone.data.ContactPersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
+            // webService.showPopup(respone.data.ContactPersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
         }
 
     },function(error){
@@ -176,7 +189,7 @@ angular.module('topolite.visit_ctrl', [])
 
   $scope.getCustomID = function (query) {
 
-    if(query!=''){
+    if(query!=null){
 
         webService.showIonLoader();  //show ionic loading
         var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
@@ -234,7 +247,7 @@ $scope.getCustomIDRemoved = function (callback) {
 
 
 $scope.getCustomNAME = function (query) {
-        if(query!=''){
+        if(query!=null){
         webService.showIonLoader();  //show ionic loading
         var urlParam = 'VisitService/VisitRecord.svc/GetCustomer/'
                 +$rootScope.currentUser.UserDetails.Company_No
@@ -249,9 +262,21 @@ $scope.getCustomNAME = function (query) {
         .then(function(respone){
           
             webService.hideIonLoader();//hide ionic loading
-            if(respone.data.GetCustomerIDResult.Messsage.Success){
-                return respone.data.GetCustomerIDResult.Result;
-            }/*else{
+
+            // if(respone.data.GetCustomerIDResult.Messsage.Success){
+            //     return respone.data.GetCustomerIDResult.Result;
+            // }
+
+if(respone.data.GetCustomerIDResult.Messsage.Success){
+                 var x = [];
+                 var dat = respone.data.GetCustomerIDResult.Result;
+                 for(var i in dat){
+                    x.push({'CUSTOMER_NO':dat[i]['CUSTOMER_NO'],'CUSTOMER_NAME':dat[i]['CUSTOMER_NAME'],'label':dat[i]['CUSTOMER_NO']+' ( '+dat[i]['CUSTOMER_NAME']+' )'});
+                 }
+                 return x;
+            }
+
+            /*else{
                 return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
             }*/
 
@@ -329,7 +354,7 @@ $scope.ValidateEmail = function(mail)
                                     'ALERT_TIME':''
                                    }];
 
-      console.log($scope.visitModel);
+      //console.log($scope.visitModel);
     }  
 
    $scope.initVisitModel();   
@@ -405,7 +430,7 @@ $scope.ValidateEmail = function(mail)
 
 
   $scope.getVisitID = function (query) {
-        if(query!=''){
+        if(query!=null){
         webService.showIonLoader();  //show ionic loading
         var urlParam = 'VisitService/VisitRecord.svc/GetVisitRecord/'
             +$rootScope.currentUser.UserDetails.Company_No
@@ -474,17 +499,20 @@ $scope.getVisitIDRemoved = function (callback) {
     var msg ='';
     var ctMsg ='';
     var saleMsg ='';
+     var eleId = '';
     
     if($scope.visitModel.CUSTOMER_NO == ''){
       msg = "Please enter customer no!";
+      eleId = 'customerno';
     }else if($scope.visitModel.CUSTOMER_NAME ==''){
       msg = "Please enter customer name!";
+      eleId = 'CUSTOMER_NAME';
     }else if($scope.visitModel.AREA_NAME ==''){
       msg = "Please select area!";
-    }else if($scope.visitModel.AREA_NAME ==''){
-      msg = "Please select area!";
+      eleId = 'AREA_NAME';
     }else if($scope.visitModel.ADDRESS ==''){
       msg = "Please enter address!";
+      eleId = 'ADDRESS';
     }
 
     for(var j in $scope.visitModel.Contact){
@@ -525,7 +553,11 @@ $scope.getVisitIDRemoved = function (callback) {
 
 
     if(msg!=''){
-        webService.showPopup(msg, $rootScope.title_ok);
+        var p = webService.showPopup(msg, $rootScope.title_ok);
+        p.then(function(res){
+            $location.hash(eleId);
+            $ionicScrollDelegate.anchorScroll([1]);
+        });
     }else if(ctMsg!=''){
         webService.showPopup(ctMsg, $rootScope.title_ok);
     }else if(saleMsg!=''){
@@ -645,8 +677,8 @@ if($scope.params.infoId !=null){
       msg = "Please select order received!";
     }else if($scope.visitInfo.DEMO_PERFORMED == -1){
       msg = "Please select demo received!";
-    }else if($scope.visitInfo.PRODUCT_DEMO == ''){
-      msg = "Please enter product demo!";
+    }else if($scope.visitInfo.DEMO_PERFORMED =='C1' && $scope.visitInfo.PRODUCT_DEMO ==''){
+      msg = "Please enter Demo Product !";
     }
 
 
@@ -692,6 +724,11 @@ if($scope.params.infoId !=null){
 
 
   /********************  Visit Add (Products) Starts    *********************/
+$scope.ProdGroup = [];  // to fill Prod group on add/edit Product
+$scope.ProdCode = [];   // to fill Prod Code on add/edit Product
+$scope.ProdDesc = [];   // to fill Prod Code on add/edit Product
+
+
 $scope.VisitProd = {};
 $scope.VisitProd.ITEM_GROUP = '';
 $scope.VisitProd.ITEM_TYPE = 'E';
@@ -721,14 +758,14 @@ if($scope.params.pId !=null){
 }
 
 
+$scope.callProdGroup = function () {
+        
+         //$scope.ProdGroup = [{'Group_Code':'Test','Description':'Desc','label':'test (Desc)'},{'Group_Code':'Test2','Description':'Desc2','label':'test2 (Desc2)'}]  
 
-$scope.getProdGroupID = function (query) {
-
-  if(query!=''){
         webService.showIonLoader();  //show ionic loading
         var urlParam = 'VisitService/VisitRecord.svc/GetGroup/'
             +$rootScope.currentUser.UserDetails.Company_No
-            +'/'+query;
+            +'/null';
 
         var methodType = 'GET'
         var dataJson = JSON.stringify({});
@@ -737,28 +774,97 @@ $scope.getProdGroupID = function (query) {
           webService.hideIonLoader();
 
             if(respone.data.GetGroupCodeResult.Messsage.Success){
-                 return respone.data.GetGroupCodeResult.Result;
+                
+               var x = [];
+               var dat = respone.data.GetGroupCodeResult.Result;
+               for(var i in dat){
+                  x.push({'Group_Code':dat[i]['Group_Code'],'Description':dat[i]['Description'],'label':dat[i]['Group_Code']+' ( '+dat[i]['Description']+' )'});
+               }
+                $scope.ProdGroup = x;
+                //console.log($scope.ProdGroup);
 
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
+            }else{
+                webService.showPopup(respone.data.GetGroupCodeResult.Messsage.ErrorMsg, $rootScope.title_close);
+            }
 
         },function(error){
               webService.hideIonLoader();  //show ionic loading
               webService.showPopup('Webservice response error!', $rootScope.title_close);
         });
 
-        return modelItem;
-    }
+}
+
+
+
+
+
+$scope.callProdCode = function () {
         
-        return [];
+         //$scope.ProdCode = [{'Stock_NO':'Test','Description':'Desc','label':'test (Desc)'},{'Stock_NO':'Test2','Description':'Desc2','label':'test2 (Desc2)'}]  
+
+      webService.showIonLoader();  //show ionic loading
+        var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
+            +$rootScope.currentUser.UserDetails.Company_No
+            +'/'+$rootScope.currentUser.UserDetails.Location_No
+            +'/'+$scope.VisitProd.ITEM_GROUP
+            +'/null/'
+            +'/null';
+
+        var methodType = 'GET'
+        var dataJson = JSON.stringify({});
+        var modelItem = webService.webCall(urlParam,methodType,dataJson)
+        .then(function(respone){
+          webService.hideIonLoader();
+            if(respone.data.GetItemCodeResult.Messsage.Success){
+              var x = [];
+               var dat = respone.data.GetItemCodeResult.Result;
+               for(var i in dat){
+                  x.push({'Stock_NO':dat[i]['Stock_NO'],'Description':dat[i]['Description'],'label':dat[i]['Stock_NO']+' ( '+dat[i]['Description']+' )'});
+               }
+                $scope.ProdCode = $scope.ProdDesc= x;
+                //console.log($scope.ProdCode);
+            }else{
+                webService.showPopup(respone.data.GetItemCodeResult.Messsage.ErrorMsg, $rootScope.title_close);
+            }
+
+        },function(error){
+              webService.hideIonLoader();  //show ionic loading
+              webService.showPopup('Webservice response error!', $rootScope.title_close);
+        });
+    }
+
+
+$scope.$on('$ionicView.afterEnter', function() {
+      
+  //Call method when on bpDetail screen 
+  if (($.inArray($state.current.name, ['visit.addProduct']) !== -1) ) {
+      $scope.callProdGroup();
+  }
+
+  //Call method when on bpDetail screen 
+  if (($.inArray($state.current.name, ['visit.addProduct']) !== -1  && $scope.params.pId != null) ) {
+      $scope.callProdCode();
+  }
+     
+});
+
+
+
+$scope.getProdGroupID = function (query) {
+    if(query!=null){
+        return $filter('filter')($scope.ProdGroup, { Group_Code: query});
+    }
+    return $scope.ProdGroup;
 };
 
 $scope.getProdGroupIDClicked = function (callback) {
     console.log(callback.item);
     $scope.VisitProd.ITEM_GROUP = callback.item.Group_Code;
     $scope.VisitProd.ITEM_CODE = '';
-   $scope.VisitProd.DESCRIPTION = '';
+    $scope.VisitProd.DESCRIPTION = '';
+
+    $scope.callProdCode();
+
 };
 $scope.getProdGroupIDRemoved = function (callback) {
    console.log(callback.item);
@@ -773,36 +879,15 @@ $scope.getProdGroupIDRemoved = function (callback) {
 $scope.getProductCodeID = function (query) {
 
     if($scope.VisitProd.ITEM_GROUP=='' || $scope.VisitProd.ITEM_GROUP=='undefined'){
-      webService.showPopup('Select item group first', $rootScope.title_close);
-    }else if(query!=''){
-        webService.showIonLoader();  //show ionic loading
-        var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
-            +$rootScope.currentUser.UserDetails.Company_No
-            +'/'+$rootScope.currentUser.UserDetails.Location_No
-            +'/'+$scope.VisitProd.ITEM_GROUP
-            +'/'+query
-            +'/null';
-
-        var methodType = 'GET'
-        var dataJson = JSON.stringify({});
-        var modelItem = webService.webCall(urlParam,methodType,dataJson)
-        .then(function(respone){
-          webService.hideIonLoader();
-            if(respone.data.GetItemCodeResult.Messsage.Success){
-                 return respone.data.GetItemCodeResult.Result;
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
-
-        },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
-        });
-
-        return modelItem;
-      }
-        return [];
-    };
+      return $scope.ProdCode;
+    }else if(query!=null){
+        return $filter('filter')($scope.ProdCode, { Stock_NO: query});
+    }else{
+      return $scope.ProdCode;  
+    }
+    
+      
+};
 
 $scope.getProductCodeIDClicked = function (callback) {
     console.log(callback.item);
@@ -818,41 +903,17 @@ $scope.getProductCodeIDRemoved = function (callback) {
 
 $scope.getProductDescID = function (query) {
 
+console.log($scope.ProdDesc);
+
     if($scope.VisitProd.ITEM_GROUP==''){
-      webService.showPopup('Select item group first', $rootScope.title_close);
-    }else if(query!=''){
-        webService.showIonLoader();  //show ionic loading
-        var urlParam = 'VisitService/VisitRecord.svc/GetItem/'
-            +$rootScope.currentUser.UserDetails.Company_No
-            +'/'+$rootScope.currentUser.UserDetails.Location_No
-            +'/'+$scope.VisitProd.ITEM_GROUP
-            +'/null'
-            +'/'+query;
+      return $scope.ProdDesc;
+    }else if(query!=null){
+        return $filter('filter')($scope.ProdDesc, { Description: query});
+    }else{
+      return $scope.ProdDesc;
+    }
+};
 
-        var methodType = 'GET'
-        var dataJson = JSON.stringify({});
-        var modelItem = webService.webCall(urlParam,methodType,dataJson)
-        .then(function(respone){
-
-          console.log(respone);
-          
-          webService.hideIonLoader();
-            if(respone.data.GetItemCodeResult.Messsage.Success){
-                 return respone.data.GetItemCodeResult.Result;
-
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
-
-        },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
-        });
-
-        return modelItem;
-      }
-        return [];
-    };
 
 $scope.getProductDescIDClicked = function (callback) {
     console.log(callback.item);
@@ -883,6 +944,9 @@ $scope.setProdForm = function(){
     $scope.showDesc=true;
   }
 }
+
+
+
 
 
    $scope.AddVisitProd = function(){
@@ -1005,11 +1069,11 @@ $scope.setProdForm = function(){
   /********************  Visit Prod Update Ends    *********************/
 
 $scope.setDateFor = function(input) {
-  
   if(input!='' && input!=null){
       var datePart = input.match(/\d+/g),
-      month = datePart[0], // get only two digits
-      day = datePart[1], year = datePart[2];
+      day= datePart[0], // get only two digits
+      month = datePart[1], year = datePart[2];
+      console.log(new Date(year+'-'+month+'-'+day));
       return new Date(year+'-'+month+'-'+day);
   }else{
       return '';
@@ -1035,7 +1099,7 @@ $scope.VisitAdditional= '';
     var dataJson = JSON.stringify({});
     webService.webCall(urlParam,methodType,dataJson)
     .then(function(respone){
-      console.log(respone);
+      //console.log(respone);
       
         webService.hideIonLoader();//hide ionic loading
         if(respone.data.GetVisitDataResult.Messsage.Success){
@@ -1052,10 +1116,7 @@ $scope.VisitAdditional= '';
           $scope.visitModel.AREA_NAME = $scope.visitDetails.AREA_NAME;
           $scope.visitModel.CUSTOMER_NO = $scope.visitDetails.CUSTOMER_NO;
 
-          $scope.arCode = $scope.visitModel.AREA_NAME.split('-');
-          if($scope.arCode[0]!=''){
-            $scope.fillVisitContacts($scope.arCode[0]);
-          }
+          
 
          $scope.visitModel.DOC_SERIES = $scope.visitDetails.DOC_SERIES;
          $scope.visitModel.VISIT_ID = $scope.visitDetails.VISIT_ID;
@@ -1088,44 +1149,50 @@ $scope.VisitAdditional= '';
                                       'NEXT_ACTION':$scope.SalesDetails[key]['NEXT_ACTION'],
                                       'NEXT_ACTION_DATE':$scope.setDateFor($scope.SalesDetails[key]['NEXT_ACTION_DATE']),
                                       'NEXT_ACTION_TIME':$scope.SalesDetails[key]['NEXT_ACTION_TIME'],
-                                      'ALERT':1,
+                                      'ALERT':$scope.SalesDetails[key]['ALERT'],
                                       'ALERT_DATE':$scope.setDateFor($scope.SalesDetails[key]['ALERT_DATE']),
                                       'ALERT_TIME':$scope.SalesDetails[key]['ALERT_TIME'],
                                     });
          }
 
 
-          webService.showIonLoader();  //show ionic loading
-          var urlParam = 'VisitService/VisitRecord.svc/GetContactPerson/'
-                  +$rootScope.currentUser.UserDetails.Company_No
-                  +'/'+$rootScope.currentUser.UserDetails.Location_No
-                  +'/'+$scope.visitModel.CUSTOMER_NO
-                  +'/'+$scope.visitModel.AREA_NAME.split('-')[0]
-                  +'/null';
+// if($.inArray($state.current.name, ['visit.addVisit']) !== -1 && $scope.params.vid != ''){
 
-        var methodType = 'GET'
-        var dataJson = JSON.stringify({});
-        webService.webCall(urlParam,methodType,dataJson)
-        .then(function(respone){
-          
-            webService.hideIonLoader();//hide ionic loading
-            if(respone.data.ContactPersonDetailResult.Messsage.Success){
-              $scope.fillContactArr = respone.data.ContactPersonDetailResult.Result;
-              $scope.showContact = false;
-
-              for(var key in $scope.SaleContact){
-$scope.visitModel.Contact[key]['CUST_CONTACT_PERSON']=$scope.SaleContact[key]['CONTACT_PERSON'];
-               }
-            }else{
-                webService.showPopup(respone.data.ContactPersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
-            }
-
-        },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Contacts list no results!', $rootScope.title_close);
-        });
-
+       
          
+       
+//           webService.showIonLoader();  //show ionic loading
+//           var urlParam = 'VisitService/VisitRecord.svc/GetContactPerson/'
+//                   +$rootScope.currentUser.UserDetails.Company_No
+//                   +'/'+$rootScope.currentUser.UserDetails.Location_No
+//                   +'/'+$scope.visitModel.CUSTOMER_NO
+//                   +'/'+$scope.visitModel.AREA_NAME.split('-')[0]
+//                   +'/null';
+
+//         var methodType = 'GET'
+//         var dataJson = JSON.stringify({});
+//         webService.webCall(urlParam,methodType,dataJson)
+//         .then(function(respone){
+          
+//             webService.hideIonLoader();//hide ionic loading
+//             if(respone.data.ContactPersonDetailResult.Messsage.Success){
+//               $scope.fillContactArr = respone.data.ContactPersonDetailResult.Result;
+//               $scope.showContact = false;
+
+//               for(var key in $scope.SaleContact){
+// $scope.visitModel.Contact[key]['CUST_CONTACT_PERSON']=$scope.SaleContact[key]['CONTACT_PERSON'];
+//                }
+//             }else{
+//                 webService.showPopup(respone.data.ContactPersonDetailResult.Messsage.ErrorMsg, $rootScope.title_close);
+//             }
+
+//         },function(error){
+//               webService.hideIonLoader();  //show ionic loading
+//               webService.showPopup('Contacts list no results!', $rootScope.title_close);
+//         });
+
+//  }
+
 
 
          console.log(JSON.stringify($scope.visitModel));
@@ -1147,11 +1214,50 @@ $scope.visitModel.Contact[key]['CUST_CONTACT_PERSON']=$scope.SaleContact[key]['C
     $scope.$on('$ionicView.beforeEnter', function() {
       
       //Call method when on bpDetail screen 
-      if (($.inArray($state.current.name, ['visit.visitDetail']) !== -1) ) {
-        $scope.VisitDetail();
+      if (($.inArray($state.current.name, ['visit.visitDetail']) !== -1) || ($.inArray($state.current.name, ['visit.addVisit']) !== -1) || ($.inArray($state.current.name, ['visit.addProduct']) !== -1) ) {
+        webService.showIonLoader();
       }
     
     });
+
+
+    $scope.$on('$ionicView.afterEnter', function() {
+      
+      //Call method when on bpDetail screen 
+      if (($.inArray($state.current.name, ['visit.visitDetail']) !== -1) ) {
+        $scope.VisitDetail();
+      }
+         //Call method when on bpDetail screen 
+      if ($.inArray($state.current.name, ['visit.addVisit']) !== -1 ) {
+        $scope.fillVisitDoc();
+   
+        //$scope.fillVisitSalesObj();
+      }
+
+
+      if($.inArray($state.current.name, ['visit.addVisit']) !== -1 && $scope.params.vid == ''){
+        
+          for(var i in $scope.visitModel.Sales){
+              $scope.visitModel.Sales[i]['SALES_PERSON_NO'] = $rootScope.currentUser.UserDetails.LoginName;
+              $scope.visitModel.Sales[i]['SALES_PERSON_NAME'] = $rootScope.currentUser.UserDetails.UserName;
+          }
+        }
+
+      if($.inArray($state.current.name, ['visit.addVisit']) !== -1 && $scope.params.vid != ''){
+
+          $scope.VisitDetail();
+
+          $scope.arCode = $scope.visitModel.AREA_NAME.split('-');
+          if($scope.arCode[0]!=''){
+            $scope.fillVisitContacts($scope.arCode[0]);
+          }
+
+         
+        }
+
+    
+    });
+
 
        
 

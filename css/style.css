@@ -82,7 +82,7 @@ form .notice{ display: block; text-align: right; text-transform: uppercase; font
 
 .item-input.item-stacked-label{ border:none; padding:0; margin:0 0 12px;}
 .item-input.item-stacked-label span{ font-size:14px;}
-.item-input.item-stacked-label input[type="text"],.item-input.item-stacked-label input[type="email"]{ border:1px solid #ccc; border-radius:0; margin:5px 0 0; padding:3px 10px;}
+.item-input.item-stacked-label input[type="text"],.item-input.item-stacked-label input[type="email"],.item-input.item-stacked-label input[type="number"]{ border:1px solid #ccc; border-radius:0; margin:5px 0 0; padding:3px 10px;}
 
 .twosideslist .item{ padding:2px 0; font-size:14px; background:#f5f5f5;}
 .twosideslist .item-divider{ background:#fff;  color:#d14841;} 

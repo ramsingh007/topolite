@@ -2,33 +2,30 @@
 
 
 <ion-content>
-
-	<div class="list list-inset">
-    	<label class="item item-input item-stacked-label">
+ <form>
+	<div class="list list-inset" >
+    	<label class="item item-input item-stacked-label" id="contactp" >
             <span>Contact Person</span>
             
-            <input  maxlength="60" type="text" ng-model="bp_contact.CONTACT_PERSON" ng-required="true">
+            <input  maxlength="60" type="text" ng-model="bp_contact.CONTACT_PERSON" >
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" id="designation">
             <span>Designation</span>
-            <input   maxlength="40" type="text" ng-model="bp_contact.DESIGNATION" ng-required="true">
+            <input   maxlength="40" type="text" ng-model="bp_contact.DESIGNATION" >
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" id="email" >
             <span>Email</span>
             <input type="email" ng-model="bp_contact.EMAIL">
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" id="mobile">
             <span>Mobile No</span>
-        <input restrict-input="^[0-9]*$" maxlength="10" type="text" ng-model="bp_contact.MOBILE_NO" ng-required="true">
+        <input restrict-input="^[0-9]*$" maxlength="10" type="text" ng-model="bp_contact.MOBILE_NO" >
         </label>
        
         <button type="button" ng-click="save_contact('Add')" ng-show="(params.lId == '')" class="button button-block button-small button-assertive" >ADD</button>
 
         <button type="button" ng-click="save_contact('Update')" ng-show="(params.lId != '')" class="button button-block button-small button-assertive" >Update</button>
 
-        
-       
-       
     </div>
 </form>
 </ion-content>

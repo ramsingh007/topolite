@@ -25,13 +25,14 @@
 
           <input ion-autocomplete ng-show="showGroup" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.ITEM_GROUP"
                        item-value-key="Group_Code"
-                       item-view-value-key="Group_Code"
+                       item-view-value-key="label"
+                       search-items="ProdGroup"
                        items-method="getProdGroupID(query)"
                        items-clicked-method="getProdGroupIDClicked(callback)"
                        items-removed-method="getProdGroupIDRemoved(callback)"
                        max-selected-items="1"
-                       select-items-label="Search Group_Code"
-                       selected-items-label="Selected Group_Code:"
+                       select-items-label="Search Item Group"
+                       selected-items-label="Selected Item Group:"
                        component-id="Group_Code" />
         
 
@@ -42,13 +43,14 @@
 
               <input ion-autocomplete ng-show="showCode" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.ITEM_CODE"
                        item-value-key="Stock_NO"
-                       item-view-value-key="Stock_NO"
+                       item-view-value-key="label"
+                       search-items="ProdCode"
                        items-method="getProductCodeID(query)"
                        items-clicked-method="getProductCodeIDClicked(callback)"
                        items-removed-method="getProductCodeIDRemoved(callback)"
                        max-selected-items="1"
-                       select-items-label="Search ITEM_CODE"
-                       selected-items-label="Selected ITEM_CODE:"
+                       select-items-label="Search Item Code"
+                       selected-items-label="Selected Item Code:"
                        component-id="Stock_NO" />
         </label>
         
@@ -61,13 +63,14 @@
 
               <input ion-autocomplete ng-show="showDesc" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.DESCRIPTION"
                        item-value-key="Description"
-                       item-view-value-key="Description"
+                       item-view-value-key="label"
+                       search-items="ProdDesc"
                        items-method="getProductDescID(query)"
                        items-clicked-method="getProductDescIDClicked(callback)"
                        items-removed-method="getProductDescIDRemoved(callback)"
                        max-selected-items="1"
-                       select-items-label="Search DESCRIPTION"
-                       selected-items-label="Selected DESCRIPTION:"
+                       select-items-label="Search Description"
+                       selected-items-label="Selected Description:"
                        component-id="DESCRIPTION" />
         </label>
 

@@ -7,9 +7,16 @@ angular.module('topolite.report_ctrl', [])
  $scope.CurrYear = $filter('date')(new Date(),'yyyy');//2014 like
 
  $scope.report.Year =$scope.CurrYear;
+ $scope.report.Period='';
+  $scope.report.Range='';
+  $scope.report.FromsalesPerson='';
+  $scope.report.TosalesPerson='';
+  $scope.Outstanding.OUTFromCustomer='';
+  $scope.Outstanding.OUTToCustomer='';
  $scope.Outstanding.date=new Date();
  $scope.pending.FromDate=new Date();
  $scope.pending.ToDate=new Date();
+
 
 
 
@@ -34,7 +41,7 @@ angular.module('topolite.report_ctrl', [])
 		    $scope.Period=respone.data.GetTargetPeriodResult.Result;
 
 		    }else{
-		        webService.showPopup(respone.data.GetTargetPeriodResult.Messsage.ErrorMsg, $rootScope.title_close);
+		        webService.showPopup(respone.data.GetTargetPeriodResult.Message.ErrorMsg, $rootScope.title_close);
 		    }
 
 		},function(error){
@@ -63,7 +70,7 @@ $scope.Getyear = function(){
 		    $scope.year=respone.data.GetTargetYearResult.Result;
 
 		    }else{
-		        webService.showPopup(respone.data.GetTargetYearResult.Messsage.ErrorMsg, $rootScope.title_close);
+		        webService.showPopup(respone.data.GetTargetYearResult.Message.ErrorMsg, $rootScope.title_close);
 		    }
 
 		},function(error){
@@ -97,7 +104,7 @@ $scope.GetSalesPerson = function(){
 		    $scope.Period=respone.data.GetTargetPersonResult.Result;
 
 		    }else{
-		        webService.showPopup(respone.data.GetTargetPersonResult.Messsage.ErrorMsg, $rootScope.title_close);
+		        webService.showPopup(respone.data.GetTargetPersonResult.Message.ErrorMsg, $rootScope.title_close);
 		    }
 
 		},function(error){
@@ -217,7 +224,7 @@ $scope.GetRange = function(){
 		    $scope.range=respone.data.GetTargetRangeResult.Result;
 
 		    }else{
-		        webService.showPopup(respone.data.GetTargetRangeResult.Messsage.ErrorMsg, $rootScope.title_close);
+		        // webService.showPopup(respone.data.GetTargetRangeResult.Message.ErrorMsg, $rootScope.title_close);
 		    }
 
 		},function(error){
@@ -228,7 +235,55 @@ $scope.GetRange = function(){
 
 
 $scope.TargetResult = function(){
+
+   console.log($scope.report);
+
+
+
+
+
 	
+ var msg='';
+
+    if($scope.report.Period ==''){
+      msg = "Please select Period!";
+ 
+    
+    }else if($scope.report.Range =='' && $scope.report.Period !=1 ){
+    
+     msg = "Please select Range!";
+     
+   }
+    // else if($scope.bpModel.SALES_PERSON_NO ==''){
+    //   msg = "Please enter Sales person";
+    // }
+    
+
+    if(msg!='' ){
+
+       webService.showPopup(msg, $rootScope.title_ok);
+    
+      
+    }else{
+
+
+
+
+ if($scope.report.TosalesPerson ==''){
+
+$scope.report.TosalesPerson='null';
+
+ }
+if($scope.report.FromsalesPerson=='' ){
+
+$scope.report.FromsalesPerson='null';
+
+ }
+ if ($scope.report.Period ==1) {
+
+      $scope.report.Range =0; 
+
+       };
 	
 	
 			webService.showIonLoader();  //show ionic loading
@@ -254,6 +309,9 @@ $scope.TargetResult = function(){
 		    	 $rootScope.targetResult = respone.data.GetTargetDataResult.Result;
 		    	 $state.go('report.target_acchievement_table');
 		    }else{
+
+              $scope.report.FromsalesPerson='';
+  $scope.report.TosalesPerson='';
 		        webService.showPopup(respone.data.GetTargetDataResult.Message.ErrorMsg, $rootScope.title_close);
 		    }
 
@@ -261,6 +319,7 @@ $scope.TargetResult = function(){
 		  		webService.hideIonLoader();  //show ionic loading
 		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
 		});
+  }
 
 
   }
@@ -486,13 +545,13 @@ $scope.OUTToCustomerRemoved = function (callback) {
 $scope.OutstandingReport = function(Outstanding){
 // alert($scope.Outstanding.OUTFromCustomer);
 
-	if ($scope.Outstanding.OUTFromCustomer=='undefined') {
+	if ($scope.Outstanding.OUTFromCustomer=='') {
 
        $scope.Outstanding.OUTFromCustomer='null';
 
 	};
 
-	if ($scope.Outstanding.OUTToCustomer=='undefined') {
+	if ($scope.Outstanding.OUTToCustomer=='') {
 
 		$scope.Outstanding.OUTToCustomer='null';
 	};
@@ -523,8 +582,11 @@ console.log($scope.Outstanding.OUTFromCustomer);
          // console.log($rootScope.OutstandingReport);
 		   $state.go('report.customer_report_table');
 		    }else{
-		        webService.showPopup(respone.data.GetCustomerDataResult.Message.ErrorMsg, $rootScope.title_close);
-		    }
+		      
+            webService.showPopup(respone.data.GetCustomerDataResult.Message.ErrorMsg, $rootScope.title_close);
+		    $scope.Outstanding.OUTFromCustomer=='';
+        $scope.Outstanding.OUTToCustomer=='';
+        }
 
 		},function(error){
 		  		webService.hideIonLoader();  //show ionic loading
@@ -588,6 +650,8 @@ $scope.CReport = function(pending){
 		   $rootScope.CReportResult = respone.data.GetCFormDataResult.Result;
 		   $state.go('report.pending_report_table');
 		    }else{
+            $scope.pending.FromCustomer='';
+            $scope.pending.ToCustomer='';
 		        webService.showPopup(respone.data.GetCFormDataResult.Message.ErrorMsg, $rootScope.title_close);
 		    }
 
@@ -607,9 +671,15 @@ $scope.$on('$ionicView.beforeEnter', function() {
 
   	$scope.Getyear();
   	$scope.GetPeriod();
-    	
+    $scope.report.FromsalesPerson='';
+    $scope.report.TosalesPerson='';
+    $scope.Outstanding.OUTFromCustomer='';
+    $scope.Outstanding.OUTToCustomer='';
+    $scope.pending.FromCustomer='';
+    $scope.pending.ToCustomer='';  	
+ 
     	if ($.inArray($state.current.name, ['report.pending_report']) !== -1) {
-    		$scope.pending={};
+    	
     		     
     		    
       

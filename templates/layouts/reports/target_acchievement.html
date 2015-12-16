@@ -15,13 +15,13 @@
     </div>
 	
 	<div class="form-group">
-		<label>Period</label>
+		<label>Period  </label>
  <select class="form-control" ng-change="GetRange()" ng-model="report.Period" ng-options="item.key as item.Period for item in Period">
         </select>
         
     </div>
     <div class="form-group">
-		<label>Range</label>
+		<label>Range </label>
 	
 		<select class="form-control" ng-model="report.Range"  ng-options="item.Key as item.Range for item in range">
         </select>
@@ -57,7 +57,7 @@
                        component-id="Sales_Person_No" />
     </div>
 	<div class="form-group">
-		<button ng-click="TargetResult(report)" class="button button-block button-small button-assertive" >Get Result</button>
+		<button ng-click="TargetResult()" class="button button-block button-small button-assertive" >Get Result</button>
 	</div>
 </div>
 </form>

@@ -103,7 +103,15 @@ angular.module('topolite.services', [])
               break;
           }
           return tmp;
-      }
+      },ValidateEmail:function(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return (true)
+  }
+    return (false)
+}
+
   };
   return webService;
 });

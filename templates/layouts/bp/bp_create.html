@@ -1,36 +1,36 @@
 <ion-view title="{{(params.bpId != '') ? 'Update':'Create'}} BP">
 
-<ion-content>
+<ion-content  overflow-scroll="true">
 <!-- <button class="button button-small button-block button-positive" ng-click="geolocationFun()" >Save</button> -->
-<form>
+<form ng-submit="BPAddUpdate()" >
 	<div class="list list-inset">
-    	<label class="item item-input item-stacked-label">
+    	<label class="item item-input item-stacked-label"  id="bpcode"> 
             <span>BP Code*</span>
-            <input type="text" restrict-input="^[a-zA-Z0-9-_]*$" maxlength="10" ng-model="bpModel.BP_Code" ng-readonly="{{(params.bpId != '') ? 'true':'false'}}" ng-required="true">
+            <input type="text" restrict-input="^[a-zA-Z0-9-_]*$" maxlength="10" ng-model="bpModel.BP_Code" ng-readonly="{{(params.bpId != '') ? 'true':'false'}}"   >
         </label>
-        <label class="item item-input item-stacked-label">
-            <span>Name*</span>
-            <input maxlength="60" type="text" ng-model="bpModel.NAME" ng-required="true" >
+        <label class="item item-input item-stacked-label" id="bpname">
+            <span>Name* </span>
+            <input maxlength="60" type="text" ng-model="bpModel.NAME"    >
         </label>
       
     
 
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" id="address"  >
             <span>Address1*</span>
-            <input type="text" maxlength="60" ng-model="bpModel.ADDRESS1" ng-required="true">
+            <input type="text" maxlength="60" ng-model="bpModel.ADDRESS1"   >
         </label>
         <label class="item item-input item-stacked-label">
             <span>Address2</span>
             <input type="text" maxlength="60" ng-model="bpModel.ADDRESS2">
         </label>
         <!--p class="ion-android-locate" ng-click="geolocationFun()" style="cursor:pointer" ></p-->
-      <label class="item item-input item-stacked-label">
+      <label class="item item-input item-stacked-label" id="city">
             <span>City*</span>
-            <input type="text"  maxlength="40" ng-model="bpModel.CITY" ng-required="true">
+            <input type="text"  maxlength="40" ng-model="bpModel.CITY"  >
         </label>
-         <label class="item item-input item-stacked-label">
+         <label class="item item-input item-stacked-label" >
             <span>State</span>
-            <input type="text"  maxlength="40" ng-model="bpModel.STATE">
+            <input type="text"  maxlength="40" ng-model="bpModel.STATE" >
         </label>
         <label class="item item-input item-stacked-label">
             <span>Country</span>
@@ -38,7 +38,7 @@
         </label>
        
         
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" id="areacode">
             <span>Area Code*</span>
            <!--  <input type="text" maxlength="40" ng-model="bpModel.AREA_CODE"> -->
 
@@ -53,20 +53,20 @@
                        selected-items-label="Selected AREA_NAME:"
                        component-id="AREA_CODE" />
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" id="emailid">
             <span>Email</span>
-            <input type="email" ng-model="bpModel.EMAIL_ID" ng-blur="ValidateEmail(bpModel.EMAIL_ID)">
+            <input type="text" ng-model="bpModel.EMAIL_ID" >
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" id="mobile">
             <span>Mobile No.*</span>
-            <input type="text" restrict-input="^[0-9,]*$" maxlength="10" ng-model="bpModel.PHONE_NO" ng-required="true">
+      <input type="text" restrict-input="^[0-9,]*$" maxlength="10" ng-model="bpModel.PHONE_NO"  >
         </label>
         <label class="item item-input item-stacked-label">
             <span>Zip</span>
-            <input type="text" maxlength="40" ng-model="bpModel.Zip">
+            <input type="text" maxlength="6" restrict-input="^[0-9,]*$"  ng-model="bpModel.Zip">
         </label>
         <label class="item item-input item-stacked-label">
-            <span>Currency {{bpModel.CURRENCY}}</span>
+            <span>Currency </span>
 
         </label>
          <select class="form-control" ng-model="bpModel.CURRENCY" ng-options="item.Key as item.Currency for item in Currency"></select>
@@ -87,7 +87,7 @@
 
         <label class="item item-input item-stacked-label">
              <span>Customer Location*</span>
-        <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="bpModel.LOCATION" class="form-control" ng-required="true">
+        <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="bpModel.LOCATION" class="form-control" id="location" >
       </label>
   <label class="item item-input item-stacked-label">
             <span>Sales Person</span>
@@ -108,16 +108,17 @@
         </label>
         </div>
         <div ng-show="(params.bpId == '')" class="row">
-          <div class="col col-50"><button class="button button-block button-small button-assertive" ng-click="clearBpModel();">Clear All</button></div>
-          <div class="col col-50"><button class="button button-block button-small button-assertive" ng-click="BPAddUpdate()">Enter</button></div>
+          <div class="col col-50"><button type="button" class="button button-block button-small button-assertive" ng-click="clearBpModel();">Clear All</button></div>
+          <div class="col col-50"><button type="submit" class="button button-block button-small button-assertive" >Enter</button></div>
         </div>
 
         <div ng-show="(params.bpId != '')" class="row">
-            <div class="col col-50"><button class="button button-block button-small button-assertive" ng-click="goToState('bp.bpSearch')">Cancel</button></div>
-          <div  class="col col-50"><button class="button button-block button-small button-assertive" ng-click="BPAddUpdate()">Update</button></div>
+            <div class="col col-50"><button type="button" class="button button-block button-small button-assertive" ng-click="goToState('bp.bpSearch')">Cancel</button></div>
+          <div  class="col col-50"><button  type="submit" class="button button-block button-small button-assertive" >Update</button></div>
         </div>
           
         </div>
+        
 </form>
 
 </ion-content>

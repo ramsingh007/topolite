@@ -198,6 +198,7 @@ webService.showIonLoader();  //show ionic loading
               // $scope.Attendence.TimeIn=$scope.attendResult.IN_TIME;
 
                 $scope.Attendence = {
+                  
        TimeIn: new Date(0000, 0, 0, str.substring(0, 2), str.substring(3, 5), 0),
        Timeout: new Date(0000, 0, 0, str2.substring(0, 2), str2.substring(3, 5), 0)
      };

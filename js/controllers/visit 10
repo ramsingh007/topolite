@@ -1,0 +1,102 @@
+request
+
+{
+	"Company_no": "CBS",
+	"LOCATION_no": "NOIDA",
+	"USER_ID": "ADMIN",
+	"VISIT_DETAILS": "test",
+	"ADDRESS": "Dadri Main
+	Rd,
+	Sector - 106,
+	Noida,
+	Uttar Pradesh 201304,
+	India ","
+	ADD_ID ":"
+	1 ","
+	CUSTOMER_NAME ":"
+	adesign ","
+	CUSTOMER_NO ": "ADESIGN",
+	"NUM_TYPE_NO": "MVR",
+	"VISIT_ID": "",
+	"REMARK": "remark",
+	"VISIT_DATE": "12/10/2015",
+	"VISIT_TIME_FROM": "10.00",
+	"VISIT_TIME_TO": "12.00",
+	"Sale": [{
+		"SALES_PERSON_NO": "ADMIN",
+		"SALES_PERSON_NAME": "Administrator",
+		"NEXT_ACTION": "1",
+		"NEXT_ACTION_DATE": "12/12/2015",
+		"NEXT_ACTION_TIME": "12.00",
+		"ALERT": "N",
+		"ALERT_DATE": "1900-01-01",
+		"ALERT_TIME": "99.99",
+		"SALES_LI_NO": 1
+	}],
+	"SaleContact": [{
+		"CUST_CONTACT_PERSON": "ABC",
+		"CONTACT_POSITION": "MANAGER",
+		"MOBILE_NO": "123654",
+		"EMAIL": "ACB@GMAIL.COM",
+		"CONTACT_LI_NO": 1
+	}]
+}
+
+response
+
+
+
+{"Messsage":{"ErrorMsg":"Visit Code Add Succefully.","Success":true,"VisitCode":"MVR-000060-15-16  "
+}}
+
+
+details
+
+{
+	"GetVisitDataResult": {
+		"Messsage": {
+			"ErrorMsg": null,
+			"Success": true
+		},
+		"Result": {
+			"ADDRESS": "Dadri Main Rd,
+			Sector - 106,
+			Noida,
+			Uttar Pradesh 201304,
+			India ","
+			AREA_NAME ":"
+			1 - NOIDA ","
+			CUSTOMER_NAME ":"
+			adesign ","
+			CUSTOMER_NO ": "ADESIGN",
+			"DOC_SERIES": "MVR",
+			"LOCATION": null,
+			"REMARK": "test",
+			"STATUS": "OPEN",
+			"VISIT_DATE": "10\/12\/2015",
+			"VISIT_DETAILS": "test",
+			"VISIT_ID": "MVR-000060-15-16",
+			"VISIT_TIME_FROM": "10.00",
+			"VISIT_TIME_TO": "12.00"
+		},
+		"Sale": [{
+			"ALERT_DATE": "",
+			"ALERT_TIME": "",
+			"LI_NO": 1,
+			"NEXT_ACTION": null,
+			"NEXT_ACTION_DATE": "12\/12\/2015",
+			"NEXT_ACTION_TIME": "12.00",
+			"SALES_PERSON_NAME": "Administato",
+			"SALES_PERSON_NO": "ADMIN"
+		}],
+		"SaleContact": [{
+			"CONTACT_PERSON": "ABC",
+			"DESIGNATION": "MANAGER",
+			"EMAIL": "ACB@GMAIL.COM",
+			"LI_NO": 1,
+			"MOBILE": "123654"
+		}],
+		"SaleProduct": [],
+		"VisitAdditional": []
+	}
+}

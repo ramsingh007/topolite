@@ -27,20 +27,20 @@
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time From</label>
 								<div class="col-xs-7">
-                                    <input type="text" placeholder="HH.mm" class="form-control" ng-model="visitModel.VISIT_TIME_FROM" class="form-control">
+                                    <input type="text" placeholder="HH.mm" mask="24.59" maxlength="5" restrict="reject"  class="form-control" ng-model="visitModel.VISIT_TIME_FROM" class="form-control">
 									</div>
 
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time To</label>
-								<div class="col-xs-7"><input type="text" placeholder="HH.mm" class="form-control" ng-model="visitModel.VISIT_TIME_TO" class="form-control"></div>
+								<div class="col-xs-7"><input type="text" placeholder="HH.mm" mask="24.59" maxlength="5" restrict="reject" class="form-control" ng-model="visitModel.VISIT_TIME_TO" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Date</label>
 								<div class="col-xs-7"><input type="date" ng-model="visitModel.VISIT_DATE" data-date-enddate="2014-07-29" class="form-control"></div>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-xs-5">Customer Id</label>
+							<div class="form-group" id="customerno">
+								<label class="control-label col-xs-5">Customer No*</label>
 								<div class="col-xs-7">
                                 <!-- <input type="text" ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off"
                        ng-model="visitModel.CUSTOMER_NO"
@@ -58,32 +58,32 @@
                        items-removed-method="getCustomIDRemoved(callback)"
                        cancel-button-clicked-method="tesTing(callback)"
                        max-selected-items="1"
-                       select-items-label="Search CUSTOMER_NO"
-                       selected-items-label="Selected CUSTOMER_NO:"
+                       select-items-label="Search Customer No"
+                       selected-items-label="Selected Customer No:"
                        component-id="CUSTOMER_NO" />
 
 
                                 </div>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-xs-5 no-pad-right">Customer Name</label>
+							<div class="form-group" id="CUSTOMER_NAME">
+								<label class="control-label col-xs-5 no-pad-right">Customer Name*</label>
 								<div class="col-xs-7">
                                 <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="visitModel.CUSTOMER_NAME"
                                    item-value-key="CUSTOMER_NAME"
-                                   item-view-value-key="CUSTOMER_NAME"
+                                   item-view-value-key="label"
                                    items-method="getCustomNAME(query)"
                                    items-clicked-method="getCustomNAMEClicked(callback)"
                                    items-removed-method="getCustomNAMERemoved(callback)"
                                    cancel-button-clicked-method="tesTing(callback)"
                                    max-selected-items="1"
-                                   select-items-label="Search CUSTOMER_NAME"
-                                   selected-items-label="Selected CUSTOMER_NAME:"
+                                   select-items-label="Search Customer Name"
+                                   selected-items-label="Selected Customer Name:"
                                    component-id="CUSTOMER_NAME" />
 
                                 </div>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-xs-5">Area Name</label>
+							<div class="form-group" id="AREA_NAME">
+								<label class="control-label col-xs-5">Area Name*</label>
 								<div class="col-xs-7">
 
                                 <input type="text" ng-show="showArea" ng-model="visitModel.AREA_NAME" class="form-control">
@@ -92,8 +92,8 @@
 
                                 </div>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-xs-5">Address</label>
+							<div class="form-group" id="ADDRESS">
+								<label class="control-label col-xs-5">Address*</label>
 								<div class="col-xs-7">
                                 <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="visitModel.ADDRESS" class="form-control">
 
@@ -199,7 +199,20 @@
                     <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Sales Person No </label>
                             <div class="col-xs-7">
-							<select class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']"  ng-options="item.SALES_PERSON_NO as item.SALES_PERSON_NO for item in fillSalesArr" ng-change="setVisitSelSales($index)" ></select>							
+							<!-- <select class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']"  ng-options="item.SALES_PERSON_NO as item.SALES_PERSON_NO for item in fillSalesArr" ng-change="setVisitSelSales($index)" ></select>	 -->
+
+              <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']"
+                       item-value-key="SALES_PERSON_NO"
+                       item-view-value-key="label"
+                       items-method="getVisitSalesID(query,$index)"
+                       items-clicked-method="getVisitSalesIDClicked(callback,$index)"
+                       items-removed-method="getVisitSalesIDRemoved(callback,$index)"
+                       max-selected-items="1"
+                       select-items-label="Search Sales No"
+                       selected-items-label="Selected Sales No:"
+                       component-id="SALES_PERSON_NO_'+ $index +'" />
+
+
 							</div>
                         </div>
                         <div class="form-group">
@@ -216,7 +229,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5 no-pad-right">Next Action Time</label>
-                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_TIME']"></div>
+                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_TIME']" placeholder="HH.mm" mask="24.59" maxlength="5" restrict="reject"  ></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Alert Required</label>
