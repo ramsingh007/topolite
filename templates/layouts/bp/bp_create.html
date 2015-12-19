@@ -59,7 +59,7 @@
         </label>
         <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'mobile'}" id="mobile">
             <span>Mobile No.*</span>
-      <input type="text" restrict-input="^[0-9,]*$" maxlength="10" ng-focus="rmEleId('mobile')" ng-model="bpModel.PHONE_NO"  >
+      <input type="text" restrict-input="^[0-9,]*$" minlength="10" ng-focus="rmEleId('mobile')" ng-model="bpModel.PHONE_NO"  >
         </label>
         <label class="item item-input item-stacked-label">
             <span>Zip</span>
