@@ -5,6 +5,7 @@
 </ion-nav-buttons>
 
 <ion-content>
+<form ng-submit="BPsearchCall()">
 	<div class="list list-inset">
     	<label class="item item-input item-stacked-label">
             <span>Business Partners/Customers</span>
@@ -37,9 +38,9 @@
                        component-id="NAME" />
 
         </label>
-        <button class="button button-block button-small button-assertive" ng-click="BPsearchCall()">Search</button>
+        <button type="submit" class="button button-block button-small button-assertive" >Search</button>
    
-     
+     </form>
       
     </div>
 </ion-content>

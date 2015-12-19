@@ -1,7 +1,7 @@
 <ion-view title="{{(params.vid != '') ? 'Update':'Create'}} Visit">
    
 <ion-content>
-<form class="form-horizontal">
+<form class="form-horizontal" >
 	<div class="form-container fw">
         <div class="visitor3-page fw">
             <div class="white_box fw">
@@ -27,19 +27,19 @@
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time From</label>
 								<div class="col-xs-7">
-                                    <input type="text" placeholder="HH.mm" mask="24.59" maxlength="5" restrict="reject"  class="form-control" ng-model="visitModel.VISIT_TIME_FROM" class="form-control">
+                                    <input type="text" placeholder="HH.mm" mask="23.59" maxlength="5" restrict="reject"  class="form-control" ng-model="visitModel.VISIT_TIME_FROM" class="form-control">
 									</div>
 
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Time To</label>
-								<div class="col-xs-7"><input type="text" placeholder="HH.mm" mask="24.59" maxlength="5" restrict="reject" class="form-control" ng-model="visitModel.VISIT_TIME_TO" class="form-control"></div>
+								<div class="col-xs-7"><input type="text" placeholder="HH.mm" mask="23.59" maxlength="5" restrict="reject" class="form-control" ng-model="visitModel.VISIT_TIME_TO" class="form-control"></div>
 							</div>
 							<div class="form-group">
 								<label class="control-label col-xs-5">Visit Date</label>
 								<div class="col-xs-7"><input type="date" ng-model="visitModel.VISIT_DATE" data-date-enddate="2014-07-29" class="form-control"></div>
 							</div>
-							<div class="form-group" id="customerno">
+							<div class="form-group" ng-class="{'erClass':eleId === 'CUSTOMER_NO'}" id="CUSTOMER_NO">
 								<label class="control-label col-xs-5">Customer No*</label>
 								<div class="col-xs-7">
                                 <!-- <input type="text" ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off"
@@ -65,7 +65,7 @@
 
                                 </div>
 							</div>
-							<div class="form-group" id="CUSTOMER_NAME">
+							<div class="form-group" ng-class="{'erClass':eleId === 'CUSTOMER_NAME'}" id="CUSTOMER_NAME">
 								<label class="control-label col-xs-5 no-pad-right">Customer Name*</label>
 								<div class="col-xs-7">
                                 <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="visitModel.CUSTOMER_NAME"
@@ -82,20 +82,20 @@
 
                                 </div>
 							</div>
-							<div class="form-group" id="AREA_NAME">
+							<div class="form-group" ng-class="{'erClass':eleId === 'AREA_NAME'}" id="AREA_NAME">
 								<label class="control-label col-xs-5">Area Name*</label>
 								<div class="col-xs-7">
 
-                                <input type="text" ng-show="showArea" ng-model="visitModel.AREA_NAME" class="form-control">
+                                <input type="text" ng-focus="rmEleId('AREA_NAME')" ng-show="showArea" ng-model="visitModel.AREA_NAME" class="form-control">
 
-                                <select class="form-control" ng-show="!showArea" ng-model="visitModel.AREA_NAME" ng-options="item.AreaName as item.AreaName for item in fillAreaArr" ng-change="getCustConatct()" ></select>
+                                <select ng-focus="rmEleId('AREA_NAME')" class="form-control" ng-show="!showArea" ng-model="visitModel.AREA_NAME" ng-options="item.AreaName as item.AreaName for item in fillAreaArr" ng-change="getCustConatct()" ></select>
 
                                 </div>
 							</div>
-							<div class="form-group" id="ADDRESS">
+							<div class="form-group" ng-class="{'erClass':eleId === 'ADDRESS'}" id="ADDRESS">
 								<label class="control-label col-xs-5">Address*</label>
 								<div class="col-xs-7">
-                                <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="visitModel.ADDRESS" class="form-control">
+                                <input ng-focus="rmEleId('ADDRESS')" type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="visitModel.ADDRESS" class="form-control">
 
                                 </div>
 							</div>
@@ -133,25 +133,25 @@
                             </div>
                         </div>
                     </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-5">Person</label>
+                        <div class="form-group" ng-class="{'erClass':eleId === 'CUST_CONTACT_PERSON_'+$index}" id="CUST_CONTACT_PERSON_{{$index}}">
+                            <label class="control-label col-xs-5">Person*</label>
                             <div class="col-xs-7">
-                            <input type="text" class="form-control" ng-model="visitModel.Contact[$index]['CUST_CONTACT_PERSON']" maxlength="60" ng-show="showContact" >
+                            <input ng-focus="rmEleId('CUST_CONTACT_PERSON_'+$index)"  type="text" class="form-control" ng-model="visitModel.Contact[$index]['CUST_CONTACT_PERSON']" maxlength="60" ng-show="showContact" >
 
-                                <select maxlength="60" class="form-control" ng-show="!showContact" ng-model="visitModel.Contact[$index]['CUST_CONTACT_PERSON']" ng-options="item.CONTACT_PERSON as item.CONTACT_PERSON for item in fillContactArr" ng-change="setVisitSelContact($index)"></select>
+                                <select ng-focus="rmEleId('CUST_CONTACT_PERSON_'+$index)" maxlength="60" class="form-control" ng-show="!showContact" ng-model="visitModel.Contact[$index]['CUST_CONTACT_PERSON']" ng-options="item.CONTACT_PERSON as item.CONTACT_PERSON for item in fillContactArr" ng-change="setVisitSelContact($index)"></select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-5">Designation</label>
-                            <div class="col-xs-7"><input type="text" class="form-control" maxlength="40" ng-model="visitModel.Contact[$index]['CONTACT_POSITION']"></div>
+                        <div class="form-group" ng-class="{'erClass':eleId === 'CONTACT_POSITION_'+$index}" id="CONTACT_POSITION_{{$index}}">
+                            <label class="control-label col-xs-5">Designation*</label>
+                            <div class="col-xs-7"><input ng-focus="rmEleId('CONTACT_POSITION_'+$index)" type="text" class="form-control" maxlength="40" ng-model="visitModel.Contact[$index]['CONTACT_POSITION']"></div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-5">Mobile No.</label>
-                            <div class="col-xs-7"><input type="text" class="form-control" restrict-input="^[0-9]*$" maxlength="10" ng-model="visitModel.Contact[$index]['MOBILE_NO']"></div>
+                        <div class="form-group" ng-class="{'erClass':eleId === 'MOBILE_NO_'+$index}" id="MOBILE_NO_{{$index}}">
+                            <label class="control-label col-xs-5">Mobile No.*</label>
+                            <div class="col-xs-7"><input ng-focus="rmEleId('MOBILE_NO_'+$index)" type="text" class="form-control" restrict-input="^[0-9]*$" maxlength="10" ng-model="visitModel.Contact[$index]['MOBILE_NO']"></div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'erClass':eleId === 'EMAIL_'+$index}" id="EMAIL_{{$index}}">
                             <label class="control-label col-xs-5">Email</label>
-                            <div class="col-xs-7"><input type="email" class="form-control" ng-model="visitModel.Contact[$index]['EMAIL']" ng-blur="ValidateEmail(visitModel.Contact[$index]['EMAIL'])"></div>
+                            <div class="col-xs-7"><input ng-focus="rmEleId('EMAIL_'+$index)" type="text" class="form-control" ng-model="visitModel.Contact[$index]['EMAIL']"></div>
                         </div>
                     </div>
 
@@ -196,8 +196,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                            <label class="control-label col-xs-5 no-pad-right">Sales Person No </label>
+                    <div class="form-group" ng-class="{'erClass':eleId === 'SALES_PERSON_NO_'+$index}" id="SALES_PERSON_NO_{{$index}}">
+                            <label class="control-label col-xs-5 no-pad-right">Sales Person No*</label>
                             <div class="col-xs-7">
 							<!-- <select class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NO']"  ng-options="item.SALES_PERSON_NO as item.SALES_PERSON_NO for item in fillSalesArr" ng-change="setVisitSelSales($index)" ></select>	 -->
 
@@ -215,21 +215,21 @@
 
 							</div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-5">Name</label>
-                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NAME']"></div>
+                        <div class="form-group" ng-class="{'erClass':eleId === 'SALES_PERSON_NAME_'+$index}" id="SALES_PERSON_NAME_{{$index}}">
+                            <label class="control-label col-xs-5">Name*</label>
+                            <div class="col-xs-7"><input ng-focus="rmEleId('SALES_PERSON_NAME_'+$index)"  type="text" class="form-control" ng-model="visitModel.Sales[$index]['SALES_PERSON_NAME']"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Next Action</label>
                             <div class="col-xs-7"><input type="text" class="form-control" maxlength="80" ng-model="visitModel.Sales[$index]['NEXT_ACTION']"></div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'erClass':eleId === 'NEXT_ACTION_DATE_'+$index}" id="NEXT_ACTION_DATE_{{$index}}">
                             <label class="control-label col-xs-5 no-pad-right">Next Action Date</label>
-                            <div class="col-xs-7"><input type="date" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_DATE']"></div>
+                            <div class="col-xs-7"><input ng-focus="rmEleId('NEXT_ACTION_DATE_'+$index)" type="date" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_DATE']"></div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'erClass':eleId === 'NEXT_ACTION_TIME_'+$index}" id="NEXT_ACTION_TIME_{{$index}}">
                             <label class="control-label col-xs-5 no-pad-right">Next Action Time</label>
-                            <div class="col-xs-7"><input type="text" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_TIME']" placeholder="HH.mm" mask="24.59" maxlength="5" restrict="reject"  ></div>
+                            <div class="col-xs-7"><input ng-focus="rmEleId('NEXT_ACTION_TIME_'+$index)" type="text" class="form-control" ng-model="visitModel.Sales[$index]['NEXT_ACTION_TIME']" placeholder="HH.mm" mask="23.59" maxlength="5" restrict="reject"  ></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-xs-5">Alert Required</label>
@@ -241,13 +241,13 @@
                             </div>
                         </div>
                         <div ng-show="(visitModel.Sales[$index]['ALERT'] == 1)">
-                        <div class="form-group"  >
+                        <div class="form-group" ng-class="{'erClass':eleId === 'ALERT_DATE_'+$index}" id="ALERT_DATE_{{$index}}" >
                             <label class="control-label col-xs-5">Alert Date</label>
-                            <div class="col-xs-7"><input type="date" class="form-control" ng-model="visitModel.Sales[$index]['ALERT_DATE']"></div>
+                            <div class="col-xs-7"><input ng-focus="rmEleId('ALERT_DATE_'+$index)" type="date" class="form-control" ng-model="visitModel.Sales[$index]['ALERT_DATE']"></div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'erClass':eleId === 'ALERT_TIME_'+$index}" id="ALERT_TIME_{{$index}}">
                             <label class="control-label col-xs-5">Alert Time</label>
-                            <div class="col-xs-7"><input type="text" placeholder="HH.mm"  class="form-control" ng-model="visitModel.Sales[$index]['ALERT_TIME']"></div>
+                            <div class="col-xs-7"><input ng-focus="rmEleId('ALERT_TIME_'+$index)" type="text" placeholder="HH.mm"  class="form-control" ng-model="visitModel.Sales[$index]['ALERT_TIME']" mask="23.59" maxlength="5"></div>
                         </div>
                         </div>
 
@@ -274,18 +274,21 @@
          </div>
     
 </div>
+
+ <div style="display:flex;" ng-show="((params.vid == ''))" class="row">
+    <div class="col-100 col"><button type="button" class="button button-block button-small button-assertive" ng-click="SaveVisit('Add')">Save</button></div>
+  </div>
+
+  <div style="display:flex;" ng-show="((params.vid != ''))" class="row">
+      <div class="col col-50"><button type="button" class="button button-block button-small button-assertive" ng-click="SaveVisit('Authorize')">Authorize</button></div>
+    <div  class="col col-50"><button  type="button" ng-click="SaveVisit('Update')"  class="button button-block button-small button-assertive" >Update</button></div>
+  </div>
+
+
+
+
+
 </form>
- <div class="row" style="display:flex;" ng-show="((params.vid == ''))">
-     <div class="col-100 col"><a ng-click="SaveVisit('Add')" class="button button-small button-assertive button-block search">Save</a></div>
-</div>
-
-<div class="row" style="display:flex;" ng-show="((params.vid != ''))">
-    <div class="col-50 col"><a ng-click="SaveVisit('Authorize')"  class="button button-small button-assertive button-block search">Authorize</a></div>
-     <div class="col-50 col"><a ng-click="SaveVisit('Update')" class="button button-small button-assertive button-block search">Update</a></div>
-</div>
-
-
-
 
 
 

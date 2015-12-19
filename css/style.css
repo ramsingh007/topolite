@@ -252,3 +252,7 @@ header .dash-page i{ color:#fff; font-size:28px;}
   z-index: auto;
 }
 
+
+.erClass{
+  color: #ff0000 !important;
+}

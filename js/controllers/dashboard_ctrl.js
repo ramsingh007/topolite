@@ -12,8 +12,8 @@ $ionicNavBarDelegate.showBackButton(false);
   $scope.ADDRESSl=[];
  // $scope.Company_No=$localStorage.currentUser.UserDetails.Company_No+'-'+$localStorage.currentUser.UserDetails.Location_No;
 $scope.Attendence={};
-$scope.Attendence.TimeIn='';
-$scope.Attendence.Timeout='';
+// $scope.Attendence.TimeIn=new Date();
+// $scope.Attendence.Timeout=new Date();
 
 
 $scope.change_location= function() {
@@ -166,6 +166,10 @@ $scope.change_location= function() {
 		});
 	}
 	
+  //  $scope.model = {
+  //   time1 : new Date(),
+  //   time2 : new Date()
+  // };
 //check time for attandance
 $scope.getAttendance= function(){
 
@@ -194,8 +198,19 @@ webService.showIonLoader();  //show ionic loading
                $scope.checkTimein=res;
                $scope.checkTimeout=res2;
                var timein=str.substring(0, 5);
+
+
+    //            $scope.ddd=new Date();
+
+    // $scope.dd = $filter('date')($scope.ddd.getTime(), 'h:mm');
+
               
-              // $scope.Attendence.TimeIn=$scope.attendResult.IN_TIME;
+    //           // $scope.Attendence.TimeIn=$scope.attendResult.IN_TIME;
+    //                       $scope.Attendence = {
+                  
+    //    TimeIn:$scope.dd,
+    //    Timeout: new Date(0, 0, 0, str2.substring(0, 2), str2.substring(3, 5), 0)
+    //  };
 
                 $scope.Attendence = {
                   
@@ -209,7 +224,7 @@ webService.showIonLoader();  //show ionic loading
                // };
                
             }else{
-                webService.showPopup(respone.data.AttendanceDataResult.Messsage.ErrorMsg, $rootScope.title_close);
+               // webService.showPopup(respone.data.AttendanceDataResult.Messsage.ErrorMsg, $rootScope.title_close);
             }
 
           },function(error){

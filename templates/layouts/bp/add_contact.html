@@ -2,32 +2,55 @@
 
 
 <ion-content>
- <form>
+ <form ng-show="(params.lId == '')" ng-submit="save_contact('Add')">
 	<div class="list list-inset" >
-    	<label class="item item-input item-stacked-label" id="contactp" >
-            <span>Contact Person</span>
-            
-            <input  maxlength="60" type="text" ng-model="bp_contact.CONTACT_PERSON" >
+    	<label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'contactp'}" id="contactp" >
+            <span>Contact Person*</span>
+            <input  maxlength="60" type="text" ng-focus="rmEleId('contactp')" ng-model="bp_contact.CONTACT_PERSON" >
         </label>
-        <label class="item item-input item-stacked-label" id="designation">
-            <span>Designation</span>
-            <input   maxlength="40" type="text" ng-model="bp_contact.DESIGNATION" >
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'designation'}" id="designation">
+            <span>Designation*</span>
+            <input   maxlength="40" type="text" ng-focus="rmEleId('designation')"  ng-model="bp_contact.DESIGNATION" >
         </label>
-        <label class="item item-input item-stacked-label" id="email" >
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'mobile'}" id="mobile">
+            <span>Mobile No*</span>
+        <input restrict-input="^[0-9]*$" maxlength="10" ng-focus="rmEleId('mobile')" type="text" ng-model="bp_contact.MOBILE_NO" >
+        </label>
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'email'}" id="email" >
             <span>Email</span>
-            <input type="email" ng-model="bp_contact.EMAIL">
+            <input type="text" ng-focus="rmEleId('email')" ng-model="bp_contact.EMAIL">
         </label>
-        <label class="item item-input item-stacked-label" id="mobile">
-            <span>Mobile No</span>
-        <input restrict-input="^[0-9]*$" maxlength="10" type="text" ng-model="bp_contact.MOBILE_NO" >
-        </label>
+        
        
-        <button type="button" ng-click="save_contact('Add')" ng-show="(params.lId == '')" class="button button-block button-small button-assertive" >ADD</button>
-
-        <button type="button" ng-click="save_contact('Update')" ng-show="(params.lId != '')" class="button button-block button-small button-assertive" >Update</button>
+        <button type="submit" class="button button-block button-small button-assertive" >ADD</button>
 
     </div>
 </form>
+
+<form ng-show="(params.lId != '')" ng-submit="save_contact('Update')">
+    <div class="list list-inset" >
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'contactp'}" id="contactp" >
+            <span>Contact Person*</span>
+            <input  maxlength="60" type="text" ng-focus="rmEleId('contactp')" ng-model="bp_contact.CONTACT_PERSON" >
+        </label>
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'designation'}" id="designation">
+            <span>Designation*</span>
+            <input   maxlength="40" type="text" ng-focus="rmEleId('designation')"  ng-model="bp_contact.DESIGNATION" >
+        </label>
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'mobile'}" id="mobile">
+            <span>Mobile No*</span>
+        <input restrict-input="^[0-9]*$" maxlength="10" ng-focus="rmEleId('mobile')" type="text" ng-model="bp_contact.MOBILE_NO" >
+        </label>
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'email'}" id="email" >
+            <span>Email</span>
+            <input type="text" ng-focus="rmEleId('email')" ng-model="bp_contact.EMAIL">
+        </label>
+        
+        <button type="submit" class="button button-block button-small button-assertive" >Update</button>
+
+    </div>
+</form>
+
 </ion-content>
 </ion-view>
 

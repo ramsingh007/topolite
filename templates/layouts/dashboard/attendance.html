@@ -5,6 +5,7 @@
 </ion-nav-buttons> -->
 
 <ion-content>
+
 	<div id="body_container" class="fw">
     <div class="form-container fw">
         <div class="container">
@@ -12,15 +13,16 @@
                 <div class="col-xs-12 attendence-page">
                     <div class="form-group">
                        
-                        <label>In time</label>
-                        <input type="time" ng-model="Attendence.TimeIn" class="form-control">
+                        <label>In time </label>
+                       <!--  <input type="time" ng-model="Attendence.TimeIn"   class="form-control"> -->
+                    <input type="time"  class="form-control" ng-model="Attendence.TimeIn" formatted-time>
               
                         <button  ng-click="time_In()" type="button"  class="button button-small button-assertive"   ng-disabled="checkTimein > 0" >Save</button>
 
                     </div>
                     <div class="form-group">
                         <label>Out time</label>
-                        <input type="time" ng-model="Attendence.Timeout" class="form-control">
+                        <input type="time" ng-model="Attendence.Timeout" class="form-control" formatted-time>
                
                         <button ng-click="time_out()" type="button"  class="button button-small button-assertive"   ng-disabled="checkTimeout > 0" >Save</button>
 

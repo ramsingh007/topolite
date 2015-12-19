@@ -144,7 +144,10 @@
                 <div class="white_box heading-area">
                    <span><i class="ion-ios-telephone"></i> Customer/Contact Form</span>
          <button  ng-click="goToState('bp.addcontact',{bpId:bpDetail.BPResult.BP_Code})" class="button button-small btn-red right-btn">add</button>
-                </div>  
+                </div>
+
+    <p ng-show="(bpContacts.length ==0)">No contacts found!</p>
+
     <div class="list" ng-repeat="contact in bpContacts">      
         <div class="list">
           <div class="item item-button-right" >{{contact.LI_NO}}
@@ -163,16 +166,16 @@
 {{contact.DESIGNATION}}
           </span>
           </div> <div class="item">         
-          Email
-          <span class="item-note">
-{{contact.EMAIL}}
-          </span>
-          </div> <div class="item">         
           Mobile No.
           <span class="item-note">
 {{contact.MOBILE_NO}}
           </span>
-          </div>          
+          </div> <div class="item">         
+          Email
+          <span class="item-note">
+{{contact.EMAIL}}
+          </span>
+          </div>           
         </div>    
       </div>
           

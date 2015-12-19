@@ -4,29 +4,29 @@
 <!-- <button class="button button-small button-block button-positive" ng-click="geolocationFun()" >Save</button> -->
 <form ng-submit="BPAddUpdate()" >
 	<div class="list list-inset">
-    	<label class="item item-input item-stacked-label"  id="bpcode"> 
+    	<label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'bpcode'}" id="bpcode"> 
             <span>BP Code*</span>
-            <input type="text" restrict-input="^[a-zA-Z0-9-_]*$" maxlength="10" ng-model="bpModel.BP_Code" ng-readonly="{{(params.bpId != '') ? 'true':'false'}}"   >
+            <input type="text" restrict-input="^[a-zA-Z0-9-_]*$" maxlength="10" ng-focus="rmEleId('bpcode')"  ng-model="bpModel.BP_Code" ng-readonly="{{(params.bpId != '') ? 'true':'false'}}"   >
         </label>
-        <label class="item item-input item-stacked-label" id="bpname">
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'bpname'}" id="bpname">
             <span>Name* </span>
-            <input maxlength="60" type="text" ng-model="bpModel.NAME"    >
+            <input maxlength="60" type="text" ng-focus="rmEleId('bpname')" ng-model="bpModel.NAME"    >
         </label>
       
     
 
-        <label class="item item-input item-stacked-label" id="address"  >
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'address'}" id="address"  >
             <span>Address1*</span>
-            <input type="text" maxlength="60" ng-model="bpModel.ADDRESS1"   >
+            <input type="text" maxlength="60" ng-focus="rmEleId('address')" ng-model="bpModel.ADDRESS1"   >
         </label>
         <label class="item item-input item-stacked-label">
             <span>Address2</span>
             <input type="text" maxlength="60" ng-model="bpModel.ADDRESS2">
         </label>
         <!--p class="ion-android-locate" ng-click="geolocationFun()" style="cursor:pointer" ></p-->
-      <label class="item item-input item-stacked-label" id="city">
+      <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'city'}" id="city">
             <span>City*</span>
-            <input type="text"  maxlength="40" ng-model="bpModel.CITY"  >
+            <input type="text"  maxlength="40" ng-focus="rmEleId('city')" ng-model="bpModel.CITY"  >
         </label>
          <label class="item item-input item-stacked-label" >
             <span>State</span>
@@ -38,28 +38,28 @@
         </label>
        
         
-        <label class="item item-input item-stacked-label" id="areacode">
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'areacode'}" id="areacode">
             <span>Area Code*</span>
            <!--  <input type="text" maxlength="40" ng-model="bpModel.AREA_CODE"> -->
 
-             <input  ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpModel.AREA_CODE"
+             <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="bpModel.AREA_CODE"
                        item-value-key="AREA_CODE"
                        item-view-value-key="label"
                        items-method="getGroupID(query)"
                        items-clicked-method="getGroupClicked(callback)"
                        items-removed-method="getGroupRemoved(callback)"
                        max-selected-items="1"
-                       select-items-label="Search Sales AREA CODE"
-                       selected-items-label="Selected AREA_NAME:"
+                       select-items-label="Search Area Code"
+                       selected-items-label="Selected Area Code:"
                        component-id="AREA_CODE" />
         </label>
-        <label class="item item-input item-stacked-label" id="emailid">
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'emailid'}" id="emailid">
             <span>Email</span>
-            <input type="text" ng-model="bpModel.EMAIL_ID" >
+            <input type="text" ng-focus="rmEleId('emailid')" ng-model="bpModel.EMAIL_ID" >
         </label>
-        <label class="item item-input item-stacked-label" id="mobile">
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'mobile'}" id="mobile">
             <span>Mobile No.*</span>
-      <input type="text" restrict-input="^[0-9,]*$" maxlength="10" ng-model="bpModel.PHONE_NO"  >
+      <input type="text" restrict-input="^[0-9,]*$" maxlength="10" ng-focus="rmEleId('mobile')" ng-model="bpModel.PHONE_NO"  >
         </label>
         <label class="item item-input item-stacked-label">
             <span>Zip</span>
@@ -85,9 +85,9 @@
         </label>
 
 
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'location'}"  id="location">
              <span>Customer Location*</span>
-        <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="bpModel.LOCATION" class="form-control" id="location" >
+        <input type="text" ng-readonly="true" ng-click="getGeoLocation()" ng-model="bpModel.LOCATION" class="form-control" ng-focus="rmEleId('location')"  >
       </label>
   <label class="item item-input item-stacked-label">
             <span>Sales Person</span>

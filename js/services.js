@@ -3,6 +3,7 @@ angular.module('topolite.services', [])
 .service('webService', function($ionicLoading, $ionicPopup, $http, myConfig, $rootScope, $timeout,$filter) {
   var webService;
   webService = {
+    popup: $ionicPopup,
     webCall: function(urlParam, methodType, dataJson) {
       return $http({
         url: myConfig.apiUrl + urlParam,
@@ -26,15 +27,19 @@ angular.module('topolite.services', [])
       $ionicLoading.hide();
     },
     showPopup: function(title, btext) {
-      return $ionicPopup.show({
-        title: title,
-        buttons: [
-          {
-            text: btext,
-            type: 'button-positive'
-          }
-        ]
-      });
+      
+      if(webService.popup._popupStack.length == 0){
+        return webService.popup.show({
+          title: title,
+          buttons: [
+            {
+              text: btext,
+              type: 'button-positive'
+            }
+          ]
+        });
+      }
+      return webService.popup;
     },
     // Used to fetch the index of json through uniqueID of json
       findInJson: function(key1, value, object) { //pass it the desired matching key value pairs

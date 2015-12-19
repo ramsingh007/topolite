@@ -4,7 +4,7 @@
 
 <ion-content>
 	<div class="list list-inset">
-  <form>
+  <form ng-submit="AddVisitProd()">
     	<label class="item item-input item-stacked-label">
             <span>Item Type</span>
         </label>
@@ -17,9 +17,9 @@
 
         
        
-          <label class="item item-input item-stacked-label">
-            <span>Item Group</span>
-            <input type="text" ng-show="!showGroup" ng-model="VisitProd.ITEM_GROUP"> 
+          <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'ITEM_GROUP'}" id="ITEM_GROUP">
+            <span>Item Group*</span>
+            <input type="text" ng-focus="rmEleId('ITEM_GROUP')" ng-show="!showGroup" ng-model="VisitProd.ITEM_GROUP"> 
             </label>
            
 
@@ -36,10 +36,10 @@
                        component-id="Group_Code" />
         
 
-         <label class="item item-input item-stacked-label">
-            <span>Item Code</span>
+         <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'ITEM_CODE'}" id="ITEM_CODE">
+            <span>Item Code*</span>
 
-            <input type="text" ng-show="!showCode" ng-model="VisitProd.ITEM_CODE"> 
+            <input type="text" ng-focus="rmEleId('ITEM_CODE')" ng-show="!showCode" ng-model="VisitProd.ITEM_CODE"> 
 
               <input ion-autocomplete ng-show="showCode" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.ITEM_CODE"
                        item-value-key="Stock_NO"
@@ -57,9 +57,9 @@
         
   
         
-        <label class="item item-input item-stacked-label">
-            <span>Description</span>
-            <input type="text" ng-show="!showDesc" ng-model="VisitProd.DESCRIPTION">
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'DESCRIPTION'}" id="DESCRIPTION">
+            <span>Description*</span>
+            <input type="text" ng-focus="rmEleId('DESCRIPTION')" ng-show="!showDesc" ng-model="VisitProd.DESCRIPTION">
 
               <input ion-autocomplete ng-show="showDesc" type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="VisitProd.DESCRIPTION"
                        item-value-key="Description"
@@ -74,9 +74,9 @@
                        component-id="DESCRIPTION" />
         </label>
 
-        <label class="item item-input item-stacked-label">
-            <span>Quantity</span>
-            <input type="text" ng-model="VisitProd.QUANTITY">
+        <label class="item item-input item-stacked-label" ng-class="{'erClass':eleId === 'QUANTITY'}" id="QUANTITY">
+            <span>Quantity*</span>
+            <input type="text" restrict-input="^[0-9.]*$" ng-focus="rmEleId('QUANTITY')" ng-model="VisitProd.QUANTITY">
         </label>
       
          <label class="item item-input item-stacked-label">
@@ -84,7 +84,7 @@
             <input type="text" ng-model="VisitProd.VISIT_REMARK">
         </label>
         
-        <button class="button button-block button-small button-assertive" ng-click="AddVisitProd()">
+        <button type="submit" class="button button-block button-small button-assertive">
         {{(params.pId != null) ? 'Update':'Add'}}
         </button>
        </form>

@@ -19,6 +19,19 @@ angular.module('topolite.bp_ctrl', [])
 .controller('BPctrl', function($ionicSideMenuDelegate,$state, $timeout,$stateParams,$location,$ionicScrollDelegate,$scope, $rootScope, webService,$localStorage,$http ) {
   
   $scope.params = $stateParams;
+  $scope.eleId = '';
+  
+  $scope.rmEleId = function(rc){
+    //console.log(rc);
+     if($scope.eleId  == rc){
+        $scope.eleId  = '';
+     }
+  }
+
+  $scope.$watch("eleId",function handleFooChange( newValue, oldValue ) {
+            console.log( "eleId:", newValue );
+          }
+  );
 
   //console.log($scope.params);
 $scope.Currency={};
@@ -130,16 +143,8 @@ $scope.Currency={};
 
   /********************  BP Search ends    *********************/
 
-/* Email Validation */
-$scope.ValidateEmail = function(mail) 
-{
- if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-  {
-    return (true)
-  }
-    webService.showPopup('You have entered an invalid email address!', $rootScope.title_ok);
-    return (false)
-}
+
+
 
   /********************  BP Detail Starts    *********************/
   $scope.bpDetail = [];
@@ -162,17 +167,21 @@ $scope.ValidateEmail = function(mail)
           $scope.bpModel = respone.data.GetAllBPResult.BPResult;
           $scope.bpModel.Company_NO = $rootScope.currentUser.UserDetails.Company_No;
           $scope.bpModel.Location_NO = $rootScope.currentUser.UserDetails.Location_No;
-             $scope.bpContacts=respone.data.GetAllBPResult.BPSetContact;
+          $scope.bpContacts=respone.data.GetAllBPResult.BPSetContact;
 
-           $rootScope.bpContactssss=$scope.bpContacts.length;
+          $rootScope.bpContactssss=$scope.bpContacts.length;
 
-           $scope.bpModel.LOCATION = $scope.bpModel.VISIT_LOCATION;
+          $scope.bpModel.LOCATION = $scope.bpModel.VISIT_LOCATION;
+
+
+          if (($.inArray($state.current.name, ['bp.bpCreate']) !== -1 && $scope.params.bpId!='')) {
+             $scope.getCurrency();
+          }
+
+
+
 
    
-     
-    
-     
-
         if($scope.bpModel.VISIT_LOCATION!=''){
           $scope.bpMap = $scope.bpModel.VISIT_LOCATION;
         }else if($scope.bpModel.COUNTRY!=''){
@@ -195,7 +204,7 @@ $scope.ValidateEmail = function(mail)
   }
 
 
-       $scope.getCurrency=function(){
+  $scope.getCurrency=function(){
 
    webService.showIonLoader();  //show ionic loading
         var urlParam = 'BPService/GetAllBPService.svc/GetCurrency/'
@@ -210,24 +219,17 @@ $scope.ValidateEmail = function(mail)
           
             webService.hideIonLoader();//hide ionic loading
             if(respone.data.GetBPCurrencyResult.BPMessage.Success){
-     $scope.Currency=respone.data.GetBPCurrencyResult.BPResult;
+                $scope.Currency=respone.data.GetBPCurrencyResult.BPResult;
 
-       
-  if($scope.params.bpId!='' && $.inArray($state.current.name, ['bp.bpCreate']) !== -1 ){
+                console.log($scope.bpModel.CURRENCY);
 
-      var cIdx = webService.findInJson('Currency',$scope.bpModel.CURRENCY,$scope.Currency);
-   
-$scope.Currency[cIdx]={};
-   // $scope.Currency[0]
-       $scope.bpModel.CURRENCY=$scope.Currency[cIdx].Key;
+                if($scope.params.bpId!='' && ($.inArray($state.current.name, ['bp.bpCreate']) !== -1 ) && $scope.bpModel.CURRENCY ){
 
-       // cIdx.toString();
+                    var cIdx = webService.findInJson('Currency',$scope.bpModel.CURRENCY,$scope.Currency);
+                    $scope.bpModel.CURRENCY=$scope.Currency[cIdx].Key;
+                }
 
 
-   
-         }
-
-   
             }
 
 
@@ -260,50 +262,50 @@ $scope.Currency[cIdx]={};
 
        // alert($scope.bpModel.CST_NO);
     var msg ='';
-    var eleId = '';
+    
 
     if($scope.bpModel.BP_Code == ''){
       msg = "Please enter BP Code!";
-      eleId = 'bpcode';
+      $scope.eleId = 'bpcode';
     
     }else if($scope.bpModel.NAME =='' ){
       msg = "Please enter name!";
-      eleId = 'bpname';
+      $scope.eleId = 'bpname';
     
     }else if($scope.bpModel.ADDRESS1 =='' ){
       msg = "Please enter address1!";
-      eleId = 'address';
+      $scope.eleId = 'address';
 
     }else if($scope.bpModel.CITY =='' ){
       msg = "Please enter city!";
-      eleId = 'city';
+      $scope.eleId = 'city';
 
     }else if($scope.bpModel.AREA_CODE ==''){
       msg = "Please enter area code !";
-      eleId = 'areacode';
+      $scope.eleId = 'areacode';
 
     }else if($scope.bpModel.EMAIL_ID!='' && !webService.ValidateEmail($scope.bpModel.EMAIL_ID)){
        msg = 'Please enter correct email!';
-
-       eleId = 'emailid';
+       $scope.eleId = 'emailid';
     } else if($scope.bpModel.PHONE_NO =='' ){
-      msg = "Please enter mobile no!";
-        eleId = 'mobile';
+       msg = "Please enter mobile no!";
+       $scope.eleId = 'mobile';
       
     } else if($scope.bpModel.LOCATION ==''){
       msg = "Please enter location";
-      eleId = 'location';
+      $scope.eleId = 'location';
       
     }
     
 
-    if(msg!='' ){
+    if(msg!=''){
         var p = webService.showPopup(msg, $rootScope.title_ok);
         p.then(function(res){
-            $location.hash(eleId);
+            $location.hash($scope.eleId);
             $ionicScrollDelegate.anchorScroll([1]);
         })
     }else{
+      $scope.eleId = '';
 
       webService.showIonLoader(); 
 
@@ -399,7 +401,7 @@ $scope.Currency[cIdx]={};
             webService.hideIonLoader();//hide ionic loading
           
 
- if(respone.data.GetBPSalesPersonResult.BPMessage.Success){
+        if(respone.data.GetBPSalesPersonResult.BPMessage.Success){
                  var x = [];
                  var dat = respone.data.GetBPSalesPersonResult.BPResult;
                  for(var i in dat){
@@ -407,14 +409,14 @@ $scope.Currency[cIdx]={};
                  }
                  return x;
             }
+            return [];
 
             /*else{
                 return [{ 'CUSTOMER_NO':respone.data.GetBPSalesPersonResult.BPMessage.ErrorMsg }];
             }*/
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return [];
         });
 
         return modelItem;
@@ -453,20 +455,19 @@ $scope.getGroupID = function (query) {
 
 
                if(respone.data.GetBPAreaResult.BPMessage.Success){
-                 var x = [];
-                 var dat = respone.data.GetBPAreaResult.BPResult;
-                 for(var i in dat){
-                    x.push({'AREA_CODE':dat[i]['AREA_CODE'],'AREA_NAME':dat[i]['AREA_NAME'],'label':dat[i]['AREA_CODE']+' ( '+dat[i]['AREA_NAME']+' )'});
-                 }
-                 return x;
-            }
-
+                     var x = [];
+                     var dat = respone.data.GetBPAreaResult.BPResult;
+                     for(var i in dat){
+                        x.push({'AREA_CODE':dat[i]['AREA_CODE'],'AREA_NAME':dat[i]['AREA_NAME'],'label':dat[i]['AREA_CODE']+' ( '+dat[i]['AREA_NAME']+' )'});
+                     }
+                     return x;
+                }
+                  return [];
 
             
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return [];
         });
 
         return modelItem;
@@ -476,6 +477,7 @@ $scope.getGroupID = function (query) {
 
 $scope.getGroupClicked = function (callback) {
     console.log(callback.item);
+    $scope.rmEleId('areacode');
 
     $scope.bpModel.AREA_CODE = callback.item.AREA_CODE;
 
@@ -522,42 +524,38 @@ $scope.getGroupRemoved = function (callback) {
 
 $scope.save_contact = function(process){
 
- 
 
     var msg ='';
-    var elid='';
+    
         // $scope.initbpContactModel();
  
          
 
     if($scope.bp_contact.CONTACT_PERSON == ''){
       msg = "Please enter contact person!";
-      elid='contactp';
+      $scope.eleId='contactp';
     }else if($scope.bp_contact.DESIGNATION ==''){
       msg = "Please enter designation!";
-      elid='designation';
-
+      $scope.eleId='designation';
+    }else if($scope.bp_contact.MOBILE_NO ==''){
+      msg = "Please enter mobile no!";
+      $scope.eleId='mobile';
     }else if($scope.bp_contact.EMAIL!='' && !webService.ValidateEmail($scope.bp_contact.EMAIL)){
        msg = 'Please enter correct email!';
-       elid = 'email';
-    }
-
-    else if($scope.bp_contact.MOBILE_NO ==''){
-      msg = "Please enter mobile no!";
-      elid='mobile';
+       $scope.eleId = 'email';
     }
 
     if(msg!=''){
        
- var p2 = webService.showPopup(msg, $rootScope.title_ok);
+        var p2 = webService.showPopup(msg, $rootScope.title_ok);
         p2.then(function(res){
-            $location.hash(elid);
+            $location.hash($scope.eleId);
             $ionicScrollDelegate.anchorScroll([1]);
         })
 
 
     }else{
-
+        $scope.eleId = '';
 
           webService.showIonLoader(); 
        
@@ -660,10 +658,10 @@ $scope.BPSearchPerson = function (query,fieldName) {
                  }
                  return x;
             }
+            return [];
           
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return [];
         });
 
         return modelItem;
@@ -686,6 +684,7 @@ $scope.BPSearchPersonClicked = function (callback,fieldName) {
 };
 $scope.BPSearchPersonRemoved = function (callback,fieldName) {
    console.log(callback.item);
+   $scope.BPSearchPerson();
  
       $scope.bpSearch.cp_name = '';
       $scope.bpSearch.bp_code = '';
@@ -714,31 +713,21 @@ $scope.$on('$ionicView.beforeEnter', function() {
 
   $scope.$on('$ionicView.afterEnter', function() {
 
-    if (($.inArray($state.current.name, ['bp.bpDetail']) !== -1)  || ($.inArray($state.current.name, ['bp.bpCreate']) !== -1 && $scope.params.bpId!='') || ($.inArray($state.current.name, ['bp.addcontact']) !== -1  && $scope.params.lId!='')) {
-        
- $scope.initbpModel();
-      
+    if (($.inArray($state.current.name, ['bp.bpDetail']) !== -1) || ($.inArray($state.current.name, ['bp.addcontact']) !== -1  && $scope.params.lId!='')) {
        $scope.BPgetDetail();
-        $scope.getCurrency();
+    }
 
-     
- }
 
-       if ($.inArray($state.current.name, ['bp.bpCreate']) !== -1) {
+      if (($.inArray($state.current.name, ['bp.bpCreate']) !== -1 && $scope.params.bpId!='')) {
+         $scope.BPgetDetail();
+      }
+
+
+      if (($.inArray($state.current.name, ['bp.bpCreate']) !== -1 && $scope.params.bpId=='')) {
          $scope.initbpModel();
-    
-         
-      }
-  
-    //Call method when on bpDetail screen  
-
-
-       if (($.inArray($state.current.name, ['bp.bpCreate']) !== -1 && $scope.params.bpId=='')) {
          $scope.bpModel.CURRENCY='1';
-        $scope.getCurrency();
-
-
-      }
+         $scope.getCurrency();
+        }
     
       if ($.inArray($state.current.name, ['bp.addcontact']) !== -1) {
         

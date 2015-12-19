@@ -2,7 +2,24 @@ angular.module('topolite.visit_ctrl', [])
 
 .controller('VisitCtrl', function($ionicSideMenuDelegate, $state,$ionicScrollDelegate, $location,$stateParams, $scope, $rootScope, webService,$localStorage,$http,$filter) {
 
-   $scope.params = $stateParams;
+    $scope.params = $stateParams;
+
+    $scope.eleId = '';
+  
+    $scope.rmEleId = function(rc){
+      //console.log(rc);
+       if($scope.eleId  == rc){
+          $scope.eleId  = '';
+       }
+    }
+
+    $scope.$watch("eleId",function handleFooChange( newValue, oldValue) {
+              console.log( "eleId:", newValue );
+            }
+    );
+
+
+
    //console.log($scope.params);
    $scope.visitModel = {};
    $scope.visitModel.DOC_SERIES = '';
@@ -90,6 +107,7 @@ angular.module('topolite.visit_ctrl', [])
 $scope.getVisitSalesIDClicked = function (callback,idx) {
     //console.log(callback.item);
     //console.log(idx);
+    $scope.rmEleId('SALES_PERSON_NO_'+idx);
     $scope.visitModel.Sales[idx]['SALES_PERSON_NO'] = callback.item.SALES_PERSON_NO;
     $scope.visitModel.Sales[idx]['SALES_PERSON_NAME'] = callback.item.SALES_PERSON_NAME;
 };
@@ -210,7 +228,7 @@ $scope.getVisitSalesIDRemoved = function (callback,idx) {
             // }
 
 
- if(respone.data.GetCustomerIDResult.Messsage.Success){
+          if(respone.data.GetCustomerIDResult.Messsage.Success){
                  var x = [];
                  var dat = respone.data.GetCustomerIDResult.Result;
                  for(var i in dat){
@@ -235,6 +253,7 @@ $scope.getVisitSalesIDRemoved = function (callback,idx) {
 
 $scope.getCustomIDClicked = function (callback) {
     console.log(callback.item);
+    $scope.rmEleId('CUSTOMER_NO');
     $scope.visitModel.CUSTOMER_NO = callback.item.CUSTOMER_NO;
     $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
     $scope.fillVisitArea();
@@ -267,7 +286,7 @@ $scope.getCustomNAME = function (query) {
             //     return respone.data.GetCustomerIDResult.Result;
             // }
 
-if(respone.data.GetCustomerIDResult.Messsage.Success){
+          if(respone.data.GetCustomerIDResult.Messsage.Success){
                  var x = [];
                  var dat = respone.data.GetCustomerIDResult.Result;
                  for(var i in dat){
@@ -292,6 +311,7 @@ if(respone.data.GetCustomerIDResult.Messsage.Success){
 
 $scope.getCustomNAMEClicked = function (callback) {
     //console.log(callback.item);
+    $scope.rmEleId('CUSTOMER_NAME');
     $scope.visitModel.CUSTOMER_NO = callback.item.CUSTOMER_NO;
     $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
     $scope.fillVisitArea();
@@ -313,15 +333,15 @@ $scope.getCustConatct = function(){
 }
 
 /* Email Validation */
-$scope.ValidateEmail = function(mail) 
-{
- if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-  {
-    return (true)
-  }
-    webService.showPopup('You have entered an invalid email address!', $rootScope.title_ok);
-    return (false)
-}
+// $scope.ValidateEmail = function(mail) 
+// {
+//  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+//   {
+//     return (true)
+//   }
+//     webService.showPopup('You have entered an invalid email address!', $rootScope.title_ok);
+//     return (false)
+// }
 
    $scope.initVisitModel = function(){
        //$scope.visitModel = {};
@@ -448,7 +468,7 @@ $scope.ValidateEmail = function(mail)
             //    return respone.data.GetVisitRecordIDResult.Result;
             // }
 
- if(respone.data.GetVisitRecordIDResult.Messsage.Success){
+          if(respone.data.GetVisitRecordIDResult.Messsage.Success){
                  var x = [];
                  var dat = respone.data.GetVisitRecordIDResult.Result;
                  for(var i in dat){
@@ -457,16 +477,10 @@ $scope.ValidateEmail = function(mail)
                  return x;
             }
 
-
-
-
-            /*else{
-                webService.showPopup(respone.data.GetVisitRecordIDResult.Messsage.ErrorMsg, $rootScope.title_close);
-            }*/
+            return [];
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+            return [];
         });
 
         return modelItem;
@@ -499,70 +513,94 @@ $scope.getVisitIDRemoved = function (callback) {
     var msg ='';
     var ctMsg ='';
     var saleMsg ='';
-     var eleId = '';
     
     if($scope.visitModel.CUSTOMER_NO == ''){
       msg = "Please enter customer no!";
-      eleId = 'customerno';
+      $scope.eleId = 'CUSTOMER_NO';
     }else if($scope.visitModel.CUSTOMER_NAME ==''){
       msg = "Please enter customer name!";
-      eleId = 'CUSTOMER_NAME';
+      $scope.eleId = 'CUSTOMER_NAME';
     }else if($scope.visitModel.AREA_NAME ==''){
       msg = "Please select area!";
-      eleId = 'AREA_NAME';
+      $scope.eleId = 'AREA_NAME';
     }else if($scope.visitModel.ADDRESS ==''){
       msg = "Please enter address!";
-      eleId = 'ADDRESS';
+      $scope.eleId = 'ADDRESS';
     }
 
-    for(var j in $scope.visitModel.Contact){
-        
-        if($scope.visitModel.Contact[j]['CUST_CONTACT_PERSON'] == ''){
-          ctMsg = "Please enter contact person!";
-        }else if($scope.visitModel.Contact[j]['CONTACT_POSITION'] ==''){
-          ctMsg = "Please enter designation!";
-        }else if($scope.visitModel.Contact[j]['MOBILE_NO'] ==''){
-          ctMsg = "Please enter mobile no!";
+
+    if(msg==''){
+        for(var j in $scope.visitModel.Contact){
+            
+            if($scope.visitModel.Contact[j]['CUST_CONTACT_PERSON'] == ''){
+              ctMsg = "Please enter contact person!";
+              $scope.eleId = 'CUST_CONTACT_PERSON_'+j;
+            }else if($scope.visitModel.Contact[j]['CONTACT_POSITION'] ==''){
+              ctMsg = "Please enter designation!";
+              $scope.eleId = 'CONTACT_POSITION_'+j;
+            }else if($scope.visitModel.Contact[j]['MOBILE_NO'] ==''){
+              ctMsg = "Please enter mobile no!";
+              $scope.eleId = 'MOBILE_NO_'+j;
+            }else if($scope.visitModel.Contact[j]['EMAIL']!='' && !webService.ValidateEmail($scope.visitModel.Contact[j]['EMAIL'])){
+               ctMsg = 'Please enter correct email!';
+               $scope.eleId = 'EMAIL_'+j;
+            }
+            console.log($scope.visitModel.Contact);
+
+            if(ctMsg!=''){break;}
+            j++;
         }
-        console.log($scope.visitModel.Contact);
-
-        if(ctMsg!=''){break;}
-        j++;
     }
 
+    if(msg=='' && ctMsg==''){
+        for(var i in $scope.visitModel.Sales){
+            
+            if($scope.visitModel.Sales[i]['SALES_PERSON_NO'] == ''){
+              saleMsg = "Please select sales no!";
+              $scope.eleId = 'SALES_PERSON_NO_'+i;
+            }else if($scope.visitModel.Sales[i]['SALES_PERSON_NAME'] ==''){
+              saleMsg = "Please enter sales name!";
+              $scope.eleId = 'SALES_PERSON_NAME_'+i;
+            }else if($scope.visitModel.Sales[i]['NEXT_ACTION'] !='' && $scope.visitModel.Sales[i]['NEXT_ACTION_DATE'] == ''){
+              saleMsg = "Please enter next action date!";
+              $scope.eleId = 'NEXT_ACTION_DATE_'+i;
+            }else if($scope.visitModel.Sales[i]['NEXT_ACTION'] !='' && $scope.visitModel.Sales[i]['NEXT_ACTION_TIME'] == ''){
+              saleMsg = "Please enter next action time!";
+              $scope.eleId = 'NEXT_ACTION_TIME_'+i;
+            }else if($scope.visitModel.Sales[i]['ALERT'] =='1' && $scope.visitModel.Sales[i]['ALERT_DATE'] == ''){
+              saleMsg = "Please enter alert date!";
+              $scope.eleId = 'ALERT_DATE_'+i;
+            }else if($scope.visitModel.Sales[i]['ALERT'] =='1' && $scope.visitModel.Sales[i]['ALERT_TIME'] == ''){
+              saleMsg = "Please enter alert time!";
+              $scope.eleId = 'ALERT_TIME_'+i;
+            }
 
-    for(var i in $scope.visitModel.Sales){
-        
-        if($scope.visitModel.Sales[i]['SALES_PERSON_NO'] == ''){
-          saleMsg = "Please select sales no!";
-        }else if($scope.visitModel.Sales[i]['SALES_PERSON_NAME'] ==''){
-          saleMsg = "Please enter sales name!";
-        }else if($scope.visitModel.Sales[i]['NEXT_ACTION'] !='' && $scope.visitModel.Sales[i]['NEXT_ACTION_DATE'] == ''){
-          saleMsg = "Please enter next action date!";
-        }else if($scope.visitModel.Sales[i]['NEXT_ACTION'] !='' && $scope.visitModel.Sales[i]['NEXT_ACTION_TIME'] == ''){
-          saleMsg = "Please enter next action time!";
-        }else if($scope.visitModel.Sales[i]['ALERT'] =='1' && $scope.visitModel.Sales[i]['ALERT_DATE'] == ''){
-          saleMsg = "Please enter alert date!";
-        }else if($scope.visitModel.Sales[i]['ALERT'] =='1' && $scope.visitModel.Sales[i]['ALERT_TIME'] == ''){
-          saleMsg = "Please enter alert time!";
+            if(saleMsg!=''){break;}
+            i++;
         }
-
-        if(saleMsg!=''){break;}
-        i++;
-    }
-
+  }
 
     if(msg!=''){
         var p = webService.showPopup(msg, $rootScope.title_ok);
         p.then(function(res){
-            $location.hash(eleId);
+            $location.hash($scope.eleId);
             $ionicScrollDelegate.anchorScroll([1]);
         });
     }else if(ctMsg!=''){
-        webService.showPopup(ctMsg, $rootScope.title_ok);
+        var p = webService.showPopup(ctMsg, $rootScope.title_ok);
+        p.then(function(res){
+            $location.hash($scope.eleId);
+            $ionicScrollDelegate.anchorScroll([1]);
+        });
     }else if(saleMsg!=''){
-        webService.showPopup(saleMsg, $rootScope.title_ok);
+        var p = webService.showPopup(saleMsg, $rootScope.title_ok);
+        p.then(function(res){
+            $location.hash($scope.eleId);
+            $ionicScrollDelegate.anchorScroll([1]);
+        });
     }else{
+
+      $scope.eleId = '';
 
       if(wsType == 'Add'){
         var urlParam = 'VisitService/VisitRecord.svc/SetAllVisit';  
@@ -612,6 +650,7 @@ $scope.getVisitIDRemoved = function (callback) {
       console.log(methodType);
       console.log(dataJson);
 
+      webService.showIonLoader();
       webService.webCall(urlParam,methodType,dataJson)
          .then(function(respone){
              webService.hideIonLoader(); 
@@ -619,12 +658,22 @@ $scope.getVisitIDRemoved = function (callback) {
 
              if(respone.data.Messsage.Success){
 
-              webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_ok).then(function(success){
-                $state.go('visit.visitDetail', {vid:respone.data.Messsage.VisitCode});
-              })
-
+              
+                  webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_ok).then(function(success){
+                    $state.go('visit.visitDetail', {vid:respone.data.Messsage.VisitCode});
+                  })
+             
              }else{
-                webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close);
+
+                  if(wsType == 'Authorize'){
+                      var p = webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close);
+                      p.then(function(res){
+                          $state.go('visit.visitDetail', {vid:$scope.visitModel.VISIT_ID});
+                      });
+                  }else{
+
+                    webService.showPopup(respone.data.Messsage.ErrorMsg, $rootScope.title_close);
+                  }
              }
 
          },function(error){
@@ -675,17 +724,27 @@ if($scope.params.infoId !=null){
     
     if($scope.visitInfo.ORDER_RECEIVED == -1){
       msg = "Please select order received!";
+      $scope.eleId = 'ORDER_RECEIVED';
     }else if($scope.visitInfo.DEMO_PERFORMED == -1){
       msg = "Please select demo received!";
+      $scope.eleId = 'DEMO_PERFORMED';
     }else if($scope.visitInfo.DEMO_PERFORMED =='C1' && $scope.visitInfo.PRODUCT_DEMO ==''){
       msg = "Please enter Demo Product !";
+      $scope.eleId = 'PRODUCT_DEMO';
+
     }
 
 
 
     if(msg!=''){
-      webService.showPopup(msg, $rootScope.title_ok);
+      var p = webService.showPopup(msg, $rootScope.title_ok);
+        p.then(function(res){
+            $location.hash($scope.eleId);
+            $ionicScrollDelegate.anchorScroll([1]);
+        });
     }else{
+
+        $scope.eleId = '';
 
         var urlParam = 'VisitService/VisitRecord.svc/SetAddInfoVisit';  
         var methodType = 'PUT';
@@ -784,12 +843,12 @@ $scope.callProdGroup = function () {
                 //console.log($scope.ProdGroup);
 
             }else{
-                webService.showPopup(respone.data.GetGroupCodeResult.Messsage.ErrorMsg, $rootScope.title_close);
+
+                return $scope.ProdGroup;
             }
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return $scope.ProdGroup;
         });
 
 }
@@ -807,7 +866,7 @@ $scope.callProdCode = function () {
             +$rootScope.currentUser.UserDetails.Company_No
             +'/'+$rootScope.currentUser.UserDetails.Location_No
             +'/'+$scope.VisitProd.ITEM_GROUP
-            +'/null/'
+            +'/null'
             +'/null';
 
         var methodType = 'GET'
@@ -824,12 +883,11 @@ $scope.callProdCode = function () {
                 $scope.ProdCode = $scope.ProdDesc= x;
                 //console.log($scope.ProdCode);
             }else{
-                webService.showPopup(respone.data.GetItemCodeResult.Messsage.ErrorMsg, $rootScope.title_close);
+                return $scope.ProdCode;
             }
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return $scope.ProdCode;
         });
     }
 
@@ -850,7 +908,9 @@ $scope.$on('$ionicView.afterEnter', function() {
 
 
 
-$scope.getProdGroupID = function (query) {
+$scope.getProdGroupID = function (query,isInitializing) {
+
+
     if(query!=null){
         return $filter('filter')($scope.ProdGroup, { Group_Code: query});
     }
@@ -858,19 +918,25 @@ $scope.getProdGroupID = function (query) {
 };
 
 $scope.getProdGroupIDClicked = function (callback) {
-    console.log(callback.item);
+   console.log(callback.selectedItems.length);
+    $scope.rmEleId('ITEM_GROUP');
     $scope.VisitProd.ITEM_GROUP = callback.item.Group_Code;
     $scope.VisitProd.ITEM_CODE = '';
     $scope.VisitProd.DESCRIPTION = '';
-
     $scope.callProdCode();
 
+ 
 };
 $scope.getProdGroupIDRemoved = function (callback) {
-   console.log(callback.item);
+   console.log(callback.selectedItems);
+ 
    $scope.VisitProd.ITEM_GROUP = '';
    $scope.VisitProd.ITEM_CODE = '';
    $scope.VisitProd.DESCRIPTION = '';
+
+
+
+   // $scope.getProdGroupID ();
 };
 
 
@@ -891,6 +957,7 @@ $scope.getProductCodeID = function (query) {
 
 $scope.getProductCodeIDClicked = function (callback) {
     console.log(callback.item);
+    $scope.rmEleId('ITEM_CODE')
     $scope.VisitProd.ITEM_CODE = callback.item.Stock_NO;
     $scope.VisitProd.DESCRIPTION = callback.item.Description;
 };
@@ -917,6 +984,7 @@ console.log($scope.ProdDesc);
 
 $scope.getProductDescIDClicked = function (callback) {
     console.log(callback.item);
+   $scope.eleId('DESCRIPTION')
    $scope.VisitProd.ITEM_CODE = callback.item.Stock_NO;
     $scope.VisitProd.DESCRIPTION = callback.item.Description;
 };
@@ -954,18 +1022,26 @@ $scope.setProdForm = function(){
     
     if($scope.VisitProd.ITEM_TYPE == 'E' && $scope.VisitProd.ITEM_GROUP ==''){
       msg = "Please enter item group!";
+      $scope.eleId  = 'ITEM_GROUP';
     }else if($scope.VisitProd.ITEM_CODE == ''){
       msg = "Please enter item code!";
+      $scope.eleId  = 'ITEM_CODE';
     }else if($scope.VisitProd.DESCRIPTION == ''){
       msg = "Please enter description!";
+      $scope.eleId  = 'DESCRIPTION';
     }else if($scope.VisitProd.QUANTITY == ''){
       msg = "Please enter quantity!";
+      $scope.eleId  = 'QUANTITY';
     }
 
     if(msg!=''){
-        webService.showPopup(msg, $rootScope.title_ok);
+        var p = webService.showPopup(msg, $rootScope.title_ok);
+        p.then(function(res){
+            $location.hash($scope.eleId);
+            $ionicScrollDelegate.anchorScroll([1]);
+        });
     }else{
-
+      $scope.eleId  = '';
 
       if($scope.params.pId !=null){
         var urlParam = 'VisitService/VisitRecord.svc/ModifyProductVisit';  

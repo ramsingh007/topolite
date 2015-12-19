@@ -1,5 +1,5 @@
 'use strict';
-angular.module('topolite', ['ngCookies','ngMask','ion-autocomplete','ngStorage','ionic', 'ui.router', 'topolite.base_ctrl', 'topolite.auth_ctrl','topolite.Attendctrl', 'topolite.dashboard_ctrl', 'topolite.bp_ctrl','topolite.visit_ctrl','topolite.report_ctrl','topolite.services', 'topolite.directives'])
+angular.module('topolite', ['ngCookies','ngMask','ion-autocomplete','ngStorage','ionic', 'ui.router', 'topolite.base_ctrl', 'topolite.auth_ctrl','topolite.Attendctrl', 'topolite.dashboard_ctrl', 'topolite.bp_ctrl','topolite.visit_ctrl','topolite.report_ctrl','topolite.services', 'topolite.directives','topolite.time'])
 
 .constant('myConfig', {
   'apiUrl': 'http://122.176.122.143:81/'
@@ -376,14 +376,10 @@ $ionicPlatform.ready(function() {
 
 })
 
-// .run(function($ionicPlatform,$state,webService) {
-
-
-  
+ //.run(function($ionicPlatform,$state,webService,$rootScope) {
 
 
 
 
-
-// });
+//});
 

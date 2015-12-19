@@ -1,5 +1,22 @@
 angular.module('topolite.report_ctrl', [])
-.controller('ReportCtrl', function($filter,$state,$scope,$rootScope, $ionicSideMenuDelegate,$localStorage,webService) {
+.controller('ReportCtrl', function($location, $ionicScrollDelegate, $filter,$state,$scope,$rootScope, $ionicSideMenuDelegate,$localStorage,webService) {
+ 
+  $scope.eleId = '';
+  
+  $scope.rmEleId = function(rc){
+    //console.log(rc);
+     if($scope.eleId  == rc){
+        $scope.eleId  = '';
+     }
+  }
+
+  $scope.$watch("eleId",function handleFooChange( newValue, oldValue ) {
+            console.log( "eleId:", newValue );
+          }
+  );
+
+
+
  $scope.report={};
   $scope.Outstanding={};
   $scope.pending={};
@@ -81,38 +98,6 @@ $scope.Getyear = function(){
 
 
 
-
-$scope.GetSalesPerson = function(){
-  		webService.showIonLoader();  //show ionic loading
-		var urlParam = 'ReportService/ReportServices.svc/GetSalesPerson/'
-						+$rootScope.currentUser.UserDetails.Company_No
-						+'/'+$rootScope.currentUser.UserDetails.Location_No
-						+'/'+'null'
-						+'/'+'null'
-						+'/'+$rootScope.currentUser.UserDetails.UserId;
-				
-
-
-		var methodType = 'GET'
-		var dataJson = JSON.stringify({});
-		webService.webCall(urlParam,methodType,dataJson)
-		.then(function(respone){
-	    console.log(respone.data.GetTargetPersonResult.Result);
-		    webService.hideIonLoader();//hide ionic loading
-		    if(respone.data.GetTargetPersonResult.Message.Success){
-		    
-		    $scope.Period=respone.data.GetTargetPersonResult.Result;
-
-		    }else{
-		        webService.showPopup(respone.data.GetTargetPersonResult.Message.ErrorMsg, $rootScope.title_close);
-		    }
-
-		},function(error){
-		  		webService.hideIonLoader();  //show ionic loading
-		  		webService.showPopup('Webservice response error!', $rootScope.title_close);
-		});
-  }
-
 $scope.GetSalesPerson = function (query) {
 		if (query!='') {
         webService.showIonLoader();  
@@ -130,29 +115,35 @@ $scope.GetSalesPerson = function (query) {
           
             webService.hideIonLoader();//hide ionic loading
             if(respone.data.GetTargetPersonResult.Message.Success){
-                 return respone.data.GetTargetPersonResult.Result;
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
+                 
+                 var x = [];
+                 var dat = respone.data.GetTargetPersonResult.Result;
+                 for(var i in dat){
+                    x.push({'Name':dat[i]['Name'],'Sales_Person_No':dat[i]['Sales_Person_No'],'label':dat[i]['Name']+' ( '+dat[i]['Sales_Person_No']+' )'});
+                 }
+                 return x;
+
+            }
+            return [];
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return [];
         });
 
         return modelItem;
     }
+    return [];
     };
       
 
 $scope.GetSalesPersonClicked = function (callback) {
     console.log(callback.item);
-    // $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
+    $scope.report.FromsalesPerson = callback.item.Name;
     // $scope.fillVisitArea();
 };
 $scope.GetSalesPersonRemoved = function (callback) {
    console.log(callback.item);
-   // $scope.visitModel.CUSTOMER_NAME = '';
+   $scope.report.FromsalesPerson = '';
    // $scope.fillAreaArr.length = 0;
 };
 $scope.GetTOSalesPerson = function (query) {
@@ -174,14 +165,17 @@ $scope.GetTOSalesPerson = function (query) {
           
             webService.hideIonLoader();//hide ionic loading
             if(respone.data.GetTargetPersonResult.Message.Success){
-                 return respone.data.GetTargetPersonResult.Result;
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
+                 var x = [];
+                 var dat = respone.data.GetTargetPersonResult.Result;
+                 for(var i in dat){
+                    x.push({'Name':dat[i]['Name'],'Sales_Person_No':dat[i]['Sales_Person_No'],'label':dat[i]['Name']+' ( '+dat[i]['Sales_Person_No']+' )'});
+                 }
+                 return x;
+            }
+            return [];
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return [];
         });
 
         return modelItem;
@@ -192,11 +186,12 @@ $scope.GetTOSalesPerson = function (query) {
 
 $scope.GetTOSalesPersonClicked = function (callback) {
     console.log(callback.item);
-    // $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
+    $scope.report.TosalesPerson = callback.item.Name;
     // $scope.fillVisitArea();
 };
 $scope.GetTOSalesPersonRemoved = function (callback) {
    console.log(callback.item);
+   $scope.report.TosalesPerson = '';
    // $scope.visitModel.CUSTOMER_NAME = '';
    // $scope.fillAreaArr.length = 0;
 };
@@ -238,20 +233,17 @@ $scope.TargetResult = function(){
 
    console.log($scope.report);
 
-
-
-
-
 	
  var msg='';
 
     if($scope.report.Period ==''){
       msg = "Please select Period!";
+      $scope.eleId = 'period';
  
     
     }else if($scope.report.Range =='' && $scope.report.Period !=1 ){
-    
-     msg = "Please select Range!";
+      msg = "Please select Range!";
+      $scope.eleId = 'range';
      
    }
     // else if($scope.bpModel.SALES_PERSON_NO ==''){
@@ -261,10 +253,13 @@ $scope.TargetResult = function(){
 
     if(msg!='' ){
 
-       webService.showPopup(msg, $rootScope.title_ok);
-    
-      
+       var p = webService.showPopup(msg, $rootScope.title_ok);
+        p.then(function(res){
+            $location.hash($scope.eleId);
+            $ionicScrollDelegate.anchorScroll([1]);
+        })
     }else{
+      $scope.eleId = '';
 
 
 
@@ -344,14 +339,17 @@ $scope.report.FromsalesPerson='null';
           
             webService.hideIonLoader();//hide ionic loading
             if(respone.data.GetCustomerCodeResult.Message.Success){
-                 return respone.data.GetCustomerCodeResult.Result;
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
+                 var x = [];
+                 var dat = respone.data.GetCustomerCodeResult.Result;;
+                 for(var i in dat){
+                    x.push({'Customer_Code':dat[i]['Customer_Code'],'Customer_Name':dat[i]['Customer_Name'],'label':dat[i]['Customer_Code']+' ( '+dat[i]['Customer_Name']+' )'});
+                 }
+                 return x;
+            }
+            return [];
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return [];
         });
 
         return modelItem;
@@ -362,11 +360,12 @@ $scope.report.FromsalesPerson='null';
 
 $scope.FromCustomerClicked = function (callback) {
     console.log(callback.item);
-    // $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
+    $scope.pending.FromCustomer = callback.item.Customer_Code;
     // $scope.fillVisitArea();
 };
 $scope.FromCustomerRemoved = function (callback) {
    console.log(callback.item);
+   $scope.pending.FromCustomer = '';
    // $scope.visitModel.CUSTOMER_NAME = '';
    // $scope.fillAreaArr.length = 0;
 };
@@ -394,14 +393,17 @@ $scope.FromCustomerRemoved = function (callback) {
           
             webService.hideIonLoader();//hide ionic loading
             if(respone.data.GetCustomerCodeResult.Message.Success){
-                 return respone.data.GetCustomerCodeResult.Result;
-            }/*else{
-                return [{ 'CUSTOMER_NO':respone.data.GetCustomerIDResult.Messsage.ErrorMsg }];
-            }*/
+                 var x = [];
+                 var dat = respone.data.GetCustomerCodeResult.Result;;
+                 for(var i in dat){
+                    x.push({'Customer_Code':dat[i]['Customer_Code'],'Customer_Name':dat[i]['Customer_Name'],'label':dat[i]['Customer_Code']+' ( '+dat[i]['Customer_Name']+' )'});
+                 }
+                 return x;
+            }
+            return [];
 
         },function(error){
-              webService.hideIonLoader();  //show ionic loading
-              webService.showPopup('Webservice response error!', $rootScope.title_close);
+              return [];
         });
 
         return modelItem;
@@ -412,11 +414,12 @@ $scope.FromCustomerRemoved = function (callback) {
 
 $scope.ToCustomerClicked = function (callback) {
     console.log(callback.item);
-    // $scope.visitModel.CUSTOMER_NAME = callback.item.CUSTOMER_NAME;
+    $scope.pending.ToCustomer = callback.item.Customer_Code;
     // $scope.fillVisitArea();
 };
 $scope.ToCustomerRemoved = function (callback) {
    console.log(callback.item);
+   $scope.pending.ToCustomer = '';
    // $scope.visitModel.CUSTOMER_NAME = '';
    // $scope.fillAreaArr.length = 0;
 };

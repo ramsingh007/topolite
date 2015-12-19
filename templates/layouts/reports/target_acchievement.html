@@ -1,29 +1,24 @@
 <ion-view title="T & A Reports" >
 
-
-
 <ion-content has-header="true" padding="true">
-<form>
-  <div class="list dashboard-page customerReport-page">
-	<div class="form-group">
+<form ng-submit="TargetResult()">
+   <div class="list dashboard-page customerReport-page">
+	 
+   <div class="form-group">
 		<label>Year</label>
-	
-       <select class="form-control" ng-model="report.Year" ng-options="item.Year as item.Description for item in year">
+	     <select class="form-control" ng-model="report.Year" ng-options="item.Year as item.Description for item in year">
         </select>
-        
-   
-    </div>
+   </div>
 	
-	<div class="form-group">
-		<label>Period  </label>
- <select class="form-control" ng-change="GetRange()" ng-model="report.Period" ng-options="item.key as item.Period for item in Period">
+	  <div class="form-group" ng-class="{'erClass':eleId === 'period'}" id="period">
+		  <label>Period*</label>
+        <select class="form-control" ng-change="GetRange()" ng-focus="rmEleId('period')" ng-model="report.Period" ng-options="item.key as item.Period for item in Period">
         </select>
-        
     </div>
-    <div class="form-group">
-		<label>Range </label>
-	
-		<select class="form-control" ng-model="report.Range"  ng-options="item.Key as item.Range for item in range">
+    
+    <div class="form-group" ng-class="{'erClass':eleId === 'range'}" id="range">
+		  <label>Range</label>
+	     <select class="form-control" ng-model="report.Range" ng-focus="rmEleId('range')"  ng-options="item.Key as item.Range for item in range">
         </select>
     </div>
 	
@@ -32,32 +27,32 @@
 		<label>From Sales Person</label>
  <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="report.FromsalesPerson"
                        item-value-key="Sales_Person_No"
-                       item-view-value-key="Sales_Person_No"
+                       item-view-value-key="label"
                        items-method="GetSalesPerson(query)"
                        items-clicked-method="GetSalesPersonClicked(callback)"
                        items-removed-method="GetSalesPersonRemoved(callback)"
                        cancel-button-clicked-method="tesTing(callback)"
                        max-selected-items="1"
-                       select-items-label="Search Name"
-                       selected-items-label="Selected Name:"
-                       component-id="Sales_Person_No" />
+                       select-items-label="Search From Sales"
+                       selected-items-label="Selected From Sales:"
+                       component-id="from_sales" />
     </div>
 	<div class="form-group">
 		<label>To Sales Person</label>
 		 <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete form-control" autocomplete="off" ng-model="report.TosalesPerson"
                        item-value-key="Sales_Person_No"
-                       item-view-value-key="Sales_Person_No"
+                       item-view-value-key="label"
                        items-method="GetTOSalesPerson(query)"
                        items-clicked-method="GetTOSalesPersonClicked(callback)"
                        items-removed-method="GetTOSalesPersonRemoved(callback)"
                        cancel-button-clicked-method="tesTing(callback)"
                        max-selected-items="1"
-                       select-items-label="Search Sales_Person_No"
-                       selected-items-label="Selected Sales_Person_No:"
-                       component-id="Sales_Person_No" />
+                       select-items-label="Search To Sales"
+                       selected-items-label="Selected To Sales:"
+                       component-id="to_sales" />
     </div>
 	<div class="form-group">
-		<button ng-click="TargetResult()" class="button button-block button-small button-assertive" >Get Result</button>
+		<button type="submit" class="button button-block button-small button-assertive">Get Result</button>
 	</div>
 </div>
 </form>
